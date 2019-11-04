@@ -43,11 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryGcdAlgorithm.cs" />
+    <Compile Include="AlghoritmHelper.cs" />
+    <Compile Include="BinaryAlgorithm.cs" />
     <Compile Include="EuclideanAlgorithm.cs" />
     <Compile Include="EuclideanAlgorithmMultipleNumbers.cs" />
-    <Compile Include="EuclidianAlgoritmWithTime.cs" />
+    <Compile Include="GcdCalculatingWithTime.cs" />
     <Compile Include="HistogramData.cs" />
+    <Compile Include="IGcdCalculate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

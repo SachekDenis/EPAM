@@ -7,14 +7,21 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
-    public class EuclideanAlgorithmWithTime:EuclideanAlgorithm
+    public class GcdCalculatingWithTime
     {
+        public GcdCalculatingWithTime(IGcdCalculating alghoritm)
+        {
+            Alghoritm = alghoritm ?? throw new ArgumentNullException(nameof(alghoritm));
+        }
+
+        private IGcdCalculating Alghoritm { get; set; }
+
         public int CalculateGcd(int a, int b, ref TimeSpan timeOfCalculation)
         {
             Stopwatch time = new Stopwatch();
 
             time.Start();
-            int gcd = CalculateGcd(a, b);
+            int gcd = Alghoritm.CalculateGcd(a, b);
             time.Stop();
 
             timeOfCalculation = time.Elapsed;

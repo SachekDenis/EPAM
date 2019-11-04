@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
-    public class EuclideanAlgorithm
+    public class EuclideanAlgorithm : IGcdCalculating
     {
         /// <summary>
         /// Алгоритм Евклида для вычисления НОД двух целых чисел
@@ -24,22 +24,11 @@ namespace GcdAlgoritm
             {
                 if (a > b)
                 {
-                    Swap(ref a, ref b);
+                    AlghoritmHelper.Swap(ref a, ref b);
                 }
                 b -= a;
             }
             return a;
-        }
-
-
-        /// <summary>
-        /// Обмен двух чисел методом "Трех стаканов"
-        /// </summary>
-        protected static void Swap(ref int a, ref int b)
-        {
-            int c = a;
-            a = b;
-            b = c;
         }
     }
 }

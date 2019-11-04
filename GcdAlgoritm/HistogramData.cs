@@ -17,10 +17,10 @@ namespace GcdAlgoritm
         /// <param name="binaryAlgorithmTime">Время выполнения бинарного алгоритма</param>
         public int GetGcdTime(int a, int b, ref TimeSpan euclideanAlgorithmTime, ref TimeSpan binaryAlgorithmTime)
         {
-            EuclideanAlgorithmWithTime euclidean = new EuclideanAlgorithmWithTime();
-            BinaryAlgorithm binary = new BinaryAlgorithm();
-            euclidean.CalculateGcd(a, b,ref euclideanAlgorithmTime);
-            return binary.CalculateBinaryGcd(a, b,ref binaryAlgorithmTime);
+            GcdCalculatingWithTime euclidean = new GcdCalculatingWithTime(new EuclideanAlgorithm());
+            GcdCalculatingWithTime binary = new GcdCalculatingWithTime(new BinaryAlgorithm());
+            euclidean.CalculateGcd(a, b, ref euclideanAlgorithmTime);
+            return binary.CalculateGcd(a, b, ref binaryAlgorithmTime);
         }
     }
 }
