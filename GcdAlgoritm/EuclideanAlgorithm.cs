@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
-    class EuclideanAlgorithm
+    public class EuclideanAlgorithm
     {
         /// <summary>
         /// Алгоритм Евклида для вычисления НОД двух целых чисел

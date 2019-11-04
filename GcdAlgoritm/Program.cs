@@ -10,6 +10,7 @@ namespace GcdAlgoritm
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

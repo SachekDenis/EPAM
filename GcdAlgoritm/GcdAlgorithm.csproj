@@ -46,6 +46,8 @@
     <Compile Include="BinaryGcdAlgorithm.cs" />
     <Compile Include="EuclideanAlgorithm.cs" />
     <Compile Include="EuclideanAlgorithmMultipleNumbers.cs" />
+    <Compile Include="EuclidianAlgoritmWithTime.cs" />
+    <Compile Include="HistogramData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
