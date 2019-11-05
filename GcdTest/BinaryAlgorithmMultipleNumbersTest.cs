@@ -12,7 +12,7 @@ namespace GcdTest
         {
             GcdAlgorithmMultipleNumbers binary = new GcdAlgorithmMultipleNumbers(new BinaryAlgorithm());
             //НОД(10, 12, 4)=2
-            Assert.AreEqual(binary.CalculateGcd(10, 12, 4), 2);
+            Assert.AreEqual(2, binary.CalculateGcd(10, 12, 4));
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace GcdTest
         {
             GcdAlgorithmMultipleNumbers binary = new GcdAlgorithmMultipleNumbers(new BinaryAlgorithm());
             //НОД(78, 294, 570, 36)=6
-            Assert.AreEqual(binary.CalculateGcd(78, 294, 570, 36), 6);
+            Assert.AreEqual(6, binary.CalculateGcd(78, 294, 570, 36));
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace GcdTest
         {
             GcdAlgorithmMultipleNumbers binary = new GcdAlgorithmMultipleNumbers(new BinaryAlgorithm());
             //НОД(450, 390, 120, 24, 66)=6
-            Assert.AreEqual(binary.CalculateGcd(450, 390, 120, 24, 66), 6);
+            Assert.AreEqual(6, binary.CalculateGcd(450, 390, 120, 24, 66));
         }
     }
 }

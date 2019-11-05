@@ -15,35 +15,35 @@ namespace GcdTest
         public void CalculateGcdShouldReturnActualGcd()
         {
             BinaryAlgorithm binary = new BinaryAlgorithm();
-            Assert.AreEqual(binary.CalculateGcd(10, 12), 2);
+            Assert.AreEqual(2, binary.CalculateGcd(10, 12));
         }
 
         [TestMethod]
         public void CalculateGcdWithZeroShouldReturnActualGcd()
         {
             BinaryAlgorithm binary = new BinaryAlgorithm();
-            Assert.AreEqual(binary.CalculateGcd(0, 13), 13);
+            Assert.AreEqual(13, binary.CalculateGcd(0, 13));
         }
 
         [TestMethod]
         public void CalculateGcdShouldReturnOne()
         {
             BinaryAlgorithm binary = new BinaryAlgorithm();
-            Assert.AreEqual(binary.CalculateGcd(1, 13), 1);
+            Assert.AreEqual(1, binary.CalculateGcd(1, 13));
         }
 
         [TestMethod]
         public void CalculateGcdWithNegativeArgument()
         {
             BinaryAlgorithm binary = new BinaryAlgorithm();
-            Assert.AreEqual(binary.CalculateGcd(24, -6), 6);
+            Assert.AreEqual(6, binary.CalculateGcd(24, -6));
         }
 
         [TestMethod]
         public void CalculateGcdWithZeroesArgument()
         {
             BinaryAlgorithm binary = new BinaryAlgorithm();
-            Assert.AreEqual(binary.CalculateGcd(0, 0), 0);
+            Assert.AreEqual(0, binary.CalculateGcd(0, 0));
         }
     }
 }

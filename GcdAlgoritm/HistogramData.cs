@@ -18,7 +18,7 @@ namespace GcdAlgoritm
         /// <param name="b">Второе число</param>
         /// <param name="euclideanAlgorithmTime">Время выполнения алгоритма Евклида</param>
         /// <param name="binaryAlgorithmTime">Время выполнения бинарного алгоритма</param>
-        public int GetGcdTime(int a, int b, ref TimeSpan euclideanAlgorithmTime, ref TimeSpan binaryAlgorithmTime)
+        public int GetGcdCalculationTime(int a, int b, ref TimeSpan euclideanAlgorithmTime, ref TimeSpan binaryAlgorithmTime)
         {
             GcdCalculatingWithTime euclidean = new GcdCalculatingWithTime(new EuclideanAlgorithm());
             GcdCalculatingWithTime binary = new GcdCalculatingWithTime(new BinaryAlgorithm());
