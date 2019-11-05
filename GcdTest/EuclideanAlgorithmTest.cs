@@ -27,5 +27,12 @@ namespace GcdTest
             EuclideanAlgorithm euclidean = new EuclideanAlgorithm();
             Assert.AreEqual(euclidean.CalculateGcd(1, 13), 1);
         }
+
+        [TestMethod]
+        public void CalculateGcdWithNegativeArgument()
+        {
+            BinaryAlgorithm euclidean = new BinaryAlgorithm();
+            Assert.AreEqual(euclidean.CalculateGcd(24, -6), 6);
+        }
     }
 }
