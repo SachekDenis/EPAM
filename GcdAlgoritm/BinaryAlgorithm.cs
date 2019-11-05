@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
+    /// <summary>
+    /// Реализация бинарного алгоритма Евклида для вычисления НОД
+    /// </summary>
     public class BinaryAlgorithm : IGcdCalculating
     {
         /// <summary>
         /// Нахождение НОД двух чисел бинарным алгоритмом Евклида
         /// </summary>
+        /// <param name="a">Первое число</param>
+        /// <param name="b">Второе число</param>
         /// <param name="timeOfCalculation">Время выполнения рассчетов</param>
         /// <returns>НОД двух чисел</returns>
         public int CalculateGcd(int a, int b)
@@ -22,6 +27,12 @@ namespace GcdAlgoritm
                 return a;
             if (a == 1 || b == 1)
                 return 1;
+
+            //Если числа отрицательны, то НОД вычисляется от их абсолютного значения
+            if (a < 0)
+                a = Math.Abs(a);
+            if (b < 0)
+                b = Math.Abs(b);
 
             // shift - наибольшая степень двойки, на которую делятся и a, и b
             int shift = 0;

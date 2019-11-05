@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
+    /// <summary>
+    /// Подготовка данных для построения гистограммы времени выполнения алгоритмов
+    /// </summary>
     public class HistogramData
     {
         /// <summary>

@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
+    /// <summary>
+    /// Реализация алгоритма Евклида для вычисления НОД
+    /// </summary>
     public class EuclideanAlgorithm : IGcdCalculating
     {
         /// <summary>
         /// Алгоритм Евклида для вычисления НОД двух целых чисел
         /// </summary>
+        /// <param name="a">Первое число</param>
+        /// <param name="b">Второе число</param>
         /// <returns>НОД двух целых чисел</returns>
         public int CalculateGcd(int a, int b)
         {

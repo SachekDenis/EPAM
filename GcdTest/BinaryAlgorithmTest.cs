@@ -31,5 +31,12 @@ namespace GcdTest
             BinaryAlgorithm binary = new BinaryAlgorithm();
             Assert.AreEqual(binary.CalculateGcd(1, 13), 1);
         }
+
+        [TestMethod]
+        public void CalculateGcdWithNegativeArgument()
+        {
+            BinaryAlgorithm binary = new BinaryAlgorithm();
+            Assert.AreEqual(binary.CalculateGcd(24, -6), 6);
+        }
     }
 }

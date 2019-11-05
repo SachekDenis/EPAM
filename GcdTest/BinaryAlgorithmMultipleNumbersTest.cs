@@ -11,6 +11,7 @@ namespace GcdTest
         public void CalculateGcdThreeNumbersShouldReturnActualGcd()
         {
             GcdAlgorithmMultipleNumbers binary = new GcdAlgorithmMultipleNumbers(new BinaryAlgorithm());
+            //НОД(10, 12, 4)=2
             Assert.AreEqual(binary.CalculateGcd(10, 12, 4), 2);
         }
 
@@ -18,14 +19,16 @@ namespace GcdTest
         public void CalculateGcdFourNumbersShouldReturnActualGcd()
         {
             GcdAlgorithmMultipleNumbers binary = new GcdAlgorithmMultipleNumbers(new BinaryAlgorithm());
-            Assert.AreEqual(binary.CalculateGcd(10, 12, 4, 32), 2);
+            //НОД(78, 294, 570, 36)=6
+            Assert.AreEqual(binary.CalculateGcd(78, 294, 570, 36), 6);
         }
 
         [TestMethod]
         public void CalculateGcdFiveNumbersShouldReturnActualGcd()
         {
             GcdAlgorithmMultipleNumbers binary = new GcdAlgorithmMultipleNumbers(new BinaryAlgorithm());
-            Assert.AreEqual(binary.CalculateGcd(10, 12, 4, 32, 44), 2);
+            //НОД(450, 390, 120, 24, 66)=6
+            Assert.AreEqual(binary.CalculateGcd(450, 390, 120, 24, 66), 6);
         }
     }
 }
