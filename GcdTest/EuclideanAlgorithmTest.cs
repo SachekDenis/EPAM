@@ -15,7 +15,7 @@ namespace GcdTest
         }
 
         [TestMethod]
-        public void CalculateGcdShouldReturnZero()
+        public void CalculateGcdWithZeroShouldReturnActualGcd()
         {
             EuclideanAlgorithm euclidean = new EuclideanAlgorithm();
             Assert.AreEqual(euclidean.CalculateGcd(0, 13), 13);
@@ -31,8 +31,15 @@ namespace GcdTest
         [TestMethod]
         public void CalculateGcdWithNegativeArgument()
         {
-            BinaryAlgorithm euclidean = new BinaryAlgorithm();
+            EuclideanAlgorithm euclidean = new EuclideanAlgorithm();
             Assert.AreEqual(euclidean.CalculateGcd(24, -6), 6);
+        }
+
+        [TestMethod]
+        public void CalculateGcdWithZeroesArgument()
+        {
+            EuclideanAlgorithm binary = new EuclideanAlgorithm();
+            Assert.AreEqual(binary.CalculateGcd(0, 0), 0);
         }
     }
 }

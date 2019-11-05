@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GcdAlgoritm
 {
+    /// <summary>
+    /// Вспомогательный класс для реализации алгоритмов
+    /// </summary>
     internal class AlghoritmHelper
     {
         /// <summary>

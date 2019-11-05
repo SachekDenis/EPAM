@@ -54,6 +54,7 @@
     <Compile Include="EuclideanAlgorithmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BinaryAlgorithmMultipleNumbersTest.cs" />
+    <Compile Include="GcdTimeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
