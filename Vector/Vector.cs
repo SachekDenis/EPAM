@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vector
+namespace VectorProject
 {
     /// <summary>
     /// Класс для работы с трехмерными векторами
     /// </summary>
-    class Vector
+    public class Vector
     {
         /// <summary>
         /// Трехмерный вектор реализуется с помощью массива
@@ -25,8 +25,8 @@ namespace Vector
             if (vector != null && vector.Length == dimension)
                 this.vector = vector;
             else
-            { 
-                if(vector == null)
+            {
+                if (vector == null)
                     throw new ArgumentNullException(nameof(vector));
                 else
                     throw new IndexOutOfRangeException("Invalid size of array.It must be 3");
@@ -34,11 +34,11 @@ namespace Vector
 
         }
 
-        public Vector(double a, double b, double c)
+        public Vector(double x, double y, double z)
         {
-            vector[0] = a;
-            vector[1] = b;
-            vector[2] = c;
+            vector[0] = x;
+            vector[1] = y;
+            vector[2] = z;
         }
 
         public double this[int index]
@@ -49,8 +49,33 @@ namespace Vector
             }
             set
             {
-                vector[index]=value;
+                vector[index] = value;
             }
+        }
+
+        public static Vector operator +(Vector vector1, Vector vector2)
+        {
+            return new Vector(vector1.vector.Zip(vector2.vector, (firstVectorElement, secondVectorElement) => firstVectorElement + secondVectorElement).ToArray());
+        }
+
+        public static Vector operator -(Vector vector1, Vector vector2)
+        {
+            return new Vector(vector1.vector.Zip(vector2.vector, (firstVectorElement, secondVectorElement) => firstVectorElement - secondVectorElement).ToArray());
+        }
+
+        public static double operator *(Vector vector1, Vector vector2)
+        {
+            return vector1.vector.Zip(vector2.vector, (firstVectorElement, secondVectorElement) => firstVectorElement * secondVectorElement).Sum();
+        }
+
+        public static double operator *(Vector vector1, double number)
+        {
+            return vector1.vector.Select(e=>e*number).Sum();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Vector vector && this.vector.SequenceEqual(vector.vector);
         }
     }
 }
