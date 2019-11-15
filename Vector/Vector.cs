@@ -42,7 +42,7 @@ namespace VectorProject
         /// Создание вектора с помощью координат
         /// </summary>
         /// <param name="x">x координата</param>
-        /// <param name="y">y координата/param>
+        /// <param name="y">y координата</param>
         /// <param name="z">z координата</param>
         public Vector(double x, double y, double z)
         {
