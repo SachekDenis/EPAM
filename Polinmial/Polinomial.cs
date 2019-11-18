@@ -9,7 +9,7 @@ namespace Polinmial
     class Polinomial
     {
         /// <summary>
-        /// Многочлен хранится как массив коэффициентов в порядке убывания степеней
+        /// Многочлен хранится как массив коэффициентов в порядке возрастания степеней
         /// </summary>
         private double[] coefficients;
 
@@ -18,6 +18,11 @@ namespace Polinmial
         /// </summary>
         private int degree;
 
+
+        /// <summary>
+        /// Создание многочлена из массива коэффициентов в порядке возрастания степеней
+        /// </summary>
+        /// <param name="coefficients">Массив коэфициентов</param>
         public Polinomial(double[] coefficients)
         {
             if (coefficients != null && coefficients.Length > 0)
@@ -29,6 +34,12 @@ namespace Polinmial
                 throw new ArgumentNullException(nameof(coefficients));
         }
 
+
+        /// <summary>
+        /// Индексатор для доступа к коэффициентам
+        /// </summary>
+        /// <param name="index">Индекс</param>
+        /// <returns>Коэффициент</returns>
         public double this[int index]
         {
             get
@@ -39,6 +50,18 @@ namespace Polinmial
             {
                 coefficients[index] = value;
             }
+        }
+
+        public static Polinomial operator +(Polinomial firstPolinomial, Polinomial secondPolinomial)
+        {
+            //Остаточные элементы большей коллекции
+            IEnumerable<double> tale;
+            if(firstPolinomial.coefficients.Length>secondPolinomial.coefficients.Length)
+                tale = firstPolinomial.coefficients.Skip(secondPolinomial.coefficients.Length);
+            else
+                tale = secondPolinomial.coefficients.Skip(firstPolinomial.coefficients.Length);
+            return new Polinomial(firstPolinomial.coefficients.Zip(secondPolinomial.coefficients,(first,second)=>first+second).
+                Concat(tale).ToArray());
         }
     }
 }
