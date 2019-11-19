@@ -113,9 +113,9 @@ namespace VectorProject
         /// <param name="vector1">Первый вектор</param>
         /// <param name="number">Число</param>
         /// <returns>Новый вектор</returns>
-        public static Vector operator *(Vector vector1, double number)
+        public static Vector operator *(Vector vector, double number)
         {
-            return new Vector(vector1.vector.Select(e => e * number).ToArray());
+            return new Vector(vector.vector.Select(e => e * number).ToArray());
         }
 
         /// <summary>
@@ -124,11 +124,22 @@ namespace VectorProject
         /// <param name="vector1">Первый вектор</param>
         /// <param name="number">Число</param>
         /// <returns>Новый вектор</returns>
-        public static Vector operator *(double number, Vector vector1)
+        public static Vector operator *(double number, Vector vector)
         {
-            return vector1*number;
+            return vector*number;
         }
 
+
+        /// <summary>
+        /// Деление вектора на число
+        /// </summary>
+        /// <param name="vector1">Первый вектор</param>
+        /// <param name="number">Число</param>
+        /// <returns>Новый вектор</returns>
+        public static Vector operator /(Vector vector1, double number)
+        {
+            return new Vector(vector1.vector.Select(e => e / number).ToArray());
+        }
 
         /// <summary>
         /// Сравнение векторов
