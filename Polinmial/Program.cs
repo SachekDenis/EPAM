@@ -10,9 +10,6 @@ namespace Polinmial
     {
         static void Main(string[] args)
         {
-            Polinomial polinomial1 = new Polinomial(new double[]{1,2,2});
-            Polinomial polinomial2 = new Polinomial(new double[]{25,1,2,3,4});
-            var rk = polinomial1*polinomial2;
         }
     }
 }

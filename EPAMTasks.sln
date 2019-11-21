@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VectorTest", "VectorTest\Ve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polinmial", "Polinmial\Polinmial.csproj", "{899E161A-7F16-4FCE-8E1E-23B4272AB3F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolinomialTest", "PolinomialTest\PolinomialTest.csproj", "{6D8323FB-B5C6-4F05-9168-687B382C4E59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{899E161A-7F16-4FCE-8E1E-23B4272AB3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{899E161A-7F16-4FCE-8E1E-23B4272AB3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{899E161A-7F16-4FCE-8E1E-23B4272AB3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8323FB-B5C6-4F05-9168-687B382C4E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8323FB-B5C6-4F05-9168-687B382C4E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8323FB-B5C6-4F05-9168-687B382C4E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8323FB-B5C6-4F05-9168-687B382C4E59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -56,5 +56,13 @@ namespace VectorTest
         {
             Assert.ThrowsException<IndexOutOfRangeException>(()=> new Vector(new double[]{1,2,3,4}));
         }
+
+        [TestMethod]
+        public void ComparingOfTwoEqualVectorsMustReturnTrue()
+        {
+            Vector firstVector = new Vector(new double[] { 1, 2, 3 });
+            Vector secondVector = new Vector(new double[] { 1, 2, 3 });
+            Assert.IsTrue(firstVector == secondVector);
+        }
     }
 }

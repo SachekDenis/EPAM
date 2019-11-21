@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Polinmial
 {
-    class Polinomial
+    public class Polinomial
     {
         /// <summary>
         /// Многочлен хранится как массив коэффициентов в порядке возрастания степеней
@@ -17,6 +17,8 @@ namespace Polinmial
         /// Степень многочлена
         /// </summary>
         private int degree;
+
+        public int Degree { get => degree; set => degree = value; }
 
 
         /// <summary>
@@ -61,6 +63,8 @@ namespace Polinmial
         /// <returns>Новый многочлен, прелставляющий собой сумму</returns>
         public static Polinomial operator +(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
+            CheckNull(firstPolinomial);
+            CheckNull(secondPolinomial);
             return PolinomialZipOperation(firstPolinomial, secondPolinomial, (first, second) => first + second);
         }
 
@@ -72,6 +76,8 @@ namespace Polinmial
         /// <returns>Новый многочлен, прелставляющий собой разность</returns>
         public static Polinomial operator -(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
+            CheckNull(firstPolinomial);
+            CheckNull(secondPolinomial);
             return PolinomialZipOperation(firstPolinomial, secondPolinomial, (first, second) => first - second);
         }
 
@@ -95,8 +101,17 @@ namespace Polinmial
                 Concat(tale).ToArray());
         }
 
+
+        /// <summary>
+        /// Умножение многочлена на многочлен
+        /// </summary>
+        /// <param name="firstPolinomial">Первый многочлен</param>
+        /// <param name="secondPolinomial">Второй многочлен</param>
+        /// <returns>Новый многочлен, представляюший собой результат умножения</returns>
         public static Polinomial operator *(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
+            CheckNull(firstPolinomial);
+            CheckNull(secondPolinomial);
             double[] newCoefficients = new double[firstPolinomial.degree + secondPolinomial.degree + 1];
             for (int i = 0; i < firstPolinomial.coefficients.Length; i++)
             {
@@ -108,20 +123,53 @@ namespace Polinmial
             return new Polinomial(newCoefficients);
         }
 
-        public static Polinomial operator /(Polinomial firstPolinomial, Polinomial secondPolinomial)
+
+        /// <summary>
+        /// Умножение многочлена на число
+        /// </summary>
+        /// <param name="polinomial">Многочлен</param>
+        /// <param name="number">Число</param>
+        /// <returns>Новый многочлен, представляюший собой результат умножения на число</returns>
+        public static Polinomial operator *(Polinomial polinomial, double number)
         {
-            double[] tmpCoefficients = (double[])firstPolinomial.coefficients.Clone();
-            int newDegree = firstPolinomial.degree - secondPolinomial.degree + 1;
-            double[] newCoefficients = new double[newDegree];
-            for (int i = 0; i < firstPolinomial.coefficients.Length; i++)
+            CheckNull(polinomial);
+            return new Polinomial(polinomial.coefficients.Select(e => e * number).ToArray());
+        }
+
+
+        /// <summary>
+        /// Умножение многочлена на число
+        /// </summary>
+        /// <param name="polinomial">Многочлен</param>
+        /// <param name="number">Число</param>
+        /// <returns>Новый многочлен, представляюший собой результат умножения на число</returns>
+        public static Polinomial operator *(double number, Polinomial polinomial)
+        {
+            CheckNull(polinomial);
+            return polinomial * number;
+        }
+
+        public static bool operator ==(Polinomial firstPolinomial, Polinomial secondPolinomial)
+        {
+            return Equals(firstPolinomial, secondPolinomial);
+        }
+
+        public static bool operator !=(Polinomial firstPolinomial, Polinomial secondPolinomial)
+        {
+            return Equals(firstPolinomial, secondPolinomial);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Polinomial polinomial && this.coefficients.SequenceEqual(polinomial.coefficients);
+        }
+
+        private static void CheckNull(Polinomial polinomial)
+        {
+            if (polinomial == null)
             {
-                newCoefficients[newDegree - i - 1] = firstPolinomial.coefficients[firstPolinomial.degree - i - 1] / secondPolinomial[secondPolinomial.degree - i];
-                for (int j = 0; j < secondPolinomial.coefficients.Length; j++)
-                {
-                    newCoefficients[i + j] += firstPolinomial.coefficients[i] * secondPolinomial.coefficients[j];
-                }
+                throw new ArgumentNullException(nameof(polinomial));
             }
-            return new Polinomial(newCoefficients);
         }
     }
 }

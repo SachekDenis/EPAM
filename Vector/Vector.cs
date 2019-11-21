@@ -41,9 +41,9 @@ namespace VectorProject
         /// <summary>
         /// Создание вектора с помощью координат
         /// </summary>
-        /// <param name="x">x координата</param>
-        /// <param name="y">y координата</param>
-        /// <param name="z">z координата</param>
+        /// <param name="x">X координата</param>
+        /// <param name="y">Y координата</param>
+        /// <param name="z">Z координата</param>
         public Vector(double x, double y, double z)
         {
             vector[0] = x;
@@ -54,7 +54,7 @@ namespace VectorProject
         /// <summary>
         /// Доступ к произвольной координате вектора
         /// </summary>
-        /// <param name="index">индекс координаты</param>
+        /// <param name="index">Индекс координаты</param>
         /// <returns></returns>
         public double this[int index]
         {
@@ -77,8 +77,8 @@ namespace VectorProject
         /// <summary>
         /// Сложение векторов путем сложения соответствующих координат
         /// </summary>
-        /// <param name="vector1">первый вектор</param>
-        /// <param name="vector2">второй вектор</param>
+        /// <param name="vector1">Первый вектор</param>
+        /// <param name="vector2">Второй вектор</param>
         /// <returns>Новый вектор</returns>
         public static Vector operator +(Vector vector1, Vector vector2)
         {
@@ -139,6 +139,16 @@ namespace VectorProject
         public static Vector operator /(Vector vector1, double number)
         {
             return new Vector(vector1.vector.Select(e => e / number).ToArray());
+        }
+
+        public static bool operator ==(Vector vector1,Vector vector2)
+        {
+            return vector1.Equals(vector2);
+        }
+
+        public static bool operator !=(Vector vector1, Vector vector2)
+        {
+            return vector1.Equals(vector2);
         }
 
         /// <summary>
