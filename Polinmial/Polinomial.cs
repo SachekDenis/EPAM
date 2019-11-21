@@ -149,6 +149,40 @@ namespace Polinmial
             return polinomial * number;
         }
 
+        public static Polinomial operator /(Polinomial firstPolinomial, Polinomial secondPolinomial)
+        {
+            // Переворачиваем массивы коэффициентов для выполнения алгоритма деления
+            double[] firstPolinomialsCoefficients = firstPolinomial.coefficients.Reverse().ToArray();
+            double[] secondPolinomialsCoefficients = secondPolinomial.coefficients.Reverse().ToArray();
+
+
+            int degree = firstPolinomial.coefficients.Length+1;
+
+            int currentDegree = degree;
+            List<double> solutionCoefficients = new List<double>();
+            List<double> tempCoefficients = new List<double>();
+            tempCoefficients.AddRange(firstPolinomialsCoefficients);
+
+            for (int i = 0; i <= firstPolinomialsCoefficients.Length - secondPolinomialsCoefficients.Length; i++)
+            {
+                if (currentDegree >= 0)
+                {
+                    solutionCoefficients.Add(tempCoefficients[i] / secondPolinomialsCoefficients[0]);
+                    for (int j = 0; j < secondPolinomialsCoefficients.Length; j++)
+                    {
+                        tempCoefficients[i + j] = tempCoefficients[i + j] - (solutionCoefficients[i] * secondPolinomialsCoefficients[j]);
+                    }
+                    currentDegree--;
+                }
+                else
+                {
+                    solutionCoefficients.Add(tempCoefficients[i] / secondPolinomialsCoefficients[0]);
+                }
+            }
+
+            return new Polinomial(solutionCoefficients.AsEnumerable().Reverse().ToArray());
+        }
+
         public static bool operator ==(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
             return Equals(firstPolinomial, secondPolinomial);

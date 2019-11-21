@@ -65,9 +65,21 @@ namespace PolinomialTest
             Polinomial secondPolinomial = new Polinomial(new double[] { 11, 6, -12 });
             var multiplayingOfTwoPolinomials = firstPolinomial * secondPolinomial;
 
-            var expectedPolimomial = new Polinomial(new double[] { 55, -3, -78, 135, 54, -108 });
+            var expectedPolinomial = new Polinomial(new double[] { 55, -3, -78, 135, 54, -108 });
 
-            Assert.AreEqual(expectedPolimomial, multiplayingOfTwoPolinomials);
+            Assert.AreEqual(expectedPolinomial, multiplayingOfTwoPolinomials);
+        }
+
+        [TestMethod]
+        public void DividingOfTwoPolinomialsMustReturnValidResult()
+        {
+            Polinomial firstPolinomial = new Polinomial(new double[] {-1, 0, -7, 0, 10 });
+            Polinomial secondPolinomial = new Polinomial(new double[] { 3, -1, 1 });
+            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
+
+            Polinomial expectedPolinomial = new Polinomial(new double[] { -27,10,10 });
+
+            Assert.AreEqual(expectedPolinomial, dividingOfTwoPolinomials);
         }
     }
 }
