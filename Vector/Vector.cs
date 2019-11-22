@@ -141,11 +141,23 @@ namespace VectorProject
             return new Vector(vector1.vector.Select(e => e / number).ToArray());
         }
 
+        /// <summary>
+        /// Проверка векторов на равенство
+        /// </summary>
+        /// <param name="vector1">Первый вектор</param>
+        /// <param name="vector2">Второй вектор</param>
+        /// <returns>Результат проверки на равенство</returns>
         public static bool operator ==(Vector vector1,Vector vector2)
         {
             return vector1.Equals(vector2);
         }
 
+        /// <summary>
+        /// Проверка векторов на неравенство
+        /// </summary>
+        /// <param name="vector1">Первый вектор</param>
+        /// <param name="vector2">Второй вектор</param>
+        /// <returns>Результат проверки на неравенство</returns>
         public static bool operator !=(Vector vector1, Vector vector2)
         {
             return vector1.Equals(vector2);

@@ -81,5 +81,17 @@ namespace PolinomialTest
 
             Assert.AreEqual(expectedPolinomial, dividingOfTwoPolinomials);
         }
+
+        [TestMethod]
+        public void DividingPolinomialWithSmallerDegreeOnPolinomialWithBiggerDegreeMustReturnValidResult()
+        {
+            Polinomial firstPolinomial = new Polinomial(new double[] { 3, -1, 1 });
+            Polinomial secondPolinomial = new Polinomial(new double[] {-1, 0, -7, 0, 10 });
+            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
+
+            Polinomial expectedPolinomial = null;
+
+            Assert.AreEqual(expectedPolinomial, dividingOfTwoPolinomials);
+        }
     }
 }

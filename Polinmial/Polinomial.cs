@@ -63,8 +63,6 @@ namespace Polinmial
         /// <returns>Новый многочлен, прелставляющий собой сумму</returns>
         public static Polinomial operator +(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
-            CheckNull(firstPolinomial);
-            CheckNull(secondPolinomial);
             return PolinomialZipOperation(firstPolinomial, secondPolinomial, (first, second) => first + second);
         }
 
@@ -76,8 +74,6 @@ namespace Polinmial
         /// <returns>Новый многочлен, прелставляющий собой разность</returns>
         public static Polinomial operator -(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
-            CheckNull(firstPolinomial);
-            CheckNull(secondPolinomial);
             return PolinomialZipOperation(firstPolinomial, secondPolinomial, (first, second) => first - second);
         }
 
@@ -110,8 +106,6 @@ namespace Polinmial
         /// <returns>Новый многочлен, представляюший собой результат умножения</returns>
         public static Polinomial operator *(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
-            CheckNull(firstPolinomial);
-            CheckNull(secondPolinomial);
             double[] newCoefficients = new double[firstPolinomial.degree + secondPolinomial.degree + 1];
             for (int i = 0; i < firstPolinomial.coefficients.Length; i++)
             {
@@ -132,7 +126,6 @@ namespace Polinmial
         /// <returns>Новый многочлен, представляюший собой результат умножения на число</returns>
         public static Polinomial operator *(Polinomial polinomial, double number)
         {
-            CheckNull(polinomial);
             return new Polinomial(polinomial.coefficients.Select(e => e * number).ToArray());
         }
 
@@ -145,12 +138,20 @@ namespace Polinmial
         /// <returns>Новый многочлен, представляюший собой результат умножения на число</returns>
         public static Polinomial operator *(double number, Polinomial polinomial)
         {
-            CheckNull(polinomial);
             return polinomial * number;
         }
 
+        /// <summary>
+        /// Деление многочленов (остаток отбрасывается)
+        /// </summary>
+        /// <param name="firstPolinomial">Первый многочлен</param>
+        /// <param name="secondPolinomial">Второй многочлен</param>
+        /// <returns>Частное деления многочленов, null в случае деления многочлена с меньшей степенью на многочлен с большей</returns>
         public static Polinomial operator /(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
+            if(firstPolinomial.Degree<secondPolinomial.Degree)
+                return null;
+
             // Переворачиваем массивы коэффициентов для выполнения алгоритма деления
             double[] firstPolinomialsCoefficients = firstPolinomial.coefficients.Reverse().ToArray();
             double[] secondPolinomialsCoefficients = secondPolinomial.coefficients.Reverse().ToArray();
@@ -183,27 +184,37 @@ namespace Polinmial
             return new Polinomial(solutionCoefficients.AsEnumerable().Reverse().ToArray());
         }
 
+        /// <summary>
+        /// Проверка многочленов на равенство
+        /// </summary>
+        /// <param name="firstPolinomial">Первый многочлен</param>
+        /// <param name="secondPolinomial">Второй многочлен</param>
+        /// <returns>Результат проверки на равентсво</returns>
         public static bool operator ==(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
             return Equals(firstPolinomial, secondPolinomial);
         }
 
+
+        /// <summary>
+        /// Проверка многочленов на неравенство
+        /// </summary>
+        /// <param name="firstPolinomial">Первый многочлен</param>
+        /// <param name="secondPolinomial">Второй многочлен</param>
+        /// <returns>Результат проверки на неравентсво</returns>
         public static bool operator !=(Polinomial firstPolinomial, Polinomial secondPolinomial)
         {
             return Equals(firstPolinomial, secondPolinomial);
         }
 
+        /// <summary>
+        /// Проверка на неравенство
+        /// </summary>
+        /// <param name="obj">Объект сравнения</param>
+        /// <returns>Результат сравнения</returns>
         public override bool Equals(object obj)
         {
             return obj is Polinomial polinomial && this.coefficients.SequenceEqual(polinomial.coefficients);
-        }
-
-        private static void CheckNull(Polinomial polinomial)
-        {
-            if (polinomial == null)
-            {
-                throw new ArgumentNullException(nameof(polinomial));
-            }
         }
     }
 }
