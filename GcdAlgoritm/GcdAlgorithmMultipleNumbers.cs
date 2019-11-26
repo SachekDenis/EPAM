@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace GcdAlgoritm
 {
     /// <summary>
-    /// Вычисление НОД нескольких чисел
+    /// Calculation of GCD of several numbers
     /// </summary>
     public class GcdAlgorithmMultipleNumbers
     {
         /// <summary>
-        /// Передача алгоритма вычисления НОД
+        /// Transmission of the GCD calculation algorithm
         /// </summary>
-        /// <param name="alghoritm">Алгоритма вычисления НОД</param>
+        /// <param name="alghoritm">GCD calculation algorithm</param>
         public GcdAlgorithmMultipleNumbers(IGcdCalculating alghoritm)
         {
             Alghoritm = alghoritm ?? throw new ArgumentNullException(nameof(alghoritm));
@@ -23,12 +23,12 @@ namespace GcdAlgoritm
         private IGcdCalculating Alghoritm { get; set; }
 
         /// <summary>
-        /// Вычисление НОД трех целых чисел
+        /// Calculation of the GCD of three integers
         /// </summary>
-        /// <param name="a">Первое число</param>
-        /// <param name="b">Второе число</param>
-        /// <param name="c">Третье число</param>
-        /// <returns>НОД трех целых чисел</returns>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <param name="c">Third number</param>
+        /// <returns>GCD of three integers</returns>
         public int CalculateGcd(int a, int b, int c)
         {
             int gcdOfFirstPair = Alghoritm.CalculateGcd(a, b);
@@ -36,13 +36,13 @@ namespace GcdAlgoritm
         }
 
         /// <summary>
-        /// Вычисление НОД четырех чисел
+        /// Calculation of the GCD of four numbers
         /// </summary>
-        /// <param name="a">Первое число</param>
-        /// <param name="b">Второе число</param>
-        /// <param name="c">Третье число</param>
-        /// <param name="d">Четвертое число</param>
-        /// <returns>НОД четырех чисел</returns>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <param name="c">Third number</param>
+        /// <param name="d">Fourth number</param>
+        /// <returns>GCD of four numbers</returns>
         public int CalculateGcd(int a, int b, int c, int d)
         {
             int gcdOfFirstPair = Alghoritm.CalculateGcd(a, b);
@@ -51,14 +51,14 @@ namespace GcdAlgoritm
         }
 
         /// <summary>
-        /// Вычисление НОД пяти чисел
+        /// Calculation of GCD of five numbers
         /// </summary>
-        /// <param name="a">Первое число</param>
-        /// <param name="b">Второе число</param>
-        /// <param name="c">Третье число</param>
-        /// <param name="d">Четвертое число</param>
-        /// <param name="e">Пятое число</param>
-        /// <returns>НОД пяти чисел</returns>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <param name="c">Third number</param>
+        /// <param name="d">Fourth number</param>
+        /// <param name="e">Fifth number</param>
+        /// <returns>GCD of five numbers</returns>
         public int CalculateGcd(int a, int b, int c, int d, int e)
         {
             int gcdOfFirstPair = Alghoritm.CalculateGcd(a, b);

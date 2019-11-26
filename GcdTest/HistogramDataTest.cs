@@ -4,9 +4,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GcdTest
 {
+    /// <summary>
+    /// Testing of preparing data for histogram
+    /// </summary>
     [TestClass]
     public class HistogramDataTest
     {
+
+        /// <summary>
+        /// Histogram data must contains time of calculation
+        /// </summary>
         [TestMethod]
         public void HistogramCalculationTimeShouldReturnTimes()
         {
@@ -15,7 +22,7 @@ namespace GcdTest
             TimeSpan binaryTime = new TimeSpan();
             histogramData.GetGcdCalculationTime(248, 364, ref euclideanTime, ref binaryTime);
 
-            // Метод должен возвращать время выполнения алгоритмов
+            // The method should return the execution time of the algorithms
             Assert.AreNotEqual(new TimeSpan(0), euclideanTime);
             Assert.AreNotEqual(new TimeSpan(0), binaryTime);
         }

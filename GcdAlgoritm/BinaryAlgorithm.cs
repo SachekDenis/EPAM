@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 namespace GcdAlgoritm
 {
     /// <summary>
-    /// Реализация бинарного алгоритма Евклида для вычисления НОД
+    /// Implementation of the binary Euclidean algorithm for computing GCD
     /// </summary>
     public class BinaryAlgorithm : IGcdCalculating
     {
         /// <summary>
-        /// Нахождение НОД двух чисел бинарным алгоритмом Евклида
+        /// Finding the GCD of two numbers with the binary Euclidean algorithm
         /// </summary>
-        /// <param name="a">Первое число</param>
-        /// <param name="b">Второе число</param>
-        /// <param name="timeOfCalculation">Время выполнения рассчетов</param>
-        /// <returns>НОД двух чисел</returns>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns>GCD of two numbers</returns>
         public int CalculateGcd(int a, int b)
         {
             if (a == 0)
@@ -28,13 +27,13 @@ namespace GcdAlgoritm
             if (a == 1 || b == 1)
                 return 1;
 
-            //Если числа отрицательны, то НОД вычисляется от их абсолютного значения
+            //If the numbers are negative, then the GCD is calculated from their absolute value.
             if (a < 0)
                 a = Math.Abs(a);
             if (b < 0)
                 b = Math.Abs(b);
 
-            // shift - наибольшая степень двойки, на которую делятся и a, и b
+            // shift - the largest power of two divided by a and b
             int shift = 0;
             while (((a | b) & 1) == 0)
             {
@@ -43,26 +42,26 @@ namespace GcdAlgoritm
                 b >>= 1;
             }
 
-            // Деление a на два, пока a не станет нечетным
+            // Divide a by two until a becomes odd
             while ((a & 1) == 0)
                 a >>= 1;
 
             do
             {
-                // Если b четно, удаляем все множители 2 в b
+                // If b is even, remove all factors 2 in b
                 while ((b & 1) == 0)
                     b >>= 1;
 
-                /* a и b теперь нечетны.
-                   Если нужно меняем местами a и b,
-                   если это необходимо для выполнения условия a<=b */
+                /* a and b are now odd.
+                   if you need to swap a and b,
+                   if necessary to satisfy the condition a <= b */
                 if (a > b)
                     AlghoritmHelper.Swap(ref a, ref b);
 
                 b -= a;
             } while (b != 0);
 
-            /* Восстанавливаем степень a*/
+            // Restore degree a
             return a << shift;
         }
     }

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace GcdAlgoritm
 {
     /// <summary>
-    /// Вспомогательный класс для реализации алгоритмов
+    /// Helper class for implementing algorithms
     /// </summary>
     internal class AlghoritmHelper
     {
         /// <summary>
-        /// Обмен двух чисел методом "Трех стаканов"
+        /// Exchange two numbers using "the three glasses method"
         /// </summary>
         public static void Swap(ref int a, ref int b)
         {

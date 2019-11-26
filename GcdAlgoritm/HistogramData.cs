@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace GcdAlgoritm
 {
     /// <summary>
-    /// Подготовка данных для построения гистограммы времени выполнения алгоритмов
+    /// Preparation of data for building a histogram of runtime algorithms
     /// </summary>
     public class HistogramData
     {
         /// <summary>
-        /// Нахождение времени выполнения алгоритмов вычисления НОД
+        /// Finding the execution time of the GCD calculation algorithms
         /// </summary>
-        /// <param name="a">Первое число</param>
-        /// <param name="b">Второе число</param>
-        /// <param name="euclideanAlgorithmTime">Время выполнения алгоритма Евклида</param>
-        /// <param name="binaryAlgorithmTime">Время выполнения бинарного алгоритма</param>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <param name="euclideanAlgorithmTime">Euclidean algorithm execution time</param>
+        /// <param name="binaryAlgorithmTime">Binary algorithm runtime</param>
         public int GetGcdCalculationTime(int a, int b, ref TimeSpan euclideanAlgorithmTime, ref TimeSpan binaryAlgorithmTime)
         {
             GcdCalculatingWithTime euclidean = new GcdCalculatingWithTime(new EuclideanAlgorithm());

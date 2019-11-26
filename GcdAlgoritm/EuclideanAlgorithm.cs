@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 namespace GcdAlgoritm
 {
     /// <summary>
-    /// Реализация алгоритма Евклида для вычисления НОД
+    /// Implementation of the Euclidean algorithm for computing GCD
     /// </summary>
     public class EuclideanAlgorithm : IGcdCalculating
     {
         /// <summary>
-        /// Алгоритм Евклида для вычисления НОД двух целых чисел
+        /// Euclidean algorithm for computing the GCD of two integers
         /// </summary>
-        /// <param name="a">Первое число</param>
-        /// <param name="b">Второе число</param>
-        /// <returns>НОД двух целых чисел</returns>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns>GCD of two integers</returns>
         public int CalculateGcd(int a, int b)
         {
-            // Если одно число равно нулю, то другое и будет НОД
+            // If one number is zero, then the other will be a GCD
             if (a == 0)
                 return b;
             if (b == 0)
                 return a;
 
-            //Если числа отрицательны, то НОД вычисляется от их абсолютного значения
+            //If the numbers are negative, then the GCD is calculated from their absolute value
             if (a < 0)
                 a = Math.Abs(a);
             if (b < 0)
                 b = Math.Abs(b);
 
-            //Процесс повторяется, пока числа не станут равными.
+            //The process repeats until the numbers become equal
             while (a != b)
             {
                 if (a > b)
