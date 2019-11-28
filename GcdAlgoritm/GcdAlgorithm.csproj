@@ -67,7 +67,6 @@
     <Compile Include="BinaryAlgorithm.cs" />
     <Compile Include="EuclideanAlgorithm.cs" />
     <Compile Include="GcdAlgorithmMultipleNumbers.cs" />
-    <Compile Include="GcdCalculatingWithTime.cs" />
     <Compile Include="HistogramData.cs" />
     <Compile Include="IGcdCalculate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

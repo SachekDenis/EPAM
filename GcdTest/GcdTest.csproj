@@ -54,7 +54,6 @@
     <Compile Include="GcdAlgorithmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GcdAlgorithmMultipleNumbersTest.cs" />
-    <Compile Include="GcdTimeTest.cs" />
     <Compile Include="HistogramDataTest.cs" />
   </ItemGroup>
   <ItemGroup>

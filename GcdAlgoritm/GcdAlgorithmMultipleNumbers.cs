@@ -23,7 +23,7 @@ namespace GcdAlgoritm
         private IGcdCalculating Alghoritm { get; set; }
 
         /// <summary>
-        /// Calculation of the GCD of three integers
+        /// Calculation of the GCD of three numbers
         /// </summary>
         /// <param name="a">First number</param>
         /// <param name="b">Second number</param>
