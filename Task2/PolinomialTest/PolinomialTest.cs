@@ -16,8 +16,9 @@ namespace PolinomialTest
         [TestMethod]
         public void CreatingPolinomial()
         {
-            Polinomial polinomial = new Polinomial(new double[] {1,2,3});
+            Polinomial polinomial = new Polinomial(new double[] { 1, 2, 3 });
             int expectedDegree = 2;
+
             Assert.AreEqual(expectedDegree, polinomial.Degree);
         }
 
@@ -39,10 +40,9 @@ namespace PolinomialTest
         {
             Polinomial firstPolimomial = new Polinomial(new double[] { 5, -3, 0, 9 });
             Polinomial secondPolimomial = new Polinomial(new double[] { 11, 6, -12 });
+            Polinomial expectedSumOfPolinomials = new Polinomial(new double[] { 16, 3, -12, 9 });
 
             Polinomial sumOfPolinomials = firstPolimomial + secondPolimomial;
-
-            Polinomial expectedSumOfPolinomials = new Polinomial(new double[] { 16, 3, -12, 9 });
 
             Assert.AreEqual(expectedSumOfPolinomials, sumOfPolinomials);
         }
@@ -56,10 +56,9 @@ namespace PolinomialTest
         {
             Polinomial firstPolimomial = new Polinomial(new double[] { 5, -3, 0, 9 });
             Polinomial secondPolimomial = new Polinomial(new double[] { 11, 6, -12 });
+            Polinomial expectedSumOfPolinomials = new Polinomial(new double[] { -6, -9, 12, 9 });
 
             Polinomial sumOfPolinomials = firstPolimomial - secondPolimomial;
-
-            Polinomial expectedSumOfPolinomials = new Polinomial(new double[] { -6, -9, 12, 9 });
 
             Assert.AreEqual(expectedSumOfPolinomials, sumOfPolinomials);
         }
@@ -71,10 +70,11 @@ namespace PolinomialTest
         public void MultiplyingPolinomialsByNumberMustReturnValidResult()
         {
             Polinomial polimomial = new Polinomial(new double[] { 5, -3, 0, 9 });
+            var expectedPolimomial = new Polinomial(new double[] { 45, -27, 0, 81 });
             int number = 9;
+
             polimomial *= number;
 
-            var expectedPolimomial = new Polinomial(new double[] { 45, -27, 0, 81 });
             Assert.AreEqual(expectedPolimomial, polimomial);
         }
 
@@ -86,10 +86,11 @@ namespace PolinomialTest
         public void MultiplyingPolinomialsByZeroNumberMustReturnValidResult()
         {
             Polinomial polimomial = new Polinomial(new double[] { 5, -3, 0, 9 });
+            var expectedPolimomial = new Polinomial(new double[] { 0, 0, 0, 0 });
             int number = 0;
+
             polimomial *= number;
 
-            var expectedPolimomial = new Polinomial(new double[] { 0, 0, 0, 0 });
             Assert.AreEqual(expectedPolimomial, polimomial);
         }
 
@@ -100,10 +101,11 @@ namespace PolinomialTest
         public void MultiplyingPolinomialsByZNegativeNumberMustReturnValidResult()
         {
             Polinomial polimomial = new Polinomial(new double[] { 5, -3, 0, 9 });
+            var expectedPolimomial = new Polinomial(new double[] { -15, 9, 0, -27 });
             int number = -3;
+
             polimomial *= number;
 
-            var expectedPolimomial = new Polinomial(new double[] { -15, 9, 0, -27 });
             Assert.AreEqual(expectedPolimomial, polimomial);
         }
 
@@ -116,9 +118,9 @@ namespace PolinomialTest
         {
             Polinomial firstPolinomial = new Polinomial(new double[] { 5, -3, 0, 9 });
             Polinomial secondPolinomial = new Polinomial(new double[] { 11, 6, -12 });
-            var multiplayingOfTwoPolinomials = firstPolinomial * secondPolinomial;
-
             var expectedPolinomial = new Polinomial(new double[] { 55, -3, -78, 135, 54, -108 });
+
+            var multiplayingOfTwoPolinomials = firstPolinomial * secondPolinomial;
 
             Assert.AreEqual(expectedPolinomial, multiplayingOfTwoPolinomials);
         }
@@ -132,9 +134,9 @@ namespace PolinomialTest
         {
             Polinomial firstPolinomial = new Polinomial(new double[] { 5, -3, 0, 9 });
             Polinomial secondPolinomial = new Polinomial(new double[] { 11, 6, -12, 3 });
-            var multiplayingOfTwoPolinomials = firstPolinomial * secondPolinomial;
-
             var expectedPolinomial = new Polinomial(new double[] { 55, -3, -78, 150, 45, -108, 27 });
+
+            var multiplayingOfTwoPolinomials = firstPolinomial * secondPolinomial;
 
             Assert.AreEqual(expectedPolinomial, multiplayingOfTwoPolinomials);
         }
@@ -146,11 +148,11 @@ namespace PolinomialTest
         [TestMethod]
         public void DividingOfTwoPolinomialsMustReturnValidResult()
         {
-            Polinomial firstPolinomial = new Polinomial(new double[] {-1, 0, -7, 0, 10 });
+            Polinomial firstPolinomial = new Polinomial(new double[] { -1, 0, -7, 0, 10 });
             Polinomial secondPolinomial = new Polinomial(new double[] { 3, -1, 1 });
-            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
+            Polinomial expectedPolinomial = new Polinomial(new double[] { -27, 10, 10 });
 
-            Polinomial expectedPolinomial = new Polinomial(new double[] { -27,10,10 });
+            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
 
             Assert.AreEqual(expectedPolinomial, dividingOfTwoPolinomials);
         }
@@ -162,11 +164,11 @@ namespace PolinomialTest
         [TestMethod]
         public void DividingPolinomialOnZeroPolinomialMustReturnNull()
         {
-            Polinomial firstPolinomial = new Polinomial(new double[] {-1, 0, -7, 0, 10 });
+            Polinomial firstPolinomial = new Polinomial(new double[] { -1, 0, -7, 0, 10 });
             Polinomial secondPolinomial = new Polinomial(new double[] { 0 });
-            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
-
             Polinomial expectedPolinomial = null;
+
+            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
 
             Assert.AreEqual(expectedPolinomial, dividingOfTwoPolinomials);
         }
@@ -179,10 +181,10 @@ namespace PolinomialTest
         public void DividingPolinomialWithSmallerDegreeOnPolinomialWithBiggerDegreeMustReturnNull()
         {
             Polinomial firstPolinomial = new Polinomial(new double[] { 3, -1, 1 });
-            Polinomial secondPolinomial = new Polinomial(new double[] {-1, 0, -7, 0, 10 });
-            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
-
+            Polinomial secondPolinomial = new Polinomial(new double[] { -1, 0, -7, 0, 10 });
             Polinomial expectedPolinomial = null;
+
+            Polinomial dividingOfTwoPolinomials = firstPolinomial / secondPolinomial;
 
             Assert.AreEqual(expectedPolinomial, dividingOfTwoPolinomials);
         }

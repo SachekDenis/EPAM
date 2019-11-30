@@ -18,9 +18,9 @@ namespace VectorTest
         {
             Vector firstVector = new Vector(new double[] { 1, 2, 3 });
             Vector secondVector = new Vector(new double[] { 4, 5, 6 });
+            var expectedVector = new Vector(new double[] { 5, 7, 9 });
 
             var sumOfVectors = firstVector + secondVector;
-            var expectedVector = new Vector(new double[] { 5, 7, 9 });
 
             Assert.AreEqual(expectedVector, sumOfVectors);
         }
@@ -34,9 +34,10 @@ namespace VectorTest
         {
             Vector secondVector = new Vector(new double[] { 4, 5, 6 });
             int number = 12;
+            var expectedVector = new Vector(new double[] { 48, 60, 72 });
+
             secondVector *= number;
 
-            var expectedVector = new Vector(new double[] { 48, 60, 72 });
             Assert.AreEqual(expectedVector, secondVector);
         }
 
@@ -48,9 +49,10 @@ namespace VectorTest
         {
             Vector firstVector = new Vector(new double[] { 1, 2, 3 });
             Vector secondVector = new Vector(new double[] { 4, 5, 6 });
+            var expectedResult = 32;
+
             var multiplayingOfTwoVectors = firstVector * secondVector;
 
-            var expectedResult = 32;
             Assert.AreEqual(expectedResult, multiplayingOfTwoVectors);
         }
 
@@ -63,9 +65,9 @@ namespace VectorTest
         {
             Vector firstVector = new Vector(new double[] { 5, 2, 1 });
             Vector secondVector = new Vector(new double[] { 4, 5, 6 });
+            var expectedVector = new Vector(new double[] { 1, -3, -5 });
 
             var differenceOfTwoVectors = firstVector - secondVector;
-            var expectedVector = new Vector(new double[] { 1, -3, -5 });
 
             Assert.AreEqual(expectedVector, differenceOfTwoVectors);
         }
@@ -78,10 +80,11 @@ namespace VectorTest
         public void DivisionOfVectorsOnNumverMustReturnValidResult()
         {
             Vector firstVector = new Vector(new double[] { 5, 2, 1 });
+            double number = 5;
+            var expectedVector = new Vector(new double[] { 1, 2.0 / 5, 1.0 / 5 });
 
-            var division = firstVector / 5;
+            var division = firstVector / number;
 
-            var expectedVector = new Vector(new double[] { 1, 2.0/5, 1.0/5 });
             Assert.AreEqual(expectedVector, division);
         }
 
@@ -91,7 +94,7 @@ namespace VectorTest
         [TestMethod]
         public void CreatingVectorFromArrayOfBiggerSizeMustReturnExeption()
         {
-            Assert.ThrowsException<IndexOutOfRangeException>(()=> new Vector(new double[]{1,2,3,4}));
+            Assert.ThrowsException<IndexOutOfRangeException>(() => new Vector(new double[] { 1, 2, 3, 4 }));
         }
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace VectorTest
         [TestMethod]
         public void CreatingVectorFromArrayOfSmallerSizeMustReturnExeption()
         {
-            Assert.ThrowsException<IndexOutOfRangeException>(()=> new Vector(new double[]{1,2}));
+            Assert.ThrowsException<IndexOutOfRangeException>(() => new Vector(new double[] { 1, 2 }));
         }
 
         /// <summary>
@@ -109,7 +112,7 @@ namespace VectorTest
         [TestMethod]
         public void CreatingVectorFromNullReturnExeption()
         {
-            Assert.ThrowsException<ArgumentNullException>(()=> new Vector(null));
+            Assert.ThrowsException<ArgumentNullException>(() => new Vector(null));
         }
 
         /// <summary>
@@ -120,6 +123,7 @@ namespace VectorTest
         {
             Vector firstVector = new Vector(new double[] { 1, 2, 3 });
             Vector secondVector = new Vector(new double[] { 1, 2, 3 });
+
             Assert.IsTrue(firstVector == secondVector);
         }
 
@@ -131,6 +135,7 @@ namespace VectorTest
         {
             Vector firstVector = new Vector(new double[] { 1, 2, 3 });
             Vector secondVector = new Vector(new double[] { 1, 4, 3 });
+
             Assert.IsFalse(firstVector == secondVector);
         }
     }
