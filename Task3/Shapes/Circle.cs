@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class Circle : IShape, IMaterial
+    public abstract class Circle : IShape, IMaterial
     {
         private double radius;
 
@@ -15,6 +15,16 @@ namespace Shapes
         public Circle(double radius)
         {
             this.radius = radius;
+        }
+
+        public Circle(double radius, IShape shape)
+        {
+            this.radius = radius;
+            if(this.Area() >= shape.Area())
+            {
+                this.radius = 0;
+                throw new UnableToCutShapeException("Size of shape is too small");
+            }
         }
 
         public double Area()
