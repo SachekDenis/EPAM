@@ -6,26 +6,29 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class Circle : IShape, IMaterial
+    class Rectangle : IShape, IMaterial
     {
-        private double radius;
+        private double firstSide;
+
+        private double secondSide;
 
         protected Color color;
 
-        public Circle(double radius)
+        public Rectangle(double firstSide, double secondSide)
         {
-            this.radius = radius;
+            this.firstSide = firstSide;
+            this.secondSide = secondSide;
         }
 
         public double Area()
         {
 
-            return Math.PI * radius * radius;
+            return firstSide*secondSide;
         }
 
         public double Perimeter()
         {
-            return Math.PI * radius / 2;
+            return 2*(firstSide+secondSide);
         }
 
         public Color GetColor()
