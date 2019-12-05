@@ -12,6 +12,8 @@ namespace Shapes
 
         protected Color color;
 
+        public double Radius { get => radius;}
+
         public Circle(double radius)
         {
             this.radius = radius;
