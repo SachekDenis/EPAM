@@ -13,7 +13,7 @@ namespace Box
 
         public void AddShape(IShape shape)
         {
-            if (!shapes.Contains(shape))
+            if (!shapes.Contains(shape) || shapes.Count == 20)
                 shapes.Add(shape);
         }
 
@@ -56,12 +56,12 @@ namespace Box
 
         public List<Circle> GetAllCircles()
         {
-            return shapes.Where(e=>e is Circle).Select(e=>e as Circle).ToList();
+            return shapes.Where(e => e is Circle).Select(e => e as Circle).ToList();
         }
 
         public List<IMembrane> GetAllMembrane()
         {
-            return shapes.Where(e=>e is IMembrane).Select(e=>e as IMembrane).ToList();
+            return shapes.Where(e => e is IMembrane).Select(e => e as IMembrane).ToList();
         }
     }
 }

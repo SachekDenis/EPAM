@@ -10,5 +10,20 @@ namespace Shapes
     {
         public MembraneSquare(double side) : base(side)
         {}
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return string.Concat(base.ToString(), "material = membrane");
+        }
     }
 }

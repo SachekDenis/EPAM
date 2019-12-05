@@ -41,5 +41,25 @@ namespace Shapes
         {
             return color;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Square square &&
+                   side == square.side &&
+                   color == square.color;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -689785498;
+            hashCode = hashCode * -1521134295 + side.GetHashCode();
+            hashCode = hashCode * -1521134295 + color.GetHashCode();
+            return hashCode;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Square, side = {0}, color = {1}", side, color);
+        }
     }
 }

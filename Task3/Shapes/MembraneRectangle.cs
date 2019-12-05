@@ -11,5 +11,20 @@ namespace Shapes
         public MembraneRectangle(double firstSide, double secondSide) : base(firstSide, secondSide)
         {
         }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return string.Concat(base.ToString(), "material = membrane");
+        }
     }
 }

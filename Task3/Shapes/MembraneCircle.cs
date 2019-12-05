@@ -11,5 +11,20 @@ namespace Shapes
         public MembraneCircle(double radius) : base(radius)
         {
         }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return string.Concat(base.ToString(), "material = membrane");
+        }
     }
 }
