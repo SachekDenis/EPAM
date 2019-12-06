@@ -36,11 +36,12 @@ namespace PolinomialTest
         /// Testing сorrectness of calculating sum of polinomials
         /// </summary>
         [TestMethod]
-        public void SumOfTwoPolinomialsNustReturnExpectedResult()
+        [DataRow(new double[] { 5, -3, 0, 9 }, new double[] { 11, 6, -12 }, new double[] { 16, 3, -12, 9 })]
+        public void SumOfTwoPolinomialsNustReturnExpectedResult(double[] first, double[] second,double[] expected)
         {
-            Polinomial firstPolimomial = new Polinomial(new double[] { 5, -3, 0, 9 });
-            Polinomial secondPolimomial = new Polinomial(new double[] { 11, 6, -12 });
-            Polinomial expectedSumOfPolinomials = new Polinomial(new double[] { 16, 3, -12, 9 });
+            Polinomial firstPolimomial = new Polinomial(first);
+            Polinomial secondPolimomial = new Polinomial(second);
+            Polinomial expectedSumOfPolinomials = new Polinomial(expected);
 
             Polinomial sumOfPolinomials = firstPolimomial + secondPolimomial;
 
