@@ -6,9 +6,27 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class MembraneRectangle : Rectangle, IMembrane
+    public class MembraneRectangle : Rectangle, IMembrane
     {
         public MembraneRectangle(double firstSide, double secondSide) : base(firstSide, secondSide)
+        {
+        }
+
+        public MembraneRectangle(double firstSide, double secondSide, IShape shape) : base(firstSide, secondSide, shape)
+        {
+            if (!(shape is IMembrane))
+            {
+                this.firstSide = 0;
+                this.secondSide = 0;
+                throw new UnableToCutShapeException("Cant cut from another material");
+            }
+            else
+            {
+                this.color = (shape as IMaterial).GetColor();
+            }
+        }
+
+        public MembraneRectangle(double firstSide, double secondSide, Color color) : base(firstSide, secondSide, color)
         {
         }
 

@@ -10,6 +10,6 @@ namespace DataIo
     interface IDataIo
     {
         void WriteFile(List<IShape> data, string file);
-        List<IShape> ReadFile();
+        List<IShape> ReadFile(string file);
     }
 }

@@ -6,9 +6,25 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class MembraneSquare : Square, IMembrane
+    public class MembraneSquare : Square, IMembrane
     {
         public MembraneSquare(double side) : base(side)
+        {}
+
+        public MembraneSquare(double side, IShape shape): base(side, shape)
+        {
+            if (!(shape is IMembrane))
+            {
+                this.side = 0;
+                throw new UnableToCutShapeException("Cant cut from another material");
+            }
+            else
+            {
+                this.color = (shape as IMaterial).GetColor();
+            }
+        }
+
+        public MembraneSquare(double side, Color color) : base(side, color)
         {}
 
         public override bool Equals(object obj)

@@ -7,19 +7,27 @@ namespace Shapes
 {
     public abstract class Square : IShape, IMaterial
     {
-        private double side;
+        protected double side;
 
         protected Color color;
+
+        public double Side { get => side;}
 
         public Square(double side)
         {
             this.side = side;
         }
 
+        public Square(double side, Color color)
+        {
+            this.side = side;
+            this.color = color;
+        }
+
         public Square(double side, IShape shape)
         {
             this.side = side;
-            if(this.Area() >= shape.Area())
+            if (this.Area() >= shape.Area())
             {
                 this.side = 0;
                 throw new UnableToCutShapeException("Size of shape is too small");
@@ -59,7 +67,7 @@ namespace Shapes
 
         public override string ToString()
         {
-            return string.Format("Square, side = {0}, color = {1}", side, color);
+            return string.Format("Square, side = {0}, color = {1}", Side, color);
         }
     }
 }

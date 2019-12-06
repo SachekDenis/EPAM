@@ -6,9 +6,27 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class PaperRectangle: Rectangle,IPaper
+    public class PaperRectangle: Rectangle,IPaper
     {
         public PaperRectangle(double firstSide, double secondSide) : base(firstSide, secondSide)
+        {
+        }
+
+        public PaperRectangle(double firstSide, double secondSide, IShape shape) : base(firstSide, secondSide, shape)
+        {
+            if (!(shape is IPaper))
+            {
+                this.firstSide = 0;
+                this.secondSide = 0;
+                throw new UnableToCutShapeException("Cant cut from another material");
+            }
+            else
+            {
+                this.color = (shape as IMaterial).GetColor();
+            }
+        }
+
+        public PaperRectangle(double firstSide, double secondSide, Color color) : base(firstSide, secondSide, color)
         {
         }
 

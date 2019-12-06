@@ -6,9 +6,26 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class MembraneCircle : Circle, IMembrane
+    public class MembraneCircle : Circle, IMembrane
     {
         public MembraneCircle(double radius) : base(radius)
+        {
+        }
+
+        public MembraneCircle(double radius, IShape shape) : base(radius, shape)
+        {
+            if (!(shape is IMembrane))
+            {
+                this.radius = 0;
+                throw new UnableToCutShapeException("Cant cut from another material");
+            }
+            else
+            {
+                this.color = (shape as IMaterial).GetColor();
+            }
+        }
+
+        public MembraneCircle(double radius, Color color) : base(radius, color)
         {
         }
 

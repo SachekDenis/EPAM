@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    abstract class Rectangle : IShape, IMaterial
+    public abstract class Rectangle : IShape, IMaterial
     {
-        private double firstSide;
+        protected double firstSide;
 
-        private double secondSide;
+        protected double secondSide;
 
         protected Color color;
+
+        public double FirstSide { get => firstSide;}
+
+        public double SecondSide { get => secondSide; }
 
         public Rectangle(double firstSide, double secondSide)
         {
@@ -30,6 +34,11 @@ namespace Shapes
                 this.secondSide = 0;
                 throw new UnableToCutShapeException("Size of shape is too small");
             }
+        }
+
+        public Rectangle(double firstSide, double secondSide, Color color) : this(firstSide, secondSide)
+        {
+            this.color = color;
         }
 
         public double Area()

@@ -6,10 +6,27 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    public class PaperSquare : Square,IPaper
+    public class PaperSquare : Square, IPaper
     {
         public PaperSquare(double side) : base(side)
-        {}
+        { }
+
+        public PaperSquare(double side, Color color) : base(side, color)
+        {
+        }
+
+        public PaperSquare(double side, IShape shape) : base(side, shape)
+        {
+            if (!(shape is IPaper))
+            {
+                this.Side = 0;
+                throw new UnableToCutShapeException("Cant cut from another material");
+            }
+            else
+            {
+                this.color = (shape as IMaterial).GetColor();
+            }
+        }
 
         public override bool Equals(object obj)
         {

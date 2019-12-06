@@ -6,9 +6,26 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class PaperCircle:Circle,IPaper
+    public class PaperCircle:Circle,IPaper
     {
         public PaperCircle(double radius) : base(radius)
+        {
+        }
+
+        public PaperCircle(double radius, IShape shape) : base(radius, shape)
+        {
+            if (!(shape is IPaper))
+            {
+                this.radius = 0;
+                throw new UnableToCutShapeException("Cant cut from another material");
+            }
+            else
+            {
+                this.color = (shape as IMaterial).GetColor();
+            }
+        }
+
+        public PaperCircle(double radius, Color color) : base(radius, color)
         {
         }
 

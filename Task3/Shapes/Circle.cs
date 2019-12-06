@@ -8,7 +8,7 @@ namespace Shapes
 {
     public abstract class Circle : IShape, IMaterial
     {
-        private double radius;
+        protected double radius;
 
         protected Color color;
 
@@ -27,6 +27,11 @@ namespace Shapes
                 this.radius = 0;
                 throw new UnableToCutShapeException("Size of shape is too small");
             }
+        }
+
+        public Circle(double radius, Color color) : this(radius)
+        {
+            this.color = color;
         }
 
         public double Area()
