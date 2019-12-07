@@ -19,7 +19,7 @@ namespace Shapes
         {
             if (!(shape is IPaper))
             {
-                this.Side = 0;
+                this.side = 0;
                 throw new UnableToCutShapeException("Cant cut from another material");
             }
             else

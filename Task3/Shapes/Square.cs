@@ -15,18 +15,18 @@ namespace Shapes
 
         public Square(double side)
         {
+            if(side < 0 )
+                throw new ArgumentException("side cant be negetive");
             this.side = side;
         }
 
-        public Square(double side, Color color)
+        public Square(double side, Color color):this(side)
         {
-            this.side = side;
             this.color = color;
         }
 
-        public Square(double side, IShape shape)
+        public Square(double side, IShape shape):this(side)
         {
-            this.side = side;
             if (this.Area() >= shape.Area())
             {
                 this.side = 0;

@@ -14,20 +14,22 @@ namespace Shapes
 
         protected Color color;
 
-        public double FirstSide { get => firstSide;}
+        public double FirstSide { get => firstSide; }
 
         public double SecondSide { get => secondSide; }
 
         public Rectangle(double firstSide, double secondSide)
         {
+            if (firstSide < 0 || secondSide < 0)
+            {
+                throw new ArgumentException("side cant be negative");
+            }
             this.firstSide = firstSide;
             this.secondSide = secondSide;
         }
 
-        public Rectangle(double firstSide, double secondSide, IShape shape)
+        public Rectangle(double firstSide, double secondSide, IShape shape) : this(firstSide, secondSide)
         {
-            this.firstSide = firstSide;
-            this.secondSide = secondSide;
             if (this.Area() >= shape.Area())
             {
                 this.firstSide = 0;

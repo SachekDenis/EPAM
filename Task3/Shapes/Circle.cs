@@ -12,17 +12,19 @@ namespace Shapes
 
         protected Color color;
 
-        public double Radius { get => radius;}
+        public double Radius { get => radius; }
 
         public Circle(double radius)
         {
+            if (radius < 0)
+                throw new ArgumentException("radius cant be negative");
             this.radius = radius;
         }
 
-        public Circle(double radius, IShape shape)
+        public Circle(double radius, IShape shape):this(radius)
         {
             this.radius = radius;
-            if(this.Area() >= shape.Area())
+            if (this.Area() >= shape.Area())
             {
                 this.radius = 0;
                 throw new UnableToCutShapeException("Size of shape is too small");
