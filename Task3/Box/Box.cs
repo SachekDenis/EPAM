@@ -1,4 +1,5 @@
-﻿using Shapes;
+﻿using DataIo;
+using Shapes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,61 @@ namespace Box
         public List<IMembrane> GetAllMembrane()
         {
             return shapes.Where(e => e is IMembrane).Select(e => e as IMembrane).ToList();
+        }
+
+        public void SaveAllShapesXmlWriter(string file)
+        {
+            SaveAllShapes(file, new XmlIo());
+        }
+        public void SaveAllShapesStreamWriter(string file)
+        {
+            SaveAllShapes(file, new StreamIo());
+        }
+        public void SavePaperShapesXmlWriter(string file)
+        {
+            SavePaperShapes(file, new XmlIo());
+        }
+        public void SavePaperShapesStreamWriter(string file)
+        {
+            SavePaperShapes(file, new StreamIo());
+        }
+        public void SaveMembraneShapesXmlWriter(string file)
+        {
+            SaveMembraneShapes(file, new XmlIo());
+        }
+        public void SaveMembraneShapesStreamWriter(string file)
+        {
+            SaveMembraneShapes(file, new StreamIo());
+        }
+
+        public void ReadShapesXmlReader(string file)
+        {
+            ReadAllShapes(file, new XmlIo());
+        }
+
+        public void ReadShapesStreamReader(string file)
+        {
+            ReadAllShapes(file, new StreamIo());
+        }
+
+        private void SaveAllShapes(string file,IDataIo writer)
+        {
+            writer.WriteFile(shapes, file);
+        }
+
+        private void SavePaperShapes(string file, IDataIo writer)
+        {
+            writer.WriteFile(shapes.Where(e=>e is IPaper), file);
+        }
+
+        private void SaveMembraneShapes(string file, IDataIo writer)
+        {
+            writer.WriteFile(shapes.Where(e => e is IMembrane), file);
+        }
+
+        private void ReadAllShapes(string file, IDataIo reader)
+        {
+            shapes = reader.ReadFile(file);
         }
     }
 }

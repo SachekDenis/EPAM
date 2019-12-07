@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataIo\DataIo.csproj">
+      <Project>{48f1164d-f57f-4f93-a82c-a970a5d22f89}</Project>
+      <Name>DataIo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shapes\Shapes.csproj">
       <Project>{d68e4847-f7f5-40e8-9b91-159bfe1b218b}</Project>
       <Name>Shapes</Name>

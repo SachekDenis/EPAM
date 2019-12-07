@@ -9,7 +9,7 @@ using Shapes;
 
 namespace DataIo
 {
-    class StreamIo : IDataIo
+    public class StreamIo : IDataIo
     {
         public string HttpUtility { get; private set; }
 
@@ -53,37 +53,38 @@ namespace DataIo
             return shapes;
         }
 
-        public void WriteFile(List<IShape> data, string file)
+        public void WriteFile(IEnumerable<IShape> data, string file)
         {
             using (StreamWriter streamWriter = new StreamWriter(file))
             {
                 XmlDocument document = new XmlDocument();
                 XmlElement root = document.CreateElement("shapes");
                 document.AppendChild(root);
-                data.ForEach(element =>
+                data.ToList().ForEach(element =>
                 {
+                    XmlElement shape = null;
                     if (element is Circle)
                     {
-                        writer.WriteStartElement("circle");
-                        writer.WriteAttributeString("radius", (element as Circle).Radius.ToString());
+                        shape = document.CreateElement("circle");
+                        shape.SetAttribute("radius", (element as Circle).Radius.ToString());
                     }
                     if (element is Square)
                     {
-                        writer.WriteStartElement("square");
-                        writer.WriteAttributeString("side", (element as Square).Side.ToString());
+                        shape = document.CreateElement("square");
+                        shape.SetAttribute("side", (element as Square).Side.ToString());
                     }
                     if (element is Rectangle)
                     {
-                        writer.WriteStartElement("rectangle");
-                        writer.WriteAttributeString("firstSide", (element as Rectangle).FirstSide.ToString());
-                        writer.WriteAttributeString("secondSide", (element as Rectangle).SecondSide.ToString());
+                        shape = document.CreateElement("rectangle");
+                        shape.SetAttribute("firstSide", (element as Rectangle).FirstSide.ToString());
+                        shape.SetAttribute("secondSide", (element as Rectangle).SecondSide.ToString());
                     }
                     if (element is IPaper)
-                        writer.WriteAttributeString("material", "paper");
+                        shape.SetAttribute("material", "paper");
                     else
-                        writer.WriteAttributeString("material", "membrane");
-                    writer.WriteAttributeString("color", (element as IMaterial).GetColor().ToString());
-                    writer.WriteEndElement();
+                        shape.SetAttribute("material", "membrane");
+                    shape.SetAttribute("color", (element as IMaterial).GetColor().ToString());
+                    root.AppendChild(shape);
                 });
                 document.Save(streamWriter);
             }

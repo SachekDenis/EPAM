@@ -52,13 +52,13 @@ namespace DataIo
             return shapes;
         }
 
-        public void WriteFile(List<IShape> data, string file)
+        public void WriteFile(IEnumerable<IShape> data, string file)
         {
             using (XmlWriter writer = XmlWriter.Create(file))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("shapes");
-                data.ForEach(element =>
+                data.ToList().ForEach(element =>
                 {
                     if (element is Circle)
                     {

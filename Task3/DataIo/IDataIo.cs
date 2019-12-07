@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataIo
 {
-    interface IDataIo
+    public interface IDataIo
     {
-        void WriteFile(List<IShape> data, string file);
+        void WriteFile(IEnumerable<IShape> data, string file);
         List<IShape> ReadFile(string file);
     }
 }
