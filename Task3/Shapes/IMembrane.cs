@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
+    /// <summary>
+    /// Interface for membrane material
+    /// </summary>
     public interface IMembrane:IMaterial
-    {
-    }
+    {}
 }

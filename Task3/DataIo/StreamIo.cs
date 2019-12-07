@@ -9,10 +9,24 @@ using Shapes;
 
 namespace DataIo
 {
+    /// <summary>
+    /// Class StreamIo.
+    /// Implements the <see cref="DataIo.IDataIo" />
+    /// </summary>
+    /// <seealso cref="DataIo.IDataIo" />
     public class StreamIo : IDataIo
     {
+        /// <summary>
+        /// Gets the HTTP utility.
+        /// </summary>
+        /// <value>The HTTP utility.</value>
         public string HttpUtility { get; private set; }
 
+        /// <summary>
+        /// Reads the file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>List&lt;IShape&gt;.</returns>
         public List<IShape> ReadFile(string file)
         {
             List<IShape> shapes = new List<IShape>();
@@ -26,7 +40,8 @@ namespace DataIo
                 {
                     Circle circle;
                     if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
-                        circle = new PaperCircle(double.Parse(node.Attributes.GetNamedItem("radius").Value), (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
+                        circle = new PaperCircle(double.Parse(node.Attributes.GetNamedItem("radius").Value),
+                            (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
                     else
                         circle = new MembraneCircle(double.Parse(node.Attributes.GetNamedItem("radius").Value));
                     shapes.Add(circle);
@@ -35,7 +50,9 @@ namespace DataIo
                 {
                     Square square;
                     if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
-                        square = new PaperSquare(double.Parse(node.Attributes.GetNamedItem("side").Value), (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
+                        square = new PaperSquare(
+                            double.Parse(node.Attributes.GetNamedItem("side").Value),
+                            (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
                     else
                         square = new MembraneSquare(double.Parse(node.Attributes.GetNamedItem("side").Value));
                     shapes.Add(square);
@@ -44,15 +61,25 @@ namespace DataIo
                 {
                     Rectangle rectangle;
                     if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
-                        rectangle = new PaperRectangle(double.Parse(node.Attributes.GetNamedItem("firstSide").Value), double.Parse(node.Attributes.GetNamedItem("secondSide").Value), (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
+                        rectangle = new PaperRectangle(
+                            double.Parse(node.Attributes.GetNamedItem("firstSide").Value),
+                            double.Parse(node.Attributes.GetNamedItem("secondSide").Value),
+                            (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
                     else
-                        rectangle = new MembraneRectangle(double.Parse(node.Attributes.GetNamedItem("firstSide").Value), double.Parse(node.Attributes.GetNamedItem("secondSide").Value));
+                        rectangle = new MembraneRectangle(
+                            double.Parse(node.Attributes.GetNamedItem("firstSide").Value),
+                            double.Parse(node.Attributes.GetNamedItem("secondSide").Value));
                     shapes.Add(rectangle);
                 }
             }
             return shapes;
         }
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="file">The file.</param>
         public void WriteFile(IEnumerable<IShape> data, string file)
         {
             using (StreamWriter streamWriter = new StreamWriter(file))

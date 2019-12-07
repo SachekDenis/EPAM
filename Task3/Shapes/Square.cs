@@ -5,51 +5,101 @@ using System.Text;
 
 namespace Shapes
 {
+    /// <summary>
+    /// Class Square.
+    /// Implements the <see cref="Shapes.IShape" />
+    /// Implements the <see cref="Shapes.IMaterial" />
+    /// </summary>
+    /// <seealso cref="Shapes.IShape" />
+    /// <seealso cref="Shapes.IMaterial" />
     public abstract class Square : IShape, IMaterial
     {
+        /// <summary>
+        /// The side
+        /// </summary>
         protected double side;
 
+        /// <summary>
+        /// The color
+        /// </summary>
         protected Color color;
 
+        /// <summary>
+        /// Gets the side.
+        /// </summary>
+        /// <value>The side.</value>
         public double Side { get => side;}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Square"/> class.
+        /// </summary>
+        /// <param name="side">The side.</param>
+        /// <exception cref="ArgumentException">Side cant be negetive</exception>
         public Square(double side)
         {
             if(side < 0 )
-                throw new ArgumentException("side cant be negetive");
+                throw new ArgumentException("Side cant be negetive");
             this.side = side;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Square"/> class.
+        /// </summary>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
         public Square(double side, Color color):this(side)
         {
             this.color = color;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Square"/> class.
+        /// </summary>
+        /// <param name="side">The side.</param>
+        /// <param name="shape">The shape.</param>
+        /// <exception cref="UnableToCutShapeException">Size of shape is too small</exception>
         public Square(double side, IShape shape):this(side)
         {
-            if (this.Area() >= shape.Area())
+            if (this.GetArea() >= shape.GetArea())
             {
                 this.side = 0;
                 throw new UnableToCutShapeException("Size of shape is too small");
             }
         }
 
-        public double Area()
+        /// <summary>
+        /// Get area of a square.
+        /// </summary>
+        /// <returns>Area of a square.</returns>
+        public double GetArea()
         {
 
             return side * side;
         }
 
-        public double Perimeter()
+        /// <summary>
+        /// Get perimeters this instance.
+        /// </summary>
+        /// <returns>System.Double.</returns>
+        public double GetPerimeter()
         {
             return side * 4;
         }
 
+        /// <summary>
+        /// Get color of shape
+        /// </summary>
+        /// <returns>Color of a shape</returns>
         public Color GetColor()
         {
             return color;
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is Square square &&
@@ -57,6 +107,10 @@ namespace Shapes
                    color == square.color;
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             var hashCode = -689785498;
@@ -65,6 +119,10 @@ namespace Shapes
             return hashCode;
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             return string.Format("Square, side = {0}, color = {1}", Side, color);

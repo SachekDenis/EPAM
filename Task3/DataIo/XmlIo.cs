@@ -8,8 +8,18 @@ using System.Xml;
 
 namespace DataIo
 {
+    /// <summary>
+    /// Class XmlIo.
+    /// Implements the <see cref="DataIo.IDataIo" />
+    /// </summary>
+    /// <seealso cref="DataIo.IDataIo" />
     public class XmlIo : IDataIo
     {
+        /// <summary>
+        /// Reads the file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>List&lt;IShape&gt;.</returns>
         public List<IShape> ReadFile(string file)
         {
             List<IShape> shapes = new List<IShape>();
@@ -23,7 +33,9 @@ namespace DataIo
                         {
                             Circle circle;
                             if (reader.GetAttribute("material").Equals("paper"))
-                                circle = new PaperCircle(double.Parse(reader.GetAttribute("radius")), (Color)int.Parse(reader.GetAttribute("color")));
+                                circle = new PaperCircle(
+                                    double.Parse(reader.GetAttribute("radius")),
+                                    (Color)int.Parse(reader.GetAttribute("color")));
                             else
                                 circle = new MembraneCircle(double.Parse(reader.GetAttribute("radius")));
                             shapes.Add(circle);
@@ -41,9 +53,13 @@ namespace DataIo
                         {
                             Rectangle rectangle;
                             if (reader.GetAttribute("material").Equals("paper"))
-                                rectangle = new PaperRectangle(double.Parse(reader.GetAttribute("firstSide")), double.Parse(reader.GetAttribute("secondSide")), (Color)int.Parse(reader.GetAttribute("color")));
+                                rectangle = new PaperRectangle(double.Parse(reader.GetAttribute("firstSide")),
+                                    double.Parse(reader.GetAttribute("secondSide")),
+                                    (Color)int.Parse(reader.GetAttribute("color")));
                             else
-                                rectangle = new MembraneRectangle(double.Parse(reader.GetAttribute("firstSide")), double.Parse(reader.GetAttribute("secondSide")));
+                                rectangle = new MembraneRectangle(
+                                    double.Parse(reader.GetAttribute("firstSide")),
+                                    double.Parse(reader.GetAttribute("secondSide")));
                             shapes.Add(rectangle);
                         }
                     }
@@ -52,6 +68,11 @@ namespace DataIo
             return shapes;
         }
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="file">The file.</param>
         public void WriteFile(IEnumerable<IShape> data, string file)
         {
             using (XmlWriter writer = XmlWriter.Create(file))
