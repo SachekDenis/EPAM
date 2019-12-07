@@ -23,10 +23,6 @@ namespace Shapes
                 this.color = (shape as IMaterial).GetColor();
             }
         }
-
-        public MembraneSquare(double side, Color color) : base(side, color)
-        {}
-
         public override bool Equals(object obj)
         {
             return base.Equals(obj);

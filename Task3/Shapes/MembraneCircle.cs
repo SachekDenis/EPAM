@@ -25,10 +25,6 @@ namespace Shapes
             }
         }
 
-        public MembraneCircle(double radius, Color color) : base(radius, color)
-        {
-        }
-
         public override bool Equals(object obj)
         {
             return base.Equals(obj);

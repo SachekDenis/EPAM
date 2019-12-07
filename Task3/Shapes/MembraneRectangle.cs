@@ -26,10 +26,6 @@ namespace Shapes
             }
         }
 
-        public MembraneRectangle(double firstSide, double secondSide, Color color) : base(firstSide, secondSide, color)
-        {
-        }
-
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
