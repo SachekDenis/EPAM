@@ -50,12 +50,13 @@ namespace Shapes
         /// <exception cref="ArgumentException">Side cant be negative</exception>
         public Rectangle(double firstSide, double secondSide)
         {
-            if (firstSide < 0 || secondSide < 0)
+            if (firstSide <= 0 || secondSide <= 0)
             {
                 throw new ArgumentException("Side cant be negative");
             }
             this._firstSide = firstSide;
             this._secondSide = secondSide;
+            _color = Color.none;
         }
 
         /// <summary>

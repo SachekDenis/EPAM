@@ -11,13 +11,13 @@ namespace Shapes
     /// Implements the <see cref="System.Exception" />
     /// </summary>
     /// <seealso cref="System.Exception" />
-    class UnableToPaintExeption : Exception
+    public class UnableToPaintException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnableToPaintExeption"/> class.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public UnableToPaintExeption(string message) : base(message)
+        public UnableToPaintException(string message) : base(message)
         {}
     }
 }

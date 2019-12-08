@@ -77,11 +77,12 @@ namespace Shapes
         /// <exception cref="UnableToPaintExeption">Unable to paint shape more then one time</exception>
         public void Paint(Color color)
         {
-
-            if (color == Color.none)
+            if(color == Color.none)
+                throw new UnableToPaintException("Unable to paint shape to none color");
+            if (_color == Color.none)
                 this._color = color;
             else
-                throw new UnableToPaintExeption("Unable to paint shape more then one time");
+                throw new UnableToPaintException("Unable to paint shape more then one time");
 
         }
 

@@ -32,12 +32,12 @@ namespace Shapes
         {
             if (!(shape is IMembrane))
             {
-                this.side = 0;
+                this._side = 0;
                 throw new UnableToCutShapeException("Cant cut from another material");
             }
             else
             {
-                this.color = (shape as IMaterial).GetColor();
+                this._color = (shape as IMaterial).GetColor();
             }
         }
         /// <summary>

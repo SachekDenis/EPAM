@@ -41,12 +41,12 @@ namespace Shapes
         {
             if (!(shape is IPaper))
             {
-                this.side = 0;
+                this._side = 0;
                 throw new UnableToCutShapeException("Cant cut from another material");
             }
             else
             {
-                this.color = (shape as IMaterial).GetColor();
+                this._color = (shape as IMaterial).GetColor();
             }
         }
 
@@ -76,11 +76,12 @@ namespace Shapes
         /// <exception cref="UnableToPaintExeption">Unable to paint shape more then one time</exception>
         public void Paint(Color color)
         {
-
-            if (color == Color.none)
-                this.color = color;
+            if(color == Color.none)
+                throw new UnableToPaintException("Unable to paint shape to none color");
+            if (_color == Color.none)
+                this._color = color;
             else
-                throw new UnableToPaintExeption("Unable to paint shape more then one time");
+                throw new UnableToPaintException("Unable to paint shape more then one time");
 
         }
 

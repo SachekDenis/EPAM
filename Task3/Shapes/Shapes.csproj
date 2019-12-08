@@ -58,7 +58,7 @@
     <Compile Include="IShape.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="UnableToCutShapeException.cs" />
-    <Compile Include="UnableToPaintExeption.cs" />
+    <Compile Include="UnableToPaintException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

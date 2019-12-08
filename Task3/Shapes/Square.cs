@@ -17,18 +17,18 @@ namespace Shapes
         /// <summary>
         /// The side
         /// </summary>
-        protected double side;
+        protected double _side;
 
         /// <summary>
         /// The color
         /// </summary>
-        protected Color color;
+        protected Color _color;
 
         /// <summary>
         /// Gets the side.
         /// </summary>
         /// <value>The side.</value>
-        public double Side { get => side;}
+        public double Side { get => _side;}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Square"/> class.
@@ -37,9 +37,10 @@ namespace Shapes
         /// <exception cref="ArgumentException">Side cant be negetive</exception>
         public Square(double side)
         {
-            if(side < 0 )
+            if(side <= 0 )
                 throw new ArgumentException("Side cant be negetive");
-            this.side = side;
+            this._side = side;
+            _color = Color.none;
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace Shapes
         /// <param name="color">The color.</param>
         public Square(double side, Color color):this(side)
         {
-            this.color = color;
+            this._color = color;
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace Shapes
         {
             if (this.GetArea() >= shape.GetArea())
             {
-                this.side = 0;
+                this._side = 0;
                 throw new UnableToCutShapeException("Size of shape is too small");
             }
         }
@@ -74,7 +75,7 @@ namespace Shapes
         public double GetArea()
         {
 
-            return side * side;
+            return _side * _side;
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace Shapes
         /// <returns>System.Double.</returns>
         public double GetPerimeter()
         {
-            return side * 4;
+            return _side * 4;
         }
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace Shapes
         /// <returns>Color of a shape</returns>
         public Color GetColor()
         {
-            return color;
+            return _color;
         }
 
         /// <summary>
@@ -103,8 +104,8 @@ namespace Shapes
         public override bool Equals(object obj)
         {
             return obj is Square square &&
-                   side == square.side &&
-                   color == square.color;
+                   _side == square._side &&
+                   _color == square._color;
         }
 
         /// <summary>
@@ -114,8 +115,8 @@ namespace Shapes
         public override int GetHashCode()
         {
             var hashCode = -689785498;
-            hashCode = hashCode * -1521134295 + side.GetHashCode();
-            hashCode = hashCode * -1521134295 + color.GetHashCode();
+            hashCode = hashCode * -1521134295 + _side.GetHashCode();
+            hashCode = hashCode * -1521134295 + _color.GetHashCode();
             return hashCode;
         }
 
@@ -125,7 +126,7 @@ namespace Shapes
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return string.Format("Square, side = {0}, color = {1}", Side, color);
+            return string.Format("Square, side = {0}, color = {1}", Side, _color);
         }
     }
 }

@@ -38,9 +38,10 @@ namespace Shapes
         /// <exception cref="ArgumentException">Radius cant be negative</exception>
         public Circle(double radius)
         {
-            if (radius < 0)
+            if (radius <= 0)
                 throw new ArgumentException("Radius cant be negative");
             this._radius = radius;
+            _color = Color.none;
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Shapes
         /// <returns>Perimeter of circle</returns>
         public double GetPerimeter()
         {
-            return Math.PI * _radius / 2;
+            return Math.PI * _radius * 2;
         }
 
         /// <summary>

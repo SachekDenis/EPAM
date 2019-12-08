@@ -11,7 +11,7 @@ namespace Shapes
     /// Implements the <see cref="System.Exception" />
     /// </summary>
     /// <seealso cref="System.Exception" />
-    class UnableToCutShapeException : Exception
+    public class UnableToCutShapeException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnableToCutShapeException"/> class.

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Box", "Box\Box.csproj", "{A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIo", "DataIo\DataIo.csproj", "{48F1164D-F57F-4F93-A82C-A970A5D22F89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShapesTest", "ShapesTest\ShapesTest.csproj", "{9693393E-A0C9-4687-9C0A-2949FED4E77D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{48F1164D-F57F-4F93-A82C-A970A5D22F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48F1164D-F57F-4F93-A82C-A970A5D22F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48F1164D-F57F-4F93-A82C-A970A5D22F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9693393E-A0C9-4687-9C0A-2949FED4E77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9693393E-A0C9-4687-9C0A-2949FED4E77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9693393E-A0C9-4687-9C0A-2949FED4E77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9693393E-A0C9-4687-9C0A-2949FED4E77D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
