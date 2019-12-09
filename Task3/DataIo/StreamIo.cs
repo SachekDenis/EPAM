@@ -16,60 +16,59 @@ namespace DataIo
     /// <seealso cref="DataIo.IDataIo" />
     public class StreamIo : IDataIo
     {
-        /// <summary>
-        /// Gets the HTTP utility.
-        /// </summary>
-        /// <value>The HTTP utility.</value>
-        public string HttpUtility { get; private set; }
 
         /// <summary>
         /// Reads the file.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>List&lt;IShape&gt;.</returns>
+        /// <returns>List of IShape.</returns>
         public List<IShape> ReadFile(string file)
         {
             List<IShape> shapes = new List<IShape>();
-            StreamReader streamReader = new StreamReader(file);
-            XmlDocument document = new XmlDocument();
-            document.Load(streamReader);
-            XmlNodeList nodeList = document.SelectNodes("/shapes");
-            foreach (XmlNode node in nodeList)
+            using (StreamReader streamReader = new StreamReader(file))
             {
-                if (node.Name.Equals("circle"))
+                XmlDocument document = new XmlDocument();
+                document.Load(streamReader);
+                XmlNode root = document.SelectSingleNode("/shapes");
+                XmlNodeList nodeList = root.SelectNodes("*");
+                foreach (XmlNode node in nodeList)
                 {
-                    Circle circle;
-                    if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
-                        circle = new PaperCircle(double.Parse(node.Attributes.GetNamedItem("radius").Value),
-                            (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
-                    else
-                        circle = new MembraneCircle(double.Parse(node.Attributes.GetNamedItem("radius").Value));
-                    shapes.Add(circle);
-                }
-                if (node.Name.Equals("square"))
-                {
-                    Square square;
-                    if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
-                        square = new PaperSquare(
-                            double.Parse(node.Attributes.GetNamedItem("side").Value),
-                            (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
-                    else
-                        square = new MembraneSquare(double.Parse(node.Attributes.GetNamedItem("side").Value));
-                    shapes.Add(square);
-                }
-                if (node.Name.Equals("rectangle"))
-                {
-                    Rectangle rectangle;
-                    if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
-                        rectangle = new PaperRectangle(
-                            double.Parse(node.Attributes.GetNamedItem("firstSide").Value),
-                            double.Parse(node.Attributes.GetNamedItem("secondSide").Value),
-                            (Color)int.Parse(node.Attributes.GetNamedItem("color").Value));
-                    else
-                        rectangle = new MembraneRectangle(
-                            double.Parse(node.Attributes.GetNamedItem("firstSide").Value),
-                            double.Parse(node.Attributes.GetNamedItem("secondSide").Value));
-                    shapes.Add(rectangle);
+                    if (node.Name.Equals("circle"))
+                    {
+                        Circle circle;
+                        if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
+                            circle = new PaperCircle(
+                                double.Parse(node.Attributes.GetNamedItem("radius").Value),
+                                (Color)Enum.Parse(typeof(Color), node.Attributes.GetNamedItem("color").Value));
+                        else
+                            circle = new MembraneCircle(double.Parse(node.Attributes.GetNamedItem("radius").Value));
+                        shapes.Add(circle);
+                    }
+                    if (node.Name.Equals("square"))
+                    {
+                        Square square;
+                        if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
+                            square = new PaperSquare(
+                                double.Parse(node.Attributes.GetNamedItem("side").Value),
+                                (Color)Enum.Parse(typeof(Color), node.Attributes.GetNamedItem("color").Value));
+                        else
+                            square = new MembraneSquare(double.Parse(node.Attributes.GetNamedItem("side").Value));
+                        shapes.Add(square);
+                    }
+                    if (node.Name.Equals("rectangle"))
+                    {
+                        Rectangle rectangle;
+                        if (node.Attributes.GetNamedItem("material").Value.Equals("paper"))
+                            rectangle = new PaperRectangle(
+                                double.Parse(node.Attributes.GetNamedItem("firstSide").Value),
+                                double.Parse(node.Attributes.GetNamedItem("secondSide").Value),
+                                (Color)Enum.Parse(typeof(Color), node.Attributes.GetNamedItem("color").Value));
+                        else
+                            rectangle = new MembraneRectangle(
+                                double.Parse(node.Attributes.GetNamedItem("firstSide").Value),
+                                double.Parse(node.Attributes.GetNamedItem("secondSide").Value));
+                        shapes.Add(rectangle);
+                    }
                 }
             }
             return shapes;

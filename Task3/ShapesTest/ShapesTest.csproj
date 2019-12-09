@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ShapesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataIoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

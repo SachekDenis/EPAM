@@ -35,7 +35,7 @@ namespace DataIo
                             if (reader.GetAttribute("material").Equals("paper"))
                                 circle = new PaperCircle(
                                     double.Parse(reader.GetAttribute("radius")),
-                                    (Color)int.Parse(reader.GetAttribute("color")));
+                                    (Color)Enum.Parse(typeof(Color),reader.GetAttribute("color")));
                             else
                                 circle = new MembraneCircle(double.Parse(reader.GetAttribute("radius")));
                             shapes.Add(circle);
@@ -44,7 +44,7 @@ namespace DataIo
                         {
                             Square square;
                             if (reader.GetAttribute("material").Equals("paper"))
-                                square = new PaperSquare(double.Parse(reader.GetAttribute("side")), (Color)int.Parse(reader.GetAttribute("color")));
+                                square = new PaperSquare(double.Parse(reader.GetAttribute("side")), (Color)Enum.Parse(typeof(Color),reader.GetAttribute("color")));
                             else
                                 square = new MembraneSquare(double.Parse(reader.GetAttribute("side")));
                             shapes.Add(square);
@@ -55,7 +55,7 @@ namespace DataIo
                             if (reader.GetAttribute("material").Equals("paper"))
                                 rectangle = new PaperRectangle(double.Parse(reader.GetAttribute("firstSide")),
                                     double.Parse(reader.GetAttribute("secondSide")),
-                                    (Color)int.Parse(reader.GetAttribute("color")));
+                                    (Color)Enum.Parse(typeof(Color),reader.GetAttribute("color")));
                             else
                                 rectangle = new MembraneRectangle(
                                     double.Parse(reader.GetAttribute("firstSide")),
