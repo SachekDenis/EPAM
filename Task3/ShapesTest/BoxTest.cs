@@ -187,12 +187,12 @@ namespace ShapesTest
             box.AddShape(square);
 
             Assert.IsTrue(new List<Circle>(){ firstCircle, secondCircle }.SequenceEqual(box.GetAllCircles()));
-            Assert.AreEqual(2, box.GetAllCircles().Count);
+            Assert.AreEqual(numberOfCircles, box.GetAllCircles().Count);
         }
 
         [TestMethod]
         [DataRow(3.2, 4.2, 2, 2)]
-        public void TestGetAllMembraneFromBox(double radius, double newRadius, double side, int numberOfCircles)
+        public void TestGetAllMembraneFromBox(double radius, double newRadius, double side, int numberOfMembrane)
         {
             Box box = new Box();
             MembraneCircle firstCircle = new MembraneCircle(radius);
@@ -206,7 +206,7 @@ namespace ShapesTest
             box.AddShape(square);
 
             Assert.IsTrue(new List<IMembrane>(){ firstCircle, square }.SequenceEqual(box.GetAllMembrane()));
-            Assert.AreEqual(2, box.GetAllCircles().Count);
+            Assert.AreEqual(numberOfMembrane, box.GetAllCircles().Count);
         }
     }
 }
