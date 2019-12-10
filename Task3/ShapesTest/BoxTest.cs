@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BoxProject;
 using Shapes;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ShapesTest
 {
@@ -167,6 +169,44 @@ namespace ShapesTest
             box.AddShape(firstCircle);
             box.AddShape(secondCircle);
             Assert.AreEqual(firstCircle.GetPerimeter()+secondCircle.GetPerimeter(),box.GetTotalPerimeter());
+        }
+
+        [TestMethod]
+        [DataRow(3.2, 4.2, 2, 2)]
+        public void TestGetAllCirclesFromBox(double radius, double newRadius, double side, int numberOfCircles)
+        {
+            Box box = new Box();
+            Circle firstCircle = new MembraneCircle(radius);
+            Circle secondCircle = new PaperCircle(newRadius);
+            Square square = new PaperSquare(side);
+
+            Assert.AreEqual(0,box.GetAllCircles().Count);
+
+            box.AddShape(firstCircle);
+            box.AddShape(secondCircle);
+            box.AddShape(square);
+
+            Assert.IsTrue(new List<Circle>(){ firstCircle, secondCircle }.SequenceEqual(box.GetAllCircles()));
+            Assert.AreEqual(2, box.GetAllCircles().Count);
+        }
+
+        [TestMethod]
+        [DataRow(3.2, 4.2, 2, 2)]
+        public void TestGetAllMembraneFromBox(double radius, double newRadius, double side, int numberOfCircles)
+        {
+            Box box = new Box();
+            MembraneCircle firstCircle = new MembraneCircle(radius);
+            PaperCircle secondCircle = new PaperCircle(newRadius);
+            MembraneSquare square = new MembraneSquare(side);
+
+            Assert.AreEqual(0,box.GetAllCircles().Count);
+
+            box.AddShape(firstCircle);
+            box.AddShape(secondCircle);
+            box.AddShape(square);
+
+            Assert.IsTrue(new List<IMembrane>(){ firstCircle, square }.SequenceEqual(box.GetAllMembrane()));
+            Assert.AreEqual(2, box.GetAllCircles().Count);
         }
     }
 }
