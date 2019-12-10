@@ -4,9 +4,16 @@ using Shapes;
 
 namespace ShapesTest
 {
+    /// <summary>
+    /// Defines test class ShapesTest.
+    /// </summary>
     [TestClass]
     public class ShapesTest
     {
+        /// <summary>
+        /// Defines the test method CreatingCircleMustReturnObject.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
         [TestMethod]
         [DataRow(2.1)]
         public void CreatingCircleMustReturnObject(double radius)
@@ -18,6 +25,10 @@ namespace ShapesTest
         }
 
 
+        /// <summary>
+        /// Defines the test method CreatingSquareMustReturnObject.
+        /// </summary>
+        /// <param name="side">The side.</param>
         [TestMethod]
         [DataRow(2.1)]
         public void CreatingSquareMustReturnObject(double side)
@@ -28,6 +39,11 @@ namespace ShapesTest
             Assert.IsNotNull(membraneSquare);
         }
 
+        /// <summary>
+        /// Defines the test method CreatingRectangleMustReturnObject.
+        /// </summary>
+        /// <param name="firstSide">The first side.</param>
+        /// <param name="secondSide">The second side.</param>
         [TestMethod]
         [DataRow(2.1, 3.2)]
         public void CreatingRectangleMustReturnObject(double firstSide, double secondSide)
@@ -38,6 +54,10 @@ namespace ShapesTest
             Assert.IsNotNull(membraneRectangle);
         }
 
+        /// <summary>
+        /// Defines the test method CreatingCircleWithInvalidDataMustThrowsExeption.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
         [TestMethod]
         [DataRow(-2.1)]
         [DataRow(0)]
@@ -47,6 +67,10 @@ namespace ShapesTest
             Assert.ThrowsException<ArgumentException>(() => new MembraneCircle(radius));
         }
 
+        /// <summary>
+        /// Defines the test method CreatingSquareWithInvalidDataMustThrowsExeption.
+        /// </summary>
+        /// <param name="side">The side.</param>
         [TestMethod]
         [DataRow(-2.1)]
         [DataRow(0)]
@@ -56,6 +80,11 @@ namespace ShapesTest
             Assert.ThrowsException<ArgumentException>(() => new MembraneSquare(side));
         }
 
+        /// <summary>
+        /// Defines the test method CreatingRectangleWithInvalidDataMustThrowsExeption.
+        /// </summary>
+        /// <param name="firstSide">The first side.</param>
+        /// <param name="secondSide">The second side.</param>
         [TestMethod]
         [DataRow(-2.1, 2.2)]
         [DataRow(2.1, -2.2)]
@@ -71,6 +100,11 @@ namespace ShapesTest
             Assert.ThrowsException<ArgumentException>(() => new MembraneRectangle(firstSide, secondSide));
         }
 
+        /// <summary>
+        /// Defines the test method TestGetAreaOfCircle.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="expectedArea">The expected area.</param>
         [TestMethod]
         [DataRow(2.1, Math.PI * 2.1 * 2.1)]
         [DataRow(0.1, Math.PI * 0.1 * 0.1)]
@@ -83,6 +117,11 @@ namespace ShapesTest
             Assert.AreEqual(expectedArea, membraneCircle.GetArea());
         }
 
+        /// <summary>
+        /// Defines the test method TestGetAreaOfSquare.
+        /// </summary>
+        /// <param name="side">The side.</param>
+        /// <param name="expectedArea">The expected area.</param>
         [TestMethod]
         [DataRow(2.1, 2.1 * 2.1)]
         [DataRow(0.1, 0.1 * 0.1)]
@@ -95,6 +134,12 @@ namespace ShapesTest
             Assert.AreEqual(expectedArea, membraneSquare.GetArea());
         }
 
+        /// <summary>
+        /// Defines the test method TestGetAreaOfRectangle.
+        /// </summary>
+        /// <param name="firstSide">The first side.</param>
+        /// <param name="secondSide">The second side.</param>
+        /// <param name="expectedArea">The expected area.</param>
         [TestMethod]
         [DataRow(2.1, 0.3, 2.1 * 0.3)]
         [DataRow(0.1, 12, 0.1 * 12)]
@@ -107,6 +152,11 @@ namespace ShapesTest
             Assert.AreEqual(expectedArea, membraneRectangle.GetArea());
         }
 
+        /// <summary>
+        /// Defines the test method TestGetPerimeterOfCircle.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="expectedArea">The expected area.</param>
         [TestMethod]
         [DataRow(2.1, Math.PI * 2 * 2.1)]
         [DataRow(0.1, Math.PI * 2 * 0.1)]
@@ -119,6 +169,11 @@ namespace ShapesTest
             Assert.AreEqual(expectedArea, membraneCircle.GetPerimeter());
         }
 
+        /// <summary>
+        /// Defines the test method TestGetPerimeterOfSquare.
+        /// </summary>
+        /// <param name="side">The side.</param>
+        /// <param name="expectedArea">The expected area.</param>
         [TestMethod]
         [DataRow(2.1, 2.1 * 4)]
         [DataRow(0.1, 0.1 * 4)]
@@ -131,6 +186,12 @@ namespace ShapesTest
             Assert.AreEqual(expectedArea, membraneSquare.GetPerimeter());
         }
 
+        /// <summary>
+        /// Defines the test method TestGetPerimeterOfRectangle.
+        /// </summary>
+        /// <param name="firstSide">The first side.</param>
+        /// <param name="secondSide">The second side.</param>
+        /// <param name="expectedArea">The expected area.</param>
         [TestMethod]
         [DataRow(2.1, 0.3, (2.1 + 0.3) * 2)]
         [DataRow(0.1, 12, (0.1 + 12) * 2)]
@@ -143,6 +204,14 @@ namespace ShapesTest
             Assert.AreEqual(expectedArea, membraneRectangle.GetPerimeter());
         }
 
+        /// <summary>
+        /// Defines the test method TestPaintPaperShapes.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="squareSide">The square side.</param>
+        /// <param name="rectangleFirstSide">The rectangle first side.</param>
+        /// <param name="rectangleSecondSide">The rectangle second side.</param>
+        /// <param name="color">The color.</param>
         [TestMethod]
         [DataRow(2.1, 3.2, 0.4, 3.2, Color.red)]
         [DataRow(2.1, 3.2, 0.4, 3.2, Color.blue)]
@@ -162,6 +231,14 @@ namespace ShapesTest
             Assert.AreEqual(color, paperRectangle.GetColor());
         }
 
+        /// <summary>
+        /// Defines the test method TestPaintNonePaperShapes.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="squareSide">The square side.</param>
+        /// <param name="rectangleFirstSide">The rectangle first side.</param>
+        /// <param name="rectangleSecondSide">The rectangle second side.</param>
+        /// <param name="color">The color.</param>
         [TestMethod]
         [DataRow(2.1, 3.2, 0.4, 3.2, Color.none)]
         public void TestPaintNonePaperShapes(double radius, double squareSide, double rectangleFirstSide, double rectangleSecondSide, Color color)
@@ -175,6 +252,14 @@ namespace ShapesTest
             Assert.ThrowsException<UnableToPaintException>(() => paperRectangle.Paint(color));
         }
 
+        /// <summary>
+        /// Defines the test method TestPaintMoreThenOneTimePaperShapes.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="squareSide">The square side.</param>
+        /// <param name="rectangleFirstSide">The rectangle first side.</param>
+        /// <param name="rectangleSecondSide">The rectangle second side.</param>
+        /// <param name="color">The color.</param>
         [TestMethod]
         [DataRow(2.1, 3.2, 0.4, 3.2, Color.red)]
         public void TestPaintMoreThenOneTimePaperShapes(double radius, double squareSide, double rectangleFirstSide, double rectangleSecondSide, Color color)
@@ -191,7 +276,18 @@ namespace ShapesTest
             Assert.ThrowsException<UnableToPaintException>(() => paperSquare.Paint(color));
             Assert.ThrowsException<UnableToPaintException>(() => paperRectangle.Paint(color));
         }
-        
+
+        /// <summary>
+        /// Defines the test method TestCutShapeFromAnotherShape.
+        /// </summary>
+        /// <param name="smallerRadius">The smaller radius.</param>
+        /// <param name="biggerRadius">The bigger radius.</param>
+        /// <param name="smallerSide">The smaller side.</param>
+        /// <param name="biggerSide">The bigger side.</param>
+        /// <param name="smallerFirstSide">The smaller first side.</param>
+        /// <param name="smallerSecondSide">The smaller second side.</param>
+        /// <param name="biggerFirstSide">The bigger first side.</param>
+        /// <param name="biggerSecondSide">The bigger second side.</param>
         [TestMethod]
         [DataRow(2.3,5.5,4,9,4,3,4,5)]
         public void TestCutShapeFromAnotherShape(double smallerRadius, double biggerRadius, double smallerSide,
@@ -218,6 +314,12 @@ namespace ShapesTest
         }
 
 
+        /// <summary>
+        /// Defines the test method TestCutShapeFromAnotherShapeKeepsColor.
+        /// </summary>
+        /// <param name="smallerRadius">The smaller radius.</param>
+        /// <param name="biggerRadius">The bigger radius.</param>
+        /// <param name="color">The color.</param>
         [TestMethod]
         [DataRow(2.3,5.5,Color.red)]
         public void TestCutShapeFromAnotherShapeKeepsColor(double smallerRadius, double biggerRadius, Color color)
@@ -235,6 +337,11 @@ namespace ShapesTest
             Assert.AreEqual(smallCircle.GetColor(),color);
         }
 
+        /// <summary>
+        /// Defines the test method TestCutShapeFromAnotherShapeWithAnotherMaterialMustThrowsException.
+        /// </summary>
+        /// <param name="smallerRadius">The smaller radius.</param>
+        /// <param name="biggerRadius">The bigger radius.</param>
         [TestMethod]
         [DataRow(2.3,5.5)]
         public void TestCutShapeFromAnotherShapeWithAnotherMaterialMustThrowsException(double smallerRadius, double biggerRadius)
@@ -246,6 +353,11 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestCutShapeFromAnotherShapeWithSmallerAreaMustThrowsException.
+        /// </summary>
+        /// <param name="smallerRadius">The smaller radius.</param>
+        /// <param name="biggerRadius">The bigger radius.</param>
         [TestMethod]
         [DataRow(2.3,5.5)]
         public void TestCutShapeFromAnotherShapeWithSmallerAreaMustThrowsException(double smallerRadius, double biggerRadius)

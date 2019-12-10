@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoxTest.cs" />
     <Compile Include="ShapesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataIoTest.cs" />

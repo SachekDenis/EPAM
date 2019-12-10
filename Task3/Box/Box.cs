@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Box
+namespace BoxProject
 {
     /// <summary>
     /// Class Box.
@@ -24,7 +24,9 @@ namespace Box
         /// <param name="shape">The shape.</param>
         public void AddShape(IShape shape)
         {
-            if (!shapes.Contains(shape) || shapes.Count == 20)
+            if(shape == null)
+                throw new ArgumentNullException();
+            if (!shapes.Contains(shape) && shapes.Count < 20)
                 shapes.Add(shape);
         }
 
@@ -45,6 +47,8 @@ namespace Box
         /// <returns>Shape.</returns>
         public IShape Find(IShape shape)
         {
+            if(shape == null)
+                throw new ArgumentNullException();
             return shapes.Find(e => e == shape);
         }
 
@@ -55,11 +59,13 @@ namespace Box
         /// <param name="shape">The shape.</param>
         public void ReplaceAt(int index, IShape shape)
         {
+            if(shape == null)
+                throw new ArgumentNullException();
             shapes[index] = shape;
         }
 
         /// <summary>
-        /// Pops at index.
+        /// Pops shape at index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>Shape.</returns>
@@ -71,7 +77,7 @@ namespace Box
         }
 
         /// <summary>
-        /// Counts this instance.
+        /// Get count of shapes.
         /// </summary>
         /// <returns>Count</returns>
         public int Count()
