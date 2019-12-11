@@ -101,6 +101,11 @@ namespace BoxProject
             return shapes.Select(e => e.GetPerimeter()).Sum();
         }
 
+        public List<IShape> GetAllShapes()
+        {
+            return shapes;
+        }
+
         /// <summary>
         /// Gets all circles.
         /// </summary>

@@ -4,6 +4,7 @@ using BoxProject;
 using Shapes;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace ShapesTest
 {
@@ -199,7 +200,7 @@ namespace ShapesTest
             PaperCircle secondCircle = new PaperCircle(newRadius);
             MembraneSquare square = new MembraneSquare(side);
 
-            Assert.AreEqual(0,box.GetAllCircles().Count);
+            Assert.AreEqual(0,box.GetAllMembrane().Count);
 
             box.AddShape(firstCircle);
             box.AddShape(secondCircle);
@@ -207,6 +208,146 @@ namespace ShapesTest
 
             Assert.IsTrue(new List<IMembrane>(){ firstCircle, square }.SequenceEqual(box.GetAllMembrane()));
             Assert.AreEqual(numberOfMembrane, box.GetAllCircles().Count);
+        }
+
+        [TestMethod]
+        [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
+        public void TestStreamIoInBox(double radius, double side, Color color, string fileName)
+        {
+            List<IShape> shapes = new List<IShape> { new PaperCircle(radius), new MembraneSquare(side) };
+            (shapes[0] as IPaper).Paint(color);
+            Box box = new Box();
+
+            shapes.ForEach(e => box.AddShape(e));
+
+            box.SaveAllShapesStreamWriter(fileName);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            box.ReadShapesStreamReader(fileName);
+
+            File.Delete(fileName);
+
+            Assert.AreEqual(shapes.Count,box.Count());
+
+            Assert.IsTrue(shapes.SequenceEqual(new List<IShape>() { box.FindAt(0), box.FindAt(1) }));
+        }
+
+        [TestMethod]
+        [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
+        public void TestXmlIoInBox(double radius, double side, Color color, string fileName)
+        {
+            List<IShape> shapes = new List<IShape> { new PaperCircle(radius), new MembraneSquare(side) };
+            (shapes[0] as IPaper).Paint(color);
+            Box box = new Box();
+
+            shapes.ForEach(e => box.AddShape(e));
+
+            box.SaveAllShapesXmlWriter(fileName);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            box.ReadShapesXmlReader(fileName);
+
+            File.Delete(fileName);
+
+            Assert.AreEqual(shapes.Count, box.Count());
+
+            Assert.IsTrue(shapes.SequenceEqual(box.GetAllShapes()));
+        }
+
+        [TestMethod]
+        [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
+        public void TestXmlWritetOnlyPaperInBox(double radius, double side, Color color, string fileName)
+        {
+            List<IShape> shapes = new List<IShape> { new PaperCircle(radius), new MembraneSquare(side) };
+            (shapes[0] as IPaper).Paint(color);
+            Box box = new Box();
+
+            shapes.ForEach(e => box.AddShape(e));
+
+            box.SavePaperShapesXmlWriter(fileName);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            box.ReadShapesXmlReader(fileName);
+
+            File.Delete(fileName);
+
+            Assert.AreEqual(shapes.Where(e => e is IPaper).Count(), box.Count());
+
+            Assert.IsTrue(shapes.Where(e=>e is IPaper).SequenceEqual(box.GetAllShapes()));
+        }
+
+
+        [TestMethod]
+        [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
+        public void TestXmlWritetOnlyMembraneInBox(double radius, double side, Color color, string fileName)
+        {
+            List<IShape> shapes = new List<IShape> { new PaperCircle(radius), new MembraneSquare(side) };
+            (shapes[0] as IPaper).Paint(color);
+            Box box = new Box();
+
+            shapes.ForEach(e => box.AddShape(e));
+
+            box.SaveMembraneShapesXmlWriter(fileName);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            box.ReadShapesXmlReader(fileName);
+
+            File.Delete(fileName);
+
+            Assert.AreEqual(shapes.Where(e => e is IMembrane).Count(), box.Count());
+
+            Assert.IsTrue(shapes.Where(e => e is IMembrane).SequenceEqual(box.GetAllShapes()));
+        }
+
+        [TestMethod]
+        [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
+        public void TestStreamWritetOnlyPaperInBox(double radius, double side, Color color, string fileName)
+        {
+            List<IShape> shapes = new List<IShape> { new PaperCircle(radius), new MembraneSquare(side) };
+            (shapes[0] as IPaper).Paint(color);
+            Box box = new Box();
+
+            shapes.ForEach(e => box.AddShape(e));
+
+            box.SavePaperShapesStreamWriter(fileName);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            box.ReadShapesXmlReader(fileName);
+
+            File.Delete(fileName);
+
+            Assert.AreEqual(shapes.Where(e => e is IPaper).Count(), box.Count());
+
+            Assert.IsTrue(shapes.Where(e => e is IPaper).SequenceEqual(box.GetAllShapes()));
+        }
+
+
+        [TestMethod]
+        [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
+        public void TestStreamWritetOnlyMembraneInBox(double radius, double side, Color color, string fileName)
+        {
+            List<IShape> shapes = new List<IShape> { new PaperCircle(radius), new MembraneSquare(side) };
+            (shapes[0] as IPaper).Paint(color);
+            Box box = new Box();
+
+            shapes.ForEach(e => box.AddShape(e));
+
+            box.SaveMembraneShapesStreamWriter(fileName);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            box.ReadShapesXmlReader(fileName);
+
+            File.Delete(fileName);
+
+            Assert.AreEqual(shapes.Where(e => e is IMembrane).Count(), box.Count());
+
+            Assert.IsTrue(shapes.Where(e => e is IMembrane).SequenceEqual(box.GetAllShapes()));
         }
     }
 }
