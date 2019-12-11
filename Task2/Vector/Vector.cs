@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 namespace VectorProject
 {
     /// <summary>
-    /// Класс для работы с трехмерными векторами
+    /// Class for working with three-dimensional vectors
     /// </summary>
     public class Vector
     {
         /// <summary>
-        /// Трехмерный вектор реализуется с помощью массива
+        /// Three-dimensional vector is implemented using an array
         /// </summary>
         private double[] vector = new double[3];
         /// <summary>
-        /// Размерность вектора
+        /// Vector dimension
         /// </summary>
         private readonly int dimension = 3;
 
         /// <summary>
-        /// Создание вектора с помощью массива координат
+        /// reating a vector using an array of coordinates
         /// </summary>
-        /// <param name="vector">Массив координат</param>
+        /// <param name="vector">Array of coordinates</param>
         public Vector(double[] vector)
         {
             if (vector != null && vector.Length == dimension)
@@ -39,11 +39,11 @@ namespace VectorProject
         }
 
         /// <summary>
-        /// Создание вектора с помощью координат
+        /// Creating a vector using coordinates
         /// </summary>
-        /// <param name="x">X координата</param>
-        /// <param name="y">Y координата</param>
-        /// <param name="z">Z координата</param>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <param name="z">Z coordinate</param>
         public Vector(double x, double y, double z)
         {
             vector[0] = x;
@@ -52,9 +52,9 @@ namespace VectorProject
         }
 
         /// <summary>
-        /// Доступ к произвольной координате вектора
+        /// Access to arbitrary vector coordinate
         /// </summary>
-        /// <param name="index">Индекс координаты</param>
+        /// <param name="index">Coordinate index</param>
         /// <returns></returns>
         public double this[int index]
         {
@@ -75,55 +75,55 @@ namespace VectorProject
         }
 
         /// <summary>
-        /// Сложение векторов путем сложения соответствующих координат
+        /// Addition of vectors by adding the corresponding coordinates
         /// </summary>
-        /// <param name="vector1">Первый вектор</param>
-        /// <param name="vector2">Второй вектор</param>
-        /// <returns>Новый вектор</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="vector2">Second vector</param>
+        /// <returns>New vector</returns>
         public static Vector operator +(Vector vector1, Vector vector2)
         {
             return new Vector(vector1.vector.Zip(vector2.vector, (firstVectorElement, secondVectorElement) => firstVectorElement + secondVectorElement).ToArray());
         }
 
         /// <summary>
-        /// Сложение векторов путем вычитания соответствующих координат
+        /// Addition of vectors by subtracting the corresponding coordinates
         /// </summary>
-        /// <param name="vector1">первый вектор</param>
-        /// <param name="vector2">второй вектор</param>
-        /// <returns>Новый вектор</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="vector2">Second vector</param>
+        /// <returns>New vector</returns>
         public static Vector operator -(Vector vector1, Vector vector2)
         {
             return new Vector(vector1.vector.Zip(vector2.vector, (firstVectorElement, secondVectorElement) => firstVectorElement - secondVectorElement).ToArray());
         }
 
         /// <summary>
-        /// Скалярное умножение векторов
+        /// Scalar vector multiplication
         /// </summary>
-        /// <param name="vector1">первый вектор</param>
-        /// <param name="vector2">второй вектор</param>
-        /// <returns>Новый вектор</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="vector2">Second vector</param>
+        /// <returns>New vector</returns>
         public static double operator *(Vector vector1, Vector vector2)
         {
             return vector1.vector.Zip(vector2.vector, (firstVectorElement, secondVectorElement) => firstVectorElement * secondVectorElement).Sum();
         }
 
         /// <summary>
-        /// Умножение вектора на число
+        /// Multiplication of a vector by a number
         /// </summary>
-        /// <param name="vector1">Первый вектор</param>
-        /// <param name="number">Число</param>
-        /// <returns>Новый вектор</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="number">Number</param>
+        /// <returns>New vector</returns>
         public static Vector operator *(Vector vector, double number)
         {
             return new Vector(vector.vector.Select(e => e * number).ToArray());
         }
 
         /// <summary>
-        /// Умножение вектора на число
+        /// Multiplication of a vector by a number
         /// </summary>
-        /// <param name="vector1">Первый вектор</param>
-        /// <param name="number">Число</param>
-        /// <returns>Новый вектор</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="number">Number</param>
+        /// <returns>New vector</returns>
         public static Vector operator *(double number, Vector vector)
         {
             return vector*number;
@@ -131,43 +131,43 @@ namespace VectorProject
 
 
         /// <summary>
-        /// Деление вектора на число
+        /// Division of a vector by a number
         /// </summary>
-        /// <param name="vector1">Первый вектор</param>
-        /// <param name="number">Число</param>
-        /// <returns>Новый вектор</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="number">Number</param>
+        /// <returns>New vector</returns>
         public static Vector operator /(Vector vector1, double number)
         {
             return new Vector(vector1.vector.Select(e => e / number).ToArray());
         }
 
         /// <summary>
-        /// Проверка векторов на равенство
+        /// Checking vectors for equality
         /// </summary>
-        /// <param name="vector1">Первый вектор</param>
-        /// <param name="vector2">Второй вектор</param>
-        /// <returns>Результат проверки на равенство</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="vector2">Second vector</param>
+        /// <returns>Equality test Result</returns>
         public static bool operator ==(Vector vector1,Vector vector2)
         {
             return vector1.Equals(vector2);
         }
 
         /// <summary>
-        /// Проверка векторов на неравенство
+        /// Checking vectors for inequality
         /// </summary>
-        /// <param name="vector1">Первый вектор</param>
-        /// <param name="vector2">Второй вектор</param>
-        /// <returns>Результат проверки на неравенство</returns>
+        /// <param name="vector1">First vector</param>
+        /// <param name="vector2">Second vector</param>
+        /// <returns>Inequality test Result</returns>
         public static bool operator !=(Vector vector1, Vector vector2)
         {
             return vector1.Equals(vector2);
         }
 
         /// <summary>
-        /// Сравнение векторов
+        /// Vector comparison
         /// </summary>
-        /// <param name="obj">Второй вектор</param>
-        /// <returns>Результат сравнения векторов</returns>
+        /// <param name="obj">Second vector</param>
+        /// <returns>Vector comparison result</returns>
         public override bool Equals(object obj)
         {
             return obj is Vector vector && this.vector.SequenceEqual(vector.vector);
