@@ -8,9 +8,19 @@ using Shapes;
 
 namespace ShapesTest
 {
+    /// <summary>
+    /// Defines test class DataIoTest.
+    /// </summary>
     [TestClass]
     public class DataIoTest
     {
+        /// <summary>
+        /// Defines the test method TestXmlIoFile.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3,4.5,Color.red,"testXml.xml")]
         public void TestXmlIoFile(double radius, double side,Color color , string fileName)
@@ -29,6 +39,13 @@ namespace ShapesTest
             Assert.IsTrue(readedShapes.SequenceEqual(shapes));
         }
 
+        /// <summary>
+        /// Defines the test method TestStreamIoFile.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3,4.5,Color.red,"testStream.xml")]
         public void TestStreamIoFile(double radius, double side,Color color , string fileName)
@@ -47,6 +64,13 @@ namespace ShapesTest
             Assert.IsTrue(readedShapes.SequenceEqual(shapes));
         }
 
+        /// <summary>
+        /// Defines the test method TestWorkWithFileCrossMethods.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3,4.5,Color.red,"testCross.xml")]
         public void TestWorkWithFileCrossMethods(double radius, double side,Color color , string fileName)

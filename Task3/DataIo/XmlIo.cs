@@ -19,7 +19,7 @@ namespace DataIo
         /// Reads the file.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>List&lt;IShape&gt;.</returns>
+        /// <returns>List of shapes.</returns>
         public List<IShape> ReadFile(string file)
         {
             List<IShape> shapes = new List<IShape>();

@@ -13,12 +13,12 @@ namespace Shapes
         /// <summary>
         /// Gets the area.
         /// </summary>
-        /// <returns>System.Double.</returns>
+        /// <returns>Area.</returns>
         double GetArea();
         /// <summary>
         /// Gets the perimeter.
         /// </summary>
-        /// <returns>System.Double.</returns>
+        /// <returns>Perimeter.</returns>
         double GetPerimeter();
     }
 }

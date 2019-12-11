@@ -74,7 +74,7 @@ namespace Shapes
         /// Change color of a shape
         /// </summary>
         /// <param name="color">New color of a shape</param>
-        /// <exception cref="UnableToPaintExeption">Unable to paint shape more then one time</exception>
+        /// <exception cref="UnableToPaintException">Unable to paint shape more then one time</exception>
         public void Paint(Color color)
         {
             if(color == Color.none)
@@ -92,7 +92,7 @@ namespace Shapes
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return string.Concat(base.ToString(),"material = paper");
+            return string.Concat(base.ToString(),", material = paper");
         }
     }
 }

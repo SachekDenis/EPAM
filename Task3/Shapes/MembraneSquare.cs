@@ -65,7 +65,7 @@ namespace Shapes
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return string.Concat(base.ToString(), "material = membrane");
+            return string.Concat(base.ToString(), ", material = membrane");
         }
     }
 }

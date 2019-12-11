@@ -8,9 +8,16 @@ using System.IO;
 
 namespace ShapesTest
 {
+    /// <summary>
+    /// Defines test class BoxTest.
+    /// </summary>
     [TestClass]
     public class BoxTest
     {
+        /// <summary>
+        /// Defines the test method TestAddShapeToBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
         [TestMethod]
         [DataRow(4.5)]
         public void TestAddShapeToBox(double radius)
@@ -23,6 +30,11 @@ namespace ShapesTest
             Assert.AreEqual(circle, box.Find(circle));
         }
 
+        /// <summary>
+        /// Defines the test method TestAddTwoSameShapesToBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="expectedCount">The expected count.</param>
         [TestMethod]
         [DataRow(4.5, 1)]
         public void TestAddTwoSameShapesToBox(double radius, int expectedCount)
@@ -41,6 +53,9 @@ namespace ShapesTest
             Assert.AreEqual(firstCircle, box.Find(firstCircle));
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullToBox.
+        /// </summary>
         [TestMethod]
         public void TestAddNullToBox()
         {
@@ -51,6 +66,11 @@ namespace ShapesTest
         }
 
 
+        /// <summary>
+        /// Defines the test method TestFindAtInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, -2)]
         [DataRow(3.2, 3)]
@@ -63,6 +83,10 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestFindNullinBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
         [TestMethod]
         [DataRow(3.2)]
         public void TestFindNullinBox(double radius)
@@ -74,6 +98,11 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestFindElementDontPresentinBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
         [TestMethod]
         [DataRow(3.2, 4.2)]
         public void TestFindElementDontPresentinBox(double radius, double newRadius)
@@ -85,6 +114,12 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestReaplaceAtinBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, 4.2, 0)]
         public void TestReaplaceAtinBox(double radius, double newRadius, int index)
@@ -101,6 +136,12 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestReaplaceAtInvalidDatatinBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, 4.2, -2)]
         [DataRow(3.2, 4.2, 2)]
@@ -113,6 +154,11 @@ namespace ShapesTest
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => box.ReplaceAt(index, secondCircle));
         }
 
+        /// <summary>
+        /// Defines the test method TestPopAtinBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, 0)]
         public void TestPopAtinBox(double radius, int index)
@@ -130,6 +176,11 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestPopAtInvalidDatainBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, 2)]
         public void TestPopAtInvalidDatainBox(double radius, int index)
@@ -142,6 +193,12 @@ namespace ShapesTest
 
         }
 
+        /// <summary>
+        /// Defines the test method TestFindTotalAreaInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, 4.2, -2)]
         [DataRow(3.2, 4.2, 2)]
@@ -157,6 +214,12 @@ namespace ShapesTest
             Assert.AreEqual(firstCircle.GetArea()+secondCircle.GetArea(),box.GetTotalArea());
         }
 
+        /// <summary>
+        /// Defines the test method TestFindTotalPerimeterInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
+        /// <param name="index">The index.</param>
         [TestMethod]
         [DataRow(3.2, 4.2, -2)]
         [DataRow(3.2, 4.2, 2)]
@@ -172,6 +235,13 @@ namespace ShapesTest
             Assert.AreEqual(firstCircle.GetPerimeter()+secondCircle.GetPerimeter(),box.GetTotalPerimeter());
         }
 
+        /// <summary>
+        /// Defines the test method TestGetAllCirclesFromBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="numberOfCircles">The number of circles.</param>
         [TestMethod]
         [DataRow(3.2, 4.2, 2, 2)]
         public void TestGetAllCirclesFromBox(double radius, double newRadius, double side, int numberOfCircles)
@@ -191,6 +261,13 @@ namespace ShapesTest
             Assert.AreEqual(numberOfCircles, box.GetAllCircles().Count);
         }
 
+        /// <summary>
+        /// Defines the test method TestGetAllMembraneFromBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="newRadius">The new radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="numberOfMembrane">The number of membrane.</param>
         [TestMethod]
         [DataRow(3.2, 4.2, 2, 2)]
         public void TestGetAllMembraneFromBox(double radius, double newRadius, double side, int numberOfMembrane)
@@ -210,6 +287,13 @@ namespace ShapesTest
             Assert.AreEqual(numberOfMembrane, box.GetAllCircles().Count);
         }
 
+        /// <summary>
+        /// Defines the test method TestStreamIoInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
         public void TestStreamIoInBox(double radius, double side, Color color, string fileName)
@@ -233,6 +317,13 @@ namespace ShapesTest
             Assert.IsTrue(shapes.SequenceEqual(new List<IShape>() { box.FindAt(0), box.FindAt(1) }));
         }
 
+        /// <summary>
+        /// Defines the test method TestXmlIoInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
         public void TestXmlIoInBox(double radius, double side, Color color, string fileName)
@@ -256,6 +347,13 @@ namespace ShapesTest
             Assert.IsTrue(shapes.SequenceEqual(box.GetAllShapes()));
         }
 
+        /// <summary>
+        /// Defines the test method TestXmlWritetOnlyPaperInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
         public void TestXmlWritetOnlyPaperInBox(double radius, double side, Color color, string fileName)
@@ -280,6 +378,13 @@ namespace ShapesTest
         }
 
 
+        /// <summary>
+        /// Defines the test method TestXmlWritetOnlyMembraneInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
         public void TestXmlWritetOnlyMembraneInBox(double radius, double side, Color color, string fileName)
@@ -303,6 +408,13 @@ namespace ShapesTest
             Assert.IsTrue(shapes.Where(e => e is IMembrane).SequenceEqual(box.GetAllShapes()));
         }
 
+        /// <summary>
+        /// Defines the test method TestStreamWritetOnlyPaperInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
         public void TestStreamWritetOnlyPaperInBox(double radius, double side, Color color, string fileName)
@@ -327,6 +439,13 @@ namespace ShapesTest
         }
 
 
+        /// <summary>
+        /// Defines the test method TestStreamWritetOnlyMembraneInBox.
+        /// </summary>
+        /// <param name="radius">The radius.</param>
+        /// <param name="side">The side.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="fileName">Name of the file.</param>
         [TestMethod]
         [DataRow(2.3, 4.5, Color.red, "testXml.xml")]
         public void TestStreamWritetOnlyMembraneInBox(double radius, double side, Color color, string fileName)

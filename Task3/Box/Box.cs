@@ -101,6 +101,8 @@ namespace BoxProject
             return shapes.Select(e => e.GetPerimeter()).Sum();
         }
 
+        /// <summary>Gets all shapes.</summary>
+        /// <returns>List of shapes.</returns>
         public List<IShape> GetAllShapes()
         {
             return shapes;
