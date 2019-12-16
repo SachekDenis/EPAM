@@ -65,6 +65,10 @@
       <Project>{102508b8-2d80-4563-8966-d1eed9f5962d}</Project>
       <Name>Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TranslitConverter\TranslitConverter.csproj">
+      <Project>{fdb69e04-49b4-4416-8e07-2e0dc5418d1d}</Project>
+      <Name>TranslitConverter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

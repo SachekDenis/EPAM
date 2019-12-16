@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClientApp;
 using ServerApp;
 using System.Threading.Tasks;
+using TranslitConverter;
 
 namespace ClientServerTest
 {
@@ -10,10 +11,10 @@ namespace ClientServerTest
     public class ClientTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ClientServerTest()
         {
             //Run server in new thread
-            Task.Factory.StartNew(() =>
+            var task = Task.Factory.StartNew(() =>
             {
                 Server server = new Server("127.0.0.1", 80);
                 server.StartServer();
@@ -22,6 +23,14 @@ namespace ClientServerTest
 
             Client client = new Client("127.0.0.1", 80);
             client.StartListenServer();
+        }
+
+        [TestMethod]
+        public void TranslitTest()
+        {
+            Converter converter = new Converter();
+            string translit = converter.toTranslit("ягода");
+            Assert.AreEqual("yagoda",translit);
         }
     }
 }
