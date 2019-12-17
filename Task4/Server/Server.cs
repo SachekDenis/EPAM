@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomEventArgs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,9 @@ namespace ServerApp
 {
     public class Server
     {
+
+        public event EventHandler MessageEvent;
+
         private string _localAdress;
 
         private int _port;
@@ -61,6 +65,47 @@ namespace ServerApp
 
                 stream.Write(messageBytes, 0, messageBytes.Length);
 
+            }
+            catch (SocketException exception)
+            {
+                throw new SocketException(exception.ErrorCode);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+            finally
+            {
+                stream.Close();
+
+                client.Close();
+            }
+        }
+
+
+         public void GetMessage()
+        {
+
+            byte[] data = new byte[256];
+            StringBuilder response = new StringBuilder();
+
+            TcpClient client = null;
+
+            NetworkStream stream = null;
+            try
+            {
+
+                client = server.AcceptTcpClient();
+                stream = client.GetStream();
+
+                do
+                {
+                    int bytes = stream.Read(data, 0, data.Length);
+                    response.Append(Encoding.UTF8.GetString(data, 0, bytes));
+                }
+                while (stream.DataAvailable);
+
+                MessageEvent?.Invoke(this,new MessageEventArgs(response.ToString()));
             }
             catch (SocketException exception)
             {

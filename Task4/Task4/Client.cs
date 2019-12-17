@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomEventArgs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -9,9 +10,7 @@ namespace ClientApp
 {
     public class Client
     {
-        private delegate string CodeMessage(string message);
-
-        event CodeMessage codeMessageEvent;
+        public event EventHandler MessageEvent;
 
         private string _serverAdress;
 
@@ -25,7 +24,7 @@ namespace ClientApp
             this._port = port;
         }
 
-        public void StartListenServer()
+        public void ListenServer()
         {
             byte[] data = new byte[256];
             StringBuilder response = new StringBuilder();
@@ -35,19 +34,39 @@ namespace ClientApp
                 client.Connect(_serverAdress, _port);
                 _serverStream = client.GetStream();
 
-                while (true)
+                do
                 {
-
-                    do
-                    {
-                        int bytes = _serverStream.Read(data, 0, data.Length);
-                        response.Append(Encoding.UTF8.GetString(data, 0, bytes));
-                    }
-                    while (_serverStream.DataAvailable);
-
-                    codeMessageEvent?.Invoke(response.ToString());
-
+                    int bytes = _serverStream.Read(data, 0, data.Length);
+                    response.Append(Encoding.UTF8.GetString(data, 0, bytes));
                 }
+                while (_serverStream.DataAvailable);
+
+                MessageEvent?.Invoke(this,new MessageEventArgs(response.ToString()));
+            }
+            catch (SocketException exeption)
+            {
+                throw new SocketException(exeption.ErrorCode);
+            }
+            finally
+            {
+                client.Close();
+            }
+        }
+
+        public void SendToServer(string message)
+        {
+            byte[] data = new byte[256];
+            StringBuilder response = new StringBuilder();
+            TcpClient client = new TcpClient();
+            try
+            {
+                client.Connect(_serverAdress, _port);
+                _serverStream = client.GetStream();
+
+                byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+
+                _serverStream.Write(messageBytes, 0, messageBytes.Length);
+
             }
             catch (SocketException exeption)
             {

@@ -11,7 +11,7 @@ namespace ClientServerTest
     public class ClientTest
     {
         [TestMethod]
-        public void ClientServerTest()
+        public void ClientReadServerWriteTest()
         {
             //Run server in new thread
             var task = Task.Factory.StartNew(() =>
@@ -22,7 +22,22 @@ namespace ClientServerTest
             });
 
             Client client = new Client("127.0.0.1", 80);
-            client.StartListenServer();
+            client.ListenServer();
+        }
+
+        [TestMethod]
+        public void ClientWriteServerReadTest()
+        {
+            //Run server in new thread
+            var task = Task.Factory.StartNew(() =>
+            {
+                Server server = new Server("127.0.0.1", 80);
+                server.StartServer();
+                server.GetMessage();
+            });
+
+            Client client = new Client("127.0.0.1", 80);
+            client.SendToServer("kkk");
         }
 
         [TestMethod]
