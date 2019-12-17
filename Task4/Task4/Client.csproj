@@ -43,12 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="ClientMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CustomEventArgs\CustomEventArgs.csproj">
       <Project>{FD4500F8-BF41-405F-817A-2D7C28D0E77C}</Project>
       <Name>CustomEventArgs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TranslitConverter\TranslitConverter.csproj">
+      <Project>{FDB69E04-49B4-4416-8E07-2E0DC5418D1D}</Project>
+      <Name>TranslitConverter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

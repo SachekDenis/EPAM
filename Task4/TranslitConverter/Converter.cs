@@ -83,7 +83,7 @@ namespace TranslitConverter
         };
         }
 
-        public string toTranslit(string russianText)
+        public string ToTranslit(string russianText)
         {
             return russianText.Select(letter => translitPairs[letter.ToString()])
                               .Aggregate((prevTranslitString, curTranslitString) => String.Concat(prevTranslitString,curTranslitString));

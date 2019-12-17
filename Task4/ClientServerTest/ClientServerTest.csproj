@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomEventArgs\CustomEventArgs.csproj">
+      <Project>{FD4500F8-BF41-405F-817A-2D7C28D0E77C}</Project>
+      <Name>CustomEventArgs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Server\Server.csproj">
       <Project>{a41c50fa-cd15-44cc-be5a-37251c3432df}</Project>
       <Name>Server</Name>

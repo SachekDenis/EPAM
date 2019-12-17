@@ -4,6 +4,7 @@ using ClientApp;
 using ServerApp;
 using System.Threading.Tasks;
 using TranslitConverter;
+using Task4;
 
 namespace ClientServerTest
 {
@@ -18,11 +19,15 @@ namespace ClientServerTest
             {
                 Server server = new Server("127.0.0.1", 80);
                 server.StartServer();
-                server.SendMessage("kkk");
+                server.SendMessage("русский");
             });
 
             Client client = new Client("127.0.0.1", 80);
+            ClientMessageHandler messageHandler = new ClientMessageHandler();
+            client.MessageEvent+= messageHandler.HandleMessage;
             client.ListenServer();
+
+            Assert.AreEqual("russkij",messageHandler.ConvertedMessage);
         }
 
         [TestMethod]
@@ -44,7 +49,7 @@ namespace ClientServerTest
         public void TranslitTest()
         {
             Converter converter = new Converter();
-            string translit = converter.toTranslit("ягода");
+            string translit = converter.ToTranslit("ягода");
             Assert.AreEqual("yagoda",translit);
         }
     }
