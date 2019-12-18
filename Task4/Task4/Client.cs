@@ -24,7 +24,7 @@ namespace ClientApp
             this._port = port;
         }
 
-        public void ListenServer()
+        public void GetMessage()
         {
             byte[] data = new byte[256];
             StringBuilder response = new StringBuilder();
@@ -53,7 +53,7 @@ namespace ClientApp
             }
         }
 
-        public void SendToServer(string message)
+        public void SendMessage(string message)
         {
             byte[] data = new byte[256];
             StringBuilder response = new StringBuilder();

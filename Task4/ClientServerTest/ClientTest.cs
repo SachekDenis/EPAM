@@ -25,7 +25,7 @@ namespace ClientServerTest
             Client client = new Client("127.0.0.1", 80);
             ClientMessageHandler messageHandler = new ClientMessageHandler();
             client.MessageEvent+= messageHandler.HandleMessage;
-            client.ListenServer();
+            client.GetMessage();
 
             Assert.AreEqual("russkij",messageHandler.ConvertedMessage);
         }
@@ -42,7 +42,7 @@ namespace ClientServerTest
             });
 
             Client client = new Client("127.0.0.1", 80);
-            client.SendToServer("kkk");
+            client.SendMessage("kkk");
         }
 
         [TestMethod]
