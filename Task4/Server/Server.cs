@@ -105,7 +105,10 @@ namespace ServerApp
                 }
                 while (stream.DataAvailable);
 
-                MessageEvent?.Invoke(this,new MessageEventArgs(response.ToString()));
+
+                //Send Ip of client and message from it
+                
+                MessageEvent?.Invoke((client.Client.RemoteEndPoint as IPEndPoint).Address,new MessageEventArgs(response.ToString()));
             }
             catch (SocketException exception)
             {

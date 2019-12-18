@@ -47,6 +47,10 @@ namespace ClientApp
             {
                 throw new SocketException(exeption.ErrorCode);
             }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
             finally
             {
                 client.Close();
@@ -55,8 +59,6 @@ namespace ClientApp
 
         public void SendMessage(string message)
         {
-            byte[] data = new byte[256];
-            StringBuilder response = new StringBuilder();
             TcpClient client = new TcpClient();
             try
             {
@@ -71,6 +73,10 @@ namespace ClientApp
             catch (SocketException exeption)
             {
                 throw new SocketException(exeption.ErrorCode);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
             }
             finally
             {
