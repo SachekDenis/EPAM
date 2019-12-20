@@ -76,14 +76,15 @@ namespace ServerApp
             }
             finally
             {
-                stream.Close();
-
-                client.Close();
+                if (stream != null)
+                    stream.Close();
+                if (client != null)
+                    client.Close();
             }
         }
 
 
-         public void GetMessage()
+        public void GetMessage()
         {
 
             byte[] data = new byte[256];
@@ -107,8 +108,8 @@ namespace ServerApp
 
 
                 //Send Ip of client and message from it
-                
-                MessageEvent?.Invoke((client.Client.RemoteEndPoint as IPEndPoint).Address,new MessageEventArgs(response.ToString()));
+
+                MessageEvent?.Invoke((client.Client.RemoteEndPoint as IPEndPoint).Address, new MessageEventArgs(response.ToString()));
             }
             catch (SocketException exception)
             {
@@ -120,9 +121,10 @@ namespace ServerApp
             }
             finally
             {
-                stream.Close();
-
-                client.Close();
+                if (stream != null)
+                    stream.Close();
+                if (client != null)
+                    client.Close();
             }
         }
 

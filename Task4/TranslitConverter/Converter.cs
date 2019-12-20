@@ -85,6 +85,10 @@ namespace TranslitConverter
 
         public string ToTranslit(string russianText)
         {
+            if (russianText == String.Empty)
+                throw new ArgumentException();
+            if (russianText == null)
+                throw new ArgumentNullException();
             return russianText.Select(letter => translitPairs[letter.ToString()])
                               .Aggregate((prevTranslitString, curTranslitString) => String.Concat(prevTranslitString,curTranslitString));
         }
