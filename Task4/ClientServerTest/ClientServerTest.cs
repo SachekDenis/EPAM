@@ -32,7 +32,7 @@ namespace ClientServerTest
         }
 
         [TestMethod]
-        [DataRow("127.0.0.1",80,"русский","русский")]
+        [DataRow("127.0.0.2",80,"русский","русский")]
         public void ClientWriteServerReadTest(string ip, int port, string clientString, string receivedMessage)
         {
             ServerMessageHandler messageHandler = new ServerMessageHandler();
@@ -53,7 +53,7 @@ namespace ClientServerTest
 
 
         [TestMethod]
-        [DataRow("127.0.0.1",80,"русский","russkij")]
+        [DataRow("127.0.0.3",80,"русский","russkij")]
         public void ClientReadMultipleServerWriteTest(string ip, int port, string serverString, string convertedMessage)
         {
             //Run server in new thread
@@ -77,7 +77,7 @@ namespace ClientServerTest
         }
 
         [TestMethod]
-        [DataRow("127.0.0.1",80,"русский","русский")]
+        [DataRow("127.0.0.4",80,"русский","русский")]
         public void ClientWriteServerReadMultipleTest(string ip, int port, string clientString, string receivedMessage)
         {
             ServerMessageHandler firstMessageHandler = new ServerMessageHandler();

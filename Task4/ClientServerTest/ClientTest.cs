@@ -30,7 +30,7 @@ namespace ClientServerTest
         }
 
         [TestMethod]
-        [DataRow("255.255.255.255", 80,"test")]
+        [DataRow("255.255.255.0", 80,"test")]
         public void TryingSendToUnexistedServerMustThrowExeption(string ip, int port, string message)
         {
             Client client = new Client(ip, port);
