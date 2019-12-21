@@ -13,30 +13,32 @@ namespace ServerApp
     /// </summary>
     public class ServerMessageHandler
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ServerMessageHandler"/> class.
-        /// </summary>
-        public ServerMessageHandler()
-        {
-            ServerMessages = new Dictionary<IPAddress, string>();
-        }
 
         /// <summary>
         /// Gets the server messages.
         /// </summary>
         /// <value>The server messages.</value>
-        public Dictionary<IPAddress,string> ServerMessages{get;private set;}
+        public Dictionary<IPAddress, string> ServerMessages { get; private set; }
+
         /// <summary>
-        /// Handles the message.
+        /// Handle message.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="ArgumentException"></exception>
-        public void HandleMessage(object sender, EventArgs e)
+        /// <value>The handle message.</value>
+        public EventHandler HandleMessage { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerMessageHandler" /> class.
+        /// </summary>
+        public ServerMessageHandler()
         {
-            if(!(sender is IPAddress))
-                throw new ArgumentException();
-            ServerMessages.Add((sender as IPAddress),(e as MessageEventArgs).Message);
+            ServerMessages = new Dictionary<IPAddress, string>();
+
+            HandleMessage = (object sender, EventArgs e) =>
+            {
+                if (!(sender is IPAddress))
+                    throw new ArgumentException();
+                ServerMessages.Add((sender as IPAddress), (e as MessageEventArgs).Message);
+            };
         }
     }
 }

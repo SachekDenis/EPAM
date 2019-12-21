@@ -17,20 +17,28 @@ namespace Task4
         /// Gets the converted message.
         /// </summary>
         /// <value>The converted message.</value>
-        public string ConvertedMessage{ get;private set;}
+        public string ConvertedMessage { get; private set; }
 
         /// <summary>
-        /// Handles the message.
+        /// Handle message.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="ArgumentException"></exception>
-        public void HandleMessage(object sender, EventArgs e)
+        /// <value>The handle message.</value>
+        public EventHandler HandleMessage { get;private set;}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientMessageHandler"/> class.
+        /// </summary>
+        public ClientMessageHandler()
         {
-            if(!(e is MessageEventArgs))
-                throw new ArgumentException();
-            Converter converter = new Converter();
-            ConvertedMessage = converter.ToTranslit((e as MessageEventArgs).Message);
+            ConvertedMessage = string.Empty;
+
+            HandleMessage = (object sender, EventArgs e) =>
+            {
+                if (!(e is MessageEventArgs))
+                    throw new ArgumentException();
+                Converter converter = new Converter();
+                ConvertedMessage = converter.ToTranslit((e as MessageEventArgs).Message);
+            };
         }
     }
 }
