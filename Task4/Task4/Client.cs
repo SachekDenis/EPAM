@@ -8,22 +8,48 @@ using System.Threading.Tasks;
 
 namespace ClientApp
 {
+    /// <summary>
+    /// Class Client.
+    /// </summary>
     public class Client
     {
+        /// <summary>
+        /// Occurs when recived message.
+        /// </summary>
         public event EventHandler MessageEvent;
 
+        /// <summary>
+        /// The server adress
+        /// </summary>
         private string _serverAdress;
 
+        /// <summary>
+        /// The port
+        /// </summary>
         private int _port;
 
+        /// <summary>
+        /// The server stream
+        /// </summary>
         private NetworkStream _serverStream;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Client"/> class.
+        /// </summary>
+        /// <param name="serverAdress">The server adress.</param>
+        /// <param name="port">The port.</param>
+        /// <exception cref="ArgumentNullException">serverAdress</exception>
         public Client(string serverAdress, int port)
         {
             _serverAdress = serverAdress ?? throw new ArgumentNullException(nameof(serverAdress));
             this._port = port;
         }
 
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <exception cref="SocketException"></exception>
+        /// <exception cref="Exception"></exception>
         public void GetMessage()
         {
             byte[] data = new byte[256];
@@ -57,6 +83,12 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Sends the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <exception cref="SocketException"></exception>
+        /// <exception cref="Exception"></exception>
         public void SendMessage(string message)
         {
             TcpClient client = new TcpClient();

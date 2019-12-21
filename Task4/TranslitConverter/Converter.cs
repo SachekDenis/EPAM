@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace TranslitConverter
 {
+    /// <summary>
+    /// Class Converter.
+    /// </summary>
     public class Converter
     {
+        /// <summary>
+        /// The translit pairs
+        /// </summary>
         private Dictionary<string, string> translitPairs;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Converter"/> class.
+        /// </summary>
         public Converter()
         {
             translitPairs = new Dictionary<string, string>()
@@ -83,6 +92,13 @@ namespace TranslitConverter
         };
         }
 
+        /// <summary>
+        /// Converts to translit.
+        /// </summary>
+        /// <param name="russianText">The russian text.</param>
+        /// <returns>Converted text</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public string ToTranslit(string russianText)
         {
             if (russianText == String.Empty)

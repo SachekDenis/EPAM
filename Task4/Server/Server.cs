@@ -9,23 +9,50 @@ using System.Threading.Tasks;
 
 namespace ServerApp
 {
+    /// <summary>
+    /// Class Server.
+    /// </summary>
     public class Server
     {
 
+        /// <summary>
+        /// Occurs when recived message.
+        /// </summary>
         public event EventHandler MessageEvent;
 
+        /// <summary>
+        /// The local adress
+        /// </summary>
         private string _localAdress;
 
+        /// <summary>
+        /// The port
+        /// </summary>
         private int _port;
 
+        /// <summary>
+        /// The server
+        /// </summary>
         private TcpListener server;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Server"/> class.
+        /// </summary>
+        /// <param name="localAdress">The local adress.</param>
+        /// <param name="port">The port.</param>
+        /// <exception cref="ArgumentNullException">localAdress</exception>
         public Server(string localAdress, int port)
         {
             _localAdress = localAdress ?? throw new ArgumentNullException(nameof(localAdress));
             _port = port;
         }
 
+        /// <summary>
+        /// Starts the server.
+        /// </summary>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="SocketException"></exception>
+        /// <exception cref="Exception"></exception>
         public void StartServer()
         {
             try
@@ -50,6 +77,12 @@ namespace ServerApp
             }
         }
 
+        /// <summary>
+        /// Sends the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <exception cref="SocketException"></exception>
+        /// <exception cref="Exception"></exception>
         public void SendMessage(string message)
         {
             TcpClient client = null;
@@ -84,6 +117,11 @@ namespace ServerApp
         }
 
 
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <exception cref="SocketException"></exception>
+        /// <exception cref="Exception"></exception>
         public void GetMessage()
         {
 
