@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Task4\Client.csproj", "{102508B8-2D80-4563-8966-D1EED9F5962D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientServerTest", "ClientServerTest\ClientServerTest.csproj", "{A78AA964-E55B-4AA9-9F5D-18E7E8A6E28B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{A41C50FA-CD15-44CC-BE5A-37251C3432DF}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslitConverter", "Transl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomEventArgs", "CustomEventArgs\CustomEventArgs.csproj", "{FD4500F8-BF41-405F-817A-2D7C28D0E77C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{102508B8-2D80-4563-8966-D1EED9F5962D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{102508B8-2D80-4563-8966-D1EED9F5962D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{102508B8-2D80-4563-8966-D1EED9F5962D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{102508B8-2D80-4563-8966-D1EED9F5962D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{102508B8-2D80-4563-8966-D1EED9F5962D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A78AA964-E55B-4AA9-9F5D-18E7E8A6E28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A78AA964-E55B-4AA9-9F5D-18E7E8A6E28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A78AA964-E55B-4AA9-9F5D-18E7E8A6E28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{FD4500F8-BF41-405F-817A-2D7C28D0E77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD4500F8-BF41-405F-817A-2D7C28D0E77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD4500F8-BF41-405F-817A-2D7C28D0E77C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102508B8-2D80-4563-8966-D1EED9F5962D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102508B8-2D80-4563-8966-D1EED9F5962D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102508B8-2D80-4563-8966-D1EED9F5962D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102508B8-2D80-4563-8966-D1EED9F5962D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

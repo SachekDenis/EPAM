@@ -4,7 +4,6 @@ using ClientApp;
 using ServerApp;
 using System.Threading.Tasks;
 using TranslitConverter;
-using Task4;
 using System.Net.Sockets;
 
 namespace ClientServerTest
