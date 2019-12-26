@@ -15,7 +15,7 @@ namespace TreeApp
 
         public void Add(T value)
         {
-            if(value == null)
+            if (value == null)
                 throw new ArgumentNullException();
             _root = Insert(_root, value);
             Count++;
@@ -23,14 +23,14 @@ namespace TreeApp
 
         public void Delete(T value)
         {
-            if(value == null)
+            if (value == null)
                 throw new ArgumentNullException();
             _root = Remove(_root, value);
         }
 
         public T Find(T value)
         {
-            if(value == null)
+            if (value == null)
                 throw new ArgumentNullException();
             Node<T> node = FindNode(_root, value);
             if (node != null)
@@ -41,7 +41,7 @@ namespace TreeApp
 
         public bool Contains(T value)
         {
-            if(value == null)
+            if (value == null)
                 throw new ArgumentNullException();
             return FindNode(_root, value) != null;
         }
@@ -79,15 +79,15 @@ namespace TreeApp
         private Node<T> Balance(Node<T> node)
         {
             node.RestoreHeight();
-            if (node.BalanceFactor() == 2)
+            if (node.GetBalanceFactor() == 2)
             {
-                if (node.RightNode.BalanceFactor() < 0)
+                if (node.RightNode.GetBalanceFactor() < 0)
                     node.RightNode = RotateRight(node.RightNode);
                 return RotateLeft(node);
             }
-            if (node.BalanceFactor() == -2)
+            if (node.GetBalanceFactor() == -2)
             {
-                if (node.LeftNode.BalanceFactor() > 0)
+                if (node.LeftNode.GetBalanceFactor() > 0)
                     node.LeftNode = RotateLeft(node.LeftNode);
                 return RotateRight(node);
             }
@@ -105,7 +105,7 @@ namespace TreeApp
             return Balance(node);
         }
 
-        private Node<T> FindMinNode(Node<T> node) 
+        private Node<T> FindMinNode(Node<T> node)
         {
             return node.LeftNode != null ? FindMinNode(node.LeftNode) : node;
         }
@@ -130,16 +130,37 @@ namespace TreeApp
                 // Finded node
                 // Reduce count only if finded node
                 Count--;
-                Node<T> firdtNode = node.LeftNode;
+                Node<T> firstNode = node.LeftNode;
                 Node<T> secondNode = node.RightNode;
                 node = null;
-                if (secondNode == null) return firdtNode;
+                if (secondNode == null) return firstNode;
                 Node<T> min = FindMinNode(secondNode);
                 min.RightNode = RemoveMin(secondNode);
-                min.LeftNode = firdtNode;
+                min.LeftNode = firstNode;
                 return Balance(min);
             }
             return Balance(node);
+        }
+
+
+        private IEnumerable<T> PreOrderTraversal(Node<T> node)
+        {
+            if (node != null)
+            {
+                yield return node.Key;
+
+                foreach (var key in PreOrderTraversal(node.LeftNode))
+                {
+                    yield return key;
+                }
+
+                foreach (var key in PreOrderTraversal(node.RightNode))
+                {
+                    yield return key;
+                }
+                //PreOrderTraversal(node.LeftNode);
+                //PreOrderTraversal(node.RightNode);
+            }
         }
 
         private IEnumerator<T> InOrderTraversal()
@@ -190,7 +211,7 @@ namespace TreeApp
 
         public IEnumerator<T> GetEnumerator()
         {
-            return InOrderTraversal();
+            return PreOrderTraversal(_root).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
