@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TreeApp;
 
@@ -12,14 +13,20 @@ namespace TreeTestLibriary
         {
             Tree<int> tree = new Tree<int>();
             tree.Add(10);
-            tree.Add(5);
-            tree.Add(15);
-            tree.Add(11);
+            tree.Delete(1);
+            tree.Add(10);
+            tree.Add(10);
+            tree.Add(9);
             tree.Add(1);
             tree.Add(18);
             tree.Add(16);
             tree.Add(23);
             tree.Delete(1);
+            var l = tree.ToList();
+            foreach(var node in tree)
+            {
+                var k = node*3;
+            }        
 
         }
     }

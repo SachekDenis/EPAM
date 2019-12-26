@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,36 +7,53 @@ using System.Threading.Tasks;
 
 namespace TreeApp
 {
-    public class Tree<T> where T : IComparable
+    public class Tree<T> : IEnumerable<T> where T : IComparable
     {
         private Node<T> _root;
 
+        public int Count { get; private set; }
+
         public void Add(T value)
         {
-            _root = Insert(_root,value);
+            if(value == null)
+                throw new ArgumentNullException();
+            _root = Insert(_root, value);
+            Count++;
         }
 
         public void Delete(T value)
         {
-            _root =Remove(_root,value);
+            if(value == null)
+                throw new ArgumentNullException();
+            _root = Remove(_root, value);
         }
 
-        public List<T> Print()
+        public T Find(T value)
         {
-            var list = new List<T>();
-            ConvertTreeToList(_root,list);
-            return list;
+            if(value == null)
+                throw new ArgumentNullException();
+            Node<T> node = FindNode(_root, value);
+            if (node != null)
+                return node.Key;
+            else
+                return default;
         }
 
-        private void ConvertTreeToList(Node<T> node,List<T> list )
+        public bool Contains(T value)
         {
-            if(node == null)
-                return;
-            ConvertTreeToList(node.LeftNode,list);
-            list.Add(node.Key);
-            if(node.RightNode!=null)
-                ConvertTreeToList(node.RightNode,list);
+            if(value == null)
+                throw new ArgumentNullException();
+            return FindNode(_root, value) != null;
+        }
 
+        private Node<T> FindNode(Node<T> node, T value)
+        {
+            if (node == null || value.CompareTo(node.Key) == 0)
+                return node;
+            if (value.CompareTo(node.Key) == -1)
+                return FindNode(node.LeftNode, value);
+            else
+                return FindNode(node.RightNode, value);
         }
 
         private Node<T> RotateRight(Node<T> node)
@@ -58,7 +76,7 @@ namespace TreeApp
             return tmpNode;
         }
 
-        private Node<T> Balance(Node<T> node) // балансировка узла p
+        private Node<T> Balance(Node<T> node)
         {
             node.RestoreHeight();
             if (node.BalanceFactor() == 2)
@@ -73,7 +91,7 @@ namespace TreeApp
                     node.LeftNode = RotateLeft(node.LeftNode);
                 return RotateRight(node);
             }
-            return node; // балансировка не нужна
+            return node;
         }
 
         private Node<T> Insert(Node<T> node, T value)
@@ -87,12 +105,12 @@ namespace TreeApp
             return Balance(node);
         }
 
-        private Node<T> FindMinNode(Node<T> node) // поиск узла с минимальным ключом в дереве p 
+        private Node<T> FindMinNode(Node<T> node) 
         {
             return node.LeftNode != null ? FindMinNode(node.LeftNode) : node;
         }
 
-        private Node<T> RemoveMin(Node<T> node) // удаление узла с минимальным ключом из дерева p
+        private Node<T> RemoveMin(Node<T> node)
         {
             if (node.LeftNode == null)
                 return node.RightNode;
@@ -100,17 +118,20 @@ namespace TreeApp
             return Balance(node);
         }
 
-        private Node<T> Remove(Node<T> node, T value) // удаление ключа k из дерева p
+        private Node<T> Remove(Node<T> node, T value)
         {
             if (node == null) return null;
-            if (value.CompareTo(node.Key)==-1)
+            if (value.CompareTo(node.Key) == -1)
                 node.LeftNode = Remove(node.LeftNode, value);
-            else if (value.CompareTo(node.Key)==1)
+            else if (value.CompareTo(node.Key) == 1)
                 node.RightNode = Remove(node.RightNode, value);
-            else //  k == p->key 
+            else
             {
+                // Finded node
+                // Reduce count only if finded node
+                Count--;
                 Node<T> firdtNode = node.LeftNode;
-                Node<T>  secondNode = node.RightNode;
+                Node<T> secondNode = node.RightNode;
                 node = null;
                 if (secondNode == null) return firdtNode;
                 Node<T> min = FindMinNode(secondNode);
@@ -119,6 +140,62 @@ namespace TreeApp
                 return Balance(min);
             }
             return Balance(node);
+        }
+
+        private IEnumerator<T> InOrderTraversal()
+        {
+            if (_root != null)
+            {
+                // Stack to save missing nodes.
+                Stack<Node<T>> stack = new Stack<Node<T>>();
+
+                Node<T> current = _root;
+
+                bool goLeftNext = true;
+
+                stack.Push(current);
+
+                while (stack.Count > 0)
+                {
+                    if (goLeftNext)
+                    {
+                        // Put everything except the leftmost node on the stack.
+                        // We will return the leftmost node with yield.
+                        while (current.LeftNode != null)
+                        {
+                            stack.Push(current);
+                            current = current.LeftNode;
+                        }
+                    }
+
+                    yield return current.Key;
+
+                    if (current.RightNode != null)
+                    {
+                        current = current.RightNode;
+
+                        goLeftNext = true;
+                    }
+                    else
+                    {
+
+                        // If we can't go right, we have to get the parent node
+                        // from the stack, process it and go to its right child.
+                        current = stack.Pop();
+                        goLeftNext = false;
+                    }
+                }
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return InOrderTraversal();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
