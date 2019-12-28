@@ -15,7 +15,7 @@ namespace TreeApp
     internal class Node<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Node{T}"/> class.
+        /// Initializes a new instance of the <see cref="Node{T}" /> class.
         /// </summary>
         /// <param name="key">The key.</param>
         public Node(T key)
@@ -78,6 +78,11 @@ namespace TreeApp
             _height = (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is Node<T> node &&
@@ -87,6 +92,10 @@ namespace TreeApp
                    EqualityComparer<Node<T>>.Default.Equals(RightNode, node.RightNode);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             var hashCode = 619244618;

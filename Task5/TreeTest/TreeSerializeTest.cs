@@ -6,9 +6,17 @@ using TreeApp;
 
 namespace TreeTest
 {
+    /// <summary>
+    /// Defines test class TreeSerializeTest.
+    /// </summary>
     [TestClass]
     public class TreeSerializeTest
     {
+        /// <summary>
+        /// Defines the test method TreeSerializationTest.
+        /// </summary>
+        /// <param name="arrayOfValues">The array of values.</param>
+        /// <param name="path">The path.</param>
         [TestMethod]
         [DataRow(new int[] { 1, 2, 3, 4, 5 }, "1.xml")]
         public void TreeSerializationTest(int[] arrayOfValues, string path)

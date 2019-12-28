@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Serializtion.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,8 +47,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Task5\Tree.csproj">
-      <Project>{4A8BA5A3-C4BE-4A27-AA42-21A49BF6CD0E}</Project>
+    <ProjectReference Include="..\Tree\Tree.csproj">
+      <Project>{4a8ba5a3-c4be-4a27-aa42-21a49bf6cd0e}</Project>
       <Name>Tree</Name>
     </ProjectReference>
   </ItemGroup>

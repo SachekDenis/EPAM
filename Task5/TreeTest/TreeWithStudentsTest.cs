@@ -9,9 +9,18 @@ using TreeApp;
 
 namespace TreeTest
 {
+    /// <summary>
+    /// Defines test class TreeWithStudentsTest.
+    /// </summary>
     [TestClass]
     public class TreeWithStudentsTest
     {
+        /// <summary>
+        /// Defines the test method StoringTestsInTreeTest.
+        /// </summary>
+        /// <param name="marks">The marks.</param>
+        /// <param name="names">The names.</param>
+        /// <param name="tests">The tests.</param>
         [TestMethod]
         [DataRow(new int[] { 7, 4, 9, 2, 1 },
                  new string[] { "Denis", "Max", "Vadim", "Vlad", "Pavel" },
@@ -35,6 +44,13 @@ namespace TreeTest
             Assert.IsTrue(expectedList.SequenceEqual(treeToList));
         }
 
+        /// <summary>
+        /// Defines the test method SerializeTestDataTreeTest.
+        /// </summary>
+        /// <param name="marks">The marks.</param>
+        /// <param name="names">The names.</param>
+        /// <param name="tests">The tests.</param>
+        /// <param name="path">The path.</param>
         [TestMethod]
         [DataRow(new int[] { 7, 4, 9, 2, 1 },
                  new string[] { "Denis", "Max", "Vadim", "Vlad", "Pavel" },

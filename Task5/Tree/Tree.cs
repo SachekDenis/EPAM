@@ -8,18 +8,39 @@ using System.Threading.Tasks;
 
 namespace TreeApp
 {
+    /// <summary>
+    /// Class Tree.
+    /// Implements the <see cref="System.Collections.Generic.IEnumerable{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
     [DataContract]
     public class Tree<T> : IEnumerable<T> where T : IComparable
     {
+        /// <summary>
+        /// The root
+        /// </summary>
         [DataMember]
         private Node<T> _root;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Tree{T}"/> class.
+        /// </summary>
         public Tree()
         {}
 
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>The count.</value>
         [DataMember]
         public int Count { get; private set; }
 
+        /// <summary>
+        /// Adds the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public void Add(T value)
         {
             if (value == null)
@@ -28,6 +49,11 @@ namespace TreeApp
             Count++;
         }
 
+        /// <summary>
+        /// Deletes the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public void Delete(T value)
         {
             if (value == null)
@@ -35,6 +61,12 @@ namespace TreeApp
             _root = Remove(_root, value);
         }
 
+        /// <summary>
+        /// Finds the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public T Find(T value)
         {
             if (value == null)
@@ -46,6 +78,12 @@ namespace TreeApp
                 return default;
         }
 
+        /// <summary>
+        /// Determines whether this instance contains the object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [contains] [the specified value]; otherwise, <c>false</c>.</returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public bool Contains(T value)
         {
             if (value == null)
@@ -53,6 +91,12 @@ namespace TreeApp
             return FindNode(_root, value) != null;
         }
 
+        /// <summary>
+        /// Finds the node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The node.</returns>
         private Node<T> FindNode(Node<T> node, T value)
         {
             if (node == null || value.CompareTo(node.Key) == 0)
@@ -63,6 +107,11 @@ namespace TreeApp
                 return FindNode(node.RightNode, value);
         }
 
+        /// <summary>
+        /// Right rotate of subtree.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>The node.</returns>
         private Node<T> RotateRight(Node<T> node)
         {
             Node<T> tmpNode = node.LeftNode;
@@ -73,6 +122,11 @@ namespace TreeApp
             return tmpNode;
         }
 
+        /// <summary>
+        /// Lefts rotate of subtree.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>The node.</returns>
         private Node<T> RotateLeft(Node<T> node)
         {
             Node<T> tmpNode = node.RightNode;
@@ -83,6 +137,11 @@ namespace TreeApp
             return tmpNode;
         }
 
+        /// <summary>
+        /// Balances the specified node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>The node.</returns>
         private Node<T> Balance(Node<T> node)
         {
             node.RestoreHeight();
@@ -103,6 +162,12 @@ namespace TreeApp
             return node;
         }
 
+        /// <summary>
+        /// Inserts the specified node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The node.</returns>
         private Node<T> Insert(Node<T> node, T value)
         {
             if (node == null)
@@ -114,11 +179,21 @@ namespace TreeApp
             return Balance(node);
         }
 
+        /// <summary>
+        /// Finds the minimum node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>The node.</returns>
         private Node<T> FindMinNode(Node<T> node)
         {
             return node.LeftNode != null ? FindMinNode(node.LeftNode) : node;
         }
 
+        /// <summary>
+        /// Removes the minimum.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>The node.</returns>
         private Node<T> RemoveMin(Node<T> node)
         {
             if (node.LeftNode == null)
@@ -127,6 +202,12 @@ namespace TreeApp
             return Balance(node);
         }
 
+        /// <summary>
+        /// Removes the specified node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The node.</returns>
         private Node<T> Remove(Node<T> node, T value)
         {
             if (node == null) return null;
@@ -153,6 +234,11 @@ namespace TreeApp
         }
 
 
+        /// <summary>
+        /// Preorder traversal.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns>IEnumerable.</returns>
         private IEnumerable<T> PreOrderTraversal(Node<T> node)
         {
             if (node != null)
@@ -171,16 +257,29 @@ namespace TreeApp
             }
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             return PreOrderTraversal(_root).GetEnumerator();
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is Tree<T> tree &&
@@ -188,6 +287,10 @@ namespace TreeApp
                    Count == tree.Count;
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             var hashCode = 1677102654;
