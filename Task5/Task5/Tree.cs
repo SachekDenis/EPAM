@@ -2,15 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TreeApp
 {
+    [DataContract]
     public class Tree<T> : IEnumerable<T> where T : IComparable
     {
+        [DataMember]
         private Node<T> _root;
 
+        public Tree()
+        {}
+
+        [DataMember]
         public int Count { get; private set; }
 
         public void Add(T value)
@@ -79,12 +86,14 @@ namespace TreeApp
         private Node<T> Balance(Node<T> node)
         {
             node.RestoreHeight();
+            // if height of right subtree bigger on 2
             if (node.GetBalanceFactor() == 2)
             {
                 if (node.RightNode.GetBalanceFactor() < 0)
                     node.RightNode = RotateRight(node.RightNode);
                 return RotateLeft(node);
             }
+            // if height of left subtree bigger on 2
             if (node.GetBalanceFactor() == -2)
             {
                 if (node.LeftNode.GetBalanceFactor() > 0)
@@ -121,6 +130,7 @@ namespace TreeApp
         private Node<T> Remove(Node<T> node, T value)
         {
             if (node == null) return null;
+            // search node
             if (value.CompareTo(node.Key) == -1)
                 node.LeftNode = Remove(node.LeftNode, value);
             else if (value.CompareTo(node.Key) == 1)
@@ -158,54 +168,6 @@ namespace TreeApp
                 {
                     yield return key;
                 }
-                //PreOrderTraversal(node.LeftNode);
-                //PreOrderTraversal(node.RightNode);
-            }
-        }
-
-        private IEnumerator<T> InOrderTraversal()
-        {
-            if (_root != null)
-            {
-                // Stack to save missing nodes.
-                Stack<Node<T>> stack = new Stack<Node<T>>();
-
-                Node<T> current = _root;
-
-                bool goLeftNext = true;
-
-                stack.Push(current);
-
-                while (stack.Count > 0)
-                {
-                    if (goLeftNext)
-                    {
-                        // Put everything except the leftmost node on the stack.
-                        // We will return the leftmost node with yield.
-                        while (current.LeftNode != null)
-                        {
-                            stack.Push(current);
-                            current = current.LeftNode;
-                        }
-                    }
-
-                    yield return current.Key;
-
-                    if (current.RightNode != null)
-                    {
-                        current = current.RightNode;
-
-                        goLeftNext = true;
-                    }
-                    else
-                    {
-
-                        // If we can't go right, we have to get the parent node
-                        // from the stack, process it and go to its right child.
-                        current = stack.Pop();
-                        goLeftNext = false;
-                    }
-                }
             }
         }
 
@@ -217,6 +179,21 @@ namespace TreeApp
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Tree<T> tree &&
+                   EqualityComparer<Node<T>>.Default.Equals(_root, tree._root) &&
+                   Count == tree.Count;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1677102654;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Node<T>>.Default.GetHashCode(_root);
+            hashCode = hashCode * -1521134295 + Count.GetHashCode();
+            return hashCode;
         }
     }
 }

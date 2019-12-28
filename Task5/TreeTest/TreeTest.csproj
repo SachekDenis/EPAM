@@ -51,11 +51,21 @@
   <ItemGroup>
     <Compile Include="TreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeSerializeTest.cs" />
+    <Compile Include="TreeWithStudentsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{726CC4FF-750F-4548-AC6A-4020A7B4529D}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Serialization\Serialization.csproj">
+      <Project>{68eca4be-1f17-42c8-bf33-b699d38b7439}</Project>
+      <Name>Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Task5\Tree.csproj">
       <Project>{4A8BA5A3-C4BE-4A27-AA42-21A49BF6CD0E}</Project>
       <Name>Tree</Name>
