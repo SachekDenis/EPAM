@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task6
 {
-    class DbSqlConnection
+    public class DbSqlConnection
     {
         public string ConnectionString { get; set; } = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SessionDb;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     }

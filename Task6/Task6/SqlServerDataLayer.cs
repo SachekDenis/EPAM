@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq.Mapping;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
@@ -10,18 +11,21 @@ using System.Threading.Tasks;
 
 namespace Task6
 {
-    internal class SqlServerDataLayer<T> : IDataLayer<T> where T : class
+    internal class SqlServerDataLayer<T> : ISqlServerDataLayer<T> where T : class
     {
         private readonly string _connectionString;
 
+        private SqlCommadFormatter<T> formatter;
         public SqlServerDataLayer(string connectionString)
         {
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+
+            formatter = new SqlCommadFormatter<T>();
         }
 
         public void Delete(int id)
         {
-            string tableName = GetTableName();
+            string tableName = formatter.GetTableName();
 
             string sqlCommand = $"DELETE FROM {tableName} WHERE Id = {id}";
 
@@ -38,7 +42,7 @@ namespace Task6
         {
             T entity;
 
-            string tableName = GetTableName();
+            string tableName = formatter.GetTableName();
 
             string sqlCommand = $"SELECT * FROM {tableName} WHERE Id = {id}";
 
@@ -51,7 +55,7 @@ namespace Task6
 
                     using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        entity = ToList(dr).FirstOrDefault();
+                        entity = dr.ToList<T>().FirstOrDefault();
                     }
                 }
             }
@@ -63,10 +67,9 @@ namespace Task6
         {
             List<T> returnedList = new List<T>();
 
-            string tableName = GetTableName();
+            string tableName = formatter.GetTableName();
 
             string sqlCommand = $"SELECT * FROM {tableName}";
-
             // Create a connection
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -78,7 +81,7 @@ namespace Task6
 
                     using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        returnedList = ToList(dr);
+                        returnedList = dr.ToList<T>();
                     }
                 }
             }
@@ -86,48 +89,11 @@ namespace Task6
             return returnedList;
         }
 
-        private List<T> ToList(IDataReader rdr)
-        {
-            List<T> listOfEntities = new List<T>();
-            Type type = typeof(T);
-
-            PropertyInfo[] columns = type.GetProperties();
-
-            // Get all the properties in Entity Class
-            ColumnAttribute[] props = type.GetCustomAttributes<ColumnAttribute>().ToArray();
-
-            T entity;
-
-            // Loop through all records
-            while (rdr.Read())
-            {
-                // Create new instance of Entity
-                entity = Activator.CreateInstance<T>();
-
-                // Loop through columns to assign data
-                for (int i = 0; i < columns.Length; i++)
-                {
-                    if (rdr[columns[i].Name].Equals(DBNull.Value))
-                    {
-                        columns[i].SetValue(entity, null, null);
-                    }
-                    else
-                    {
-                        columns[i].SetValue(entity, rdr[props[i].Name], null);
-                    }
-                }
-
-                listOfEntities.Add(entity);
-            }
-
-            return listOfEntities;
-        }
-
         public void Insert(T item)
         {
-            List<SqlParameter> sqlParameters = GetSqlParameters(item);
+            List<SqlParameter> sqlParameters = formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
 
-            string sqlCommand = FormInsertSqlCommand(item);
+            string sqlCommand = formatter.FormInsertSqlCommand(item);
 
             // Create a connection
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -140,83 +106,19 @@ namespace Task6
             }
         }
 
-        private string FormInsertSqlCommand(T item)
-        {
-            Type type = typeof(T);
-
-            List<PropertyInfo> columns = type.GetProperties().ToList();
-
-            string tableName = GetTableName();
-
-            string sqlCommand = $"INSERT INTO {tableName} (";
-
-            columns.ForEach(column =>
-            {
-                sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, ",");
-            });
-
-            sqlCommand = string.Concat(sqlCommand, ") VALUES(");
-
-            columns.ForEach(column =>
-            {
-                sqlCommand = string.Concat(sqlCommand, "@", column.GetCustomAttribute<ColumnAttribute>().Name, ",");
-            });
-
-            sqlCommand = string.Concat(sqlCommand, ")");
-
-            return sqlCommand;
-        }
-
-        private string FormUpdateSqlCommand(int id)
-        {
-            Type type = typeof(T);
-
-            List<PropertyInfo> columns = type.GetProperties().ToList();
-
-            string tableName = GetTableName();
-
-            string sqlCommand = $"UPDATE {tableName} SET";
-
-            columns.ForEach(column =>
-            {
-                sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, "=@", column.GetCustomAttribute<ColumnAttribute>().Name);
-            });
-
-            sqlCommand = string.Concat(sqlCommand, $"WHERE Id = {id}");
-
-            return sqlCommand;
-        }
-
-        private List<SqlParameter> GetSqlParameters(T item)
-        {
-            Type type = typeof(T);
-            List<SqlParameter> sqlParameters = new List<SqlParameter>();
-            List<PropertyInfo> columns = type.GetProperties().ToList();
-
-            columns.ForEach(column =>
-            {
-                sqlParameters.Add(new SqlParameter(column.GetCustomAttribute<ColumnAttribute>().Name, column.GetValue(item, null)));
-            });
-
-            return sqlParameters;
-        }
-        private string GetTableName()
-        {
-            return typeof(T).GetCustomAttribute<TableAttribute>().Name;
-        }
 
         public void Update(T item)
         {
             Type type = typeof(T);
 
-            List<SqlParameter> sqlParameters = GetSqlParameters(item);
+            List<SqlParameter> sqlParameters = formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
 
             int id = (int)type.GetProperties()
                               .Where(property => property.GetCustomAttribute<ColumnAttribute>().Name == "Id")
                               .FirstOrDefault()
                               .GetValue(item,null);
 
-            string sqlCommand = FormUpdateSqlCommand(id);
+            string sqlCommand = formatter.FormUpdateSqlCommand(id);
 
             // Create a connection
             using (SqlConnection connection = new SqlConnection(_connectionString))

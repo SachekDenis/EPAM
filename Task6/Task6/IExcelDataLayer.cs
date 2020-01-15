@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task6
 {
-    public interface IDataLayer<T> where T:class
+    public interface IExcelDataLayer<T> where T:class
     {
         void Insert(T item);
-        T Get(int id);
         List<T> GetAll();
-        void Update(T item);
-        void Delete(int id);
     }
 }
