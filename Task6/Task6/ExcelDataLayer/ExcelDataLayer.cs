@@ -13,19 +13,19 @@ namespace Task6
 
         private readonly string _connectionString;
 
-        private SqlCommadFormatter<T> formatter;
+        private SqlCommadFormatter<T> _formatter;
         public ExcelDataLayer(string connectionString)
         {
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
 
-            formatter = new SqlCommadFormatter<T>();
+            _formatter = new SqlCommadFormatter<T>();
         }
 
         public List<T> GetAll()
         {
             List<T> returnedList = new List<T>();
 
-            string tableName = formatter.GetTableName();
+            string tableName = _formatter.GetTableName();
 
             string sqlCommand = $"SELECT * FROM {tableName}";
             // Create a connection
@@ -49,9 +49,9 @@ namespace Task6
 
         public void Insert(T item)
         {
-            List<OleDbParameter> sqlParameters = formatter.GetSqlParameters(item).Cast<OleDbParameter>().ToList();
+            List<OleDbParameter> sqlParameters = _formatter.GetSqlParameters(item).Cast<OleDbParameter>().ToList();
 
-            string sqlCommand = formatter.FormInsertSqlCommand(item);
+            string sqlCommand = _formatter.FormInsertSqlCommand(item);
 
             // Create a connection
             using (OleDbConnection connection = new OleDbConnection(_connectionString))
