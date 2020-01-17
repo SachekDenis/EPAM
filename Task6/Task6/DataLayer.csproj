@@ -55,11 +55,5 @@
     <Compile Include="Helpers\SqlCommadFormatter.cs" />
     <Compile Include="DbDataLayer\SqlServerDataLayer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{CAD07772-F1DC-4F37-BB5A-EC22601F8D4D}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

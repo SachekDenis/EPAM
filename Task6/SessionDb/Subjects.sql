@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Subjects]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
     [Name] NVARCHAR(MAX) NOT NULL, 
     [Date] DATETIME NOT NULL, 
     [SessionId] INT NOT NULL, 

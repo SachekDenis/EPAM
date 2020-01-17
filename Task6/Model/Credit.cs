@@ -10,7 +10,7 @@ namespace Model
     [Table(Name = "Credits")]
     public class Credit
     {
-        [Column(Name = "Id")]
+        [Column(Name = "Id", IsPrimaryKey = true)]
         public int Id { get; set; }
 
         [Column(Name = "StudentId")]
@@ -19,7 +19,7 @@ namespace Model
         [Column(Name = "ExamId")]
         public int SubjectId { get; set; }
 
-        [Column(Name = "Mark")]
-        public int Mark { get; set; }
+        [Column(Name = "Passed")]
+        public bool IsPassed { get; set; }
     }
 }

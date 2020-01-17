@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Sessions]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
     [GroupId] INT NOT NULL, 
     [StartDate] DATETIME NOT NULL, 
     [EndDate] DATETIME NOT NULL, 

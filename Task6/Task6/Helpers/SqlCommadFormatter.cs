@@ -16,7 +16,7 @@ namespace Task6
         {
             Type type = typeof(T);
 
-            List<PropertyInfo> columns = type.GetProperties().ToList();
+            List<PropertyInfo> columns = type.GetProperties().Where(column=>column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey != true).ToList();
 
             string tableName = GetTableName();
 
@@ -27,12 +27,16 @@ namespace Task6
                 sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, ",");
             });
 
+            sqlCommand = sqlCommand.TrimEnd(',');
+
             sqlCommand = string.Concat(sqlCommand, ") VALUES(");
 
             columns.ForEach(column =>
             {
                 sqlCommand = string.Concat(sqlCommand, "@", column.GetCustomAttribute<ColumnAttribute>().Name, ",");
             });
+
+            sqlCommand = sqlCommand.TrimEnd(',');
 
             sqlCommand = string.Concat(sqlCommand, ")");
 
@@ -43,7 +47,7 @@ namespace Task6
         {
             Type type = typeof(T);
 
-            List<PropertyInfo> columns = type.GetProperties().ToList();
+            List<PropertyInfo> columns = type.GetProperties().Where(column=>column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey != true).ToList();
 
             string tableName = GetTableName();
 
@@ -63,7 +67,7 @@ namespace Task6
         {
             Type type = typeof(T);
             List<DbParameter> sqlParameters = new List<DbParameter>();
-            List<PropertyInfo> columns = type.GetProperties().ToList();
+            List<PropertyInfo> columns = type.GetProperties().Where(column=>column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey != true).ToList();
 
             columns.ForEach(column =>
             {

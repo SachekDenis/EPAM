@@ -10,7 +10,7 @@ namespace Model
     [Table(Name = "Subjects")]
     public class Subject
     {
-        [Column(Name = "Id")]
+        [Column(Name = "Id", IsPrimaryKey = true)]
         public int Id { get; set; }
 
         [Column(Name = "Name")]

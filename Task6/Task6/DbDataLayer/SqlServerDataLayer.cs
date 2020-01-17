@@ -15,17 +15,17 @@ namespace Task6
     {
         private readonly string _connectionString;
 
-        private SqlCommadFormatter<T> formatter;
+        private readonly SqlCommadFormatter<T> _formatter;
         public SqlServerDataLayer(string connectionString)
         {
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
 
-            formatter = new SqlCommadFormatter<T>();
+            _formatter = new SqlCommadFormatter<T>();
         }
 
         public void Delete(int id)
         {
-            string tableName = formatter.GetTableName();
+            string tableName = _formatter.GetTableName();
 
             string sqlCommand = $"DELETE FROM {tableName} WHERE Id = {id}";
 
@@ -42,7 +42,7 @@ namespace Task6
         {
             T entity;
 
-            string tableName = formatter.GetTableName();
+            string tableName = _formatter.GetTableName();
 
             string sqlCommand = $"SELECT * FROM {tableName} WHERE Id = {id}";
 
@@ -67,7 +67,7 @@ namespace Task6
         {
             List<T> returnedList = new List<T>();
 
-            string tableName = formatter.GetTableName();
+            string tableName = _formatter.GetTableName();
 
             string sqlCommand = $"SELECT * FROM {tableName}";
             // Create a connection
@@ -91,13 +91,14 @@ namespace Task6
 
         public void Insert(T item)
         {
-            List<SqlParameter> sqlParameters = formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
+            List<SqlParameter> sqlParameters = _formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
 
-            string sqlCommand = formatter.FormInsertSqlCommand(item);
+            string sqlCommand = _formatter.FormInsertSqlCommand(item);
 
             // Create a connection
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                connection.Open();
                 using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
                 {
                     sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
@@ -111,18 +112,19 @@ namespace Task6
         {
             Type type = typeof(T);
 
-            List<SqlParameter> sqlParameters = formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
+            List<SqlParameter> sqlParameters = _formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
 
             int id = (int)type.GetProperties()
                               .Where(property => property.GetCustomAttribute<ColumnAttribute>().Name == "Id")
                               .FirstOrDefault()
                               .GetValue(item,null);
 
-            string sqlCommand = formatter.FormUpdateSqlCommand(id);
+            string sqlCommand = _formatter.FormUpdateSqlCommand(id);
 
             // Create a connection
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                connection.Open();
                 using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
                 {
                     sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));

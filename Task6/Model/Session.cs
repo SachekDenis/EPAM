@@ -10,7 +10,7 @@ namespace Model
     [Table(Name = "Sessions")]
     public class Session
     {
-        [Column(Name = "Id")]
+        [Column(Name = "Id", IsPrimaryKey = true)]
         public int Id { get; set; }
 
         [Column(Name = "GroupId")]

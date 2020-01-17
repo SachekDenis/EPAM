@@ -13,7 +13,7 @@ namespace Task6
 
         private readonly string _connectionString;
 
-        private SqlCommadFormatter<T> _formatter;
+        private readonly SqlCommadFormatter<T> _formatter;
         public ExcelDataLayer(string connectionString)
         {
             _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
