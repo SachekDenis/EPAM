@@ -49,13 +49,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataBaseCrudTest.cs" />
+    <Compile Include="ExcelReportsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExcelReports\ExcelReports.csproj">
+      <Project>{F1A648EA-4FD2-460C-B137-96B81E473D69}</Project>
+      <Name>ExcelReports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{CAD07772-F1DC-4F37-BB5A-EC22601F8D4D}</Project>
       <Name>Model</Name>

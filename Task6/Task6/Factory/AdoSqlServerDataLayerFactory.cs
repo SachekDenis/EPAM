@@ -15,7 +15,7 @@ namespace Task6
 
         public override ISqlServerDataLayer<T> GetSqlServerDataLayer<T>()
         {
-            return new SqlServerDataLayer<T>(_connection.ConnectionString);
+            return new SqlServerDataLayer<T>(_connection);
         }
     }
 }

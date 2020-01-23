@@ -5,20 +5,36 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task6.Connections;
 
 namespace Task6
 {
     internal class ExcelDataLayer<T> : IExcelDataLayer<T> where T : class
     {
 
-        private readonly string _connectionString;
+        private readonly ExcelConnection _connection;
 
         private readonly SqlCommadFormatter<T> _formatter;
-        public ExcelDataLayer(string connectionString)
+        public ExcelDataLayer(ExcelConnection connection)
         {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+            _connection = connection ?? throw new ArgumentNullException(nameof(connection));
 
             _formatter = new SqlCommadFormatter<T>();
+        }
+
+        public void CreateSheet()
+        {
+            string sqlCommand = _formatter.FormCreateSqlCommand();
+
+            // Create a connection
+            using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
+            {
+                connection.Open();
+                using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<T> GetAll()
@@ -29,7 +45,7 @@ namespace Task6
 
             string sqlCommand = $"SELECT * FROM {tableName}";
             // Create a connection
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
             {
                 // Create command object
                 using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
@@ -49,13 +65,14 @@ namespace Task6
 
         public void Insert(T item)
         {
-            List<OleDbParameter> sqlParameters = _formatter.GetSqlParameters(item).Cast<OleDbParameter>().ToList();
+            List<OleDbParameter> sqlParameters = _formatter.GetOleDbParameters(item).ToList();
 
             string sqlCommand = _formatter.FormInsertSqlCommand(item);
 
             // Create a connection
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
             {
+                connection.Open();
                 using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
                 {
                     sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));

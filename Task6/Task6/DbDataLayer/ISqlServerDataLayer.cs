@@ -8,7 +8,7 @@ namespace Task6
 {
     public interface ISqlServerDataLayer<T> where T:class
     {
-        void Insert(T item);
+        int Insert(T item);
         T Get(int id);
         List<T> GetAll();
         void Update(T item);

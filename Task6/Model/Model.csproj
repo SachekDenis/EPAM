@@ -46,6 +46,7 @@
     <Compile Include="Exam.cs" />
     <Compile Include="ExcelReportsModels\CreditResults.cs" />
     <Compile Include="ExcelReportsModels\ExamResults.cs" />
+    <Compile Include="ExcelReportsModels\ExpellResults.cs" />
     <Compile Include="ExcelReportsModels\GroupsSessionResults.cs" />
     <Compile Include="ExcelReportsModels\StatiscticResults.cs" />
     <Compile Include="Group.cs" />

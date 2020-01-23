@@ -16,6 +16,7 @@ namespace Model.SingletonContext
         private IExcelDataLayer<ExamResults> _examResultsDataLayer;
         private IExcelDataLayer<CreditResults> _creditResultsDataLayer;
         private IExcelDataLayer<StatisticResults> _statisticResultsDataLayer;
+        private IExcelDataLayer<ExpellResults> _expellResultsDataLayer;
 
         public ExcelContext(ExcelDataLayerFactory sqlServerDataLayerFactory)
         {
@@ -24,26 +25,36 @@ namespace Model.SingletonContext
 
         public IExcelDataLayer<ExamResults> GetExamResultsDataLayer()
         {
-            return CreateInstance(_examResultsDataLayer);
+            return CreateInstance(ref _examResultsDataLayer);
         }
 
         public IExcelDataLayer<CreditResults> GetCreditResultsDataLayer()
         {
-            return CreateInstance(_creditResultsDataLayer);
+            return CreateInstance(ref _creditResultsDataLayer);
         }
 
         public IExcelDataLayer<StatisticResults> GetStatisticResultsDataLayer()
         {
-            return CreateInstance(_statisticResultsDataLayer);
+            return CreateInstance(ref _statisticResultsDataLayer);
         }
 
-        private IExcelDataLayer<T> CreateInstance<T>(IExcelDataLayer<T> dataLayer) where T : class
+        public IExcelDataLayer<ExpellResults> GetExpellResultsDataLayer()
+        {
+            return CreateInstance(ref _expellResultsDataLayer);
+        }
+
+        private IExcelDataLayer<T> CreateInstance<T>(ref IExcelDataLayer<T> dataLayer) where T : class
         {
             if (dataLayer == null)
             {
                 dataLayer = _excelDataLayerFactory.GetExcelDataLayer<T>();
             }
             return dataLayer;
+        }
+
+        public void SetFilePath(string path)
+        {
+            _excelDataLayerFactory.SetFilePath(path);
         }
     }
 }

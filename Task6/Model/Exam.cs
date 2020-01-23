@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [Table(Name = "Exams")]
+    [Table(Name = "ExamRecord")]
     public class Exam
     {
         [Column(Name = "Id", IsPrimaryKey = true)]
@@ -16,7 +16,7 @@ namespace Model
         [Column(Name = "StudentId")]
         public int StudentId { get; set; }
 
-        [Column(Name = "CreditId")]
+        [Column(Name = "ExamId")]
         public int SubjectId { get; set; }
 
         [Column(Name = "Mark")]

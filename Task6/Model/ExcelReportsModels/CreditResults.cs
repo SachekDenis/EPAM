@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model.ExcelReportsModels
 {
-    [Table(Name = "Session results")]
+    [Table(Name = "SessionResults")]
     public class CreditResults : GroupsSessionResults
     {
         [Column(Name = "Passed")]

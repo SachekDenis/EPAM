@@ -19,7 +19,7 @@ namespace Task6
             PropertyInfo[] columns = type.GetProperties();
 
             // Get all the properties in Entity Class
-            ColumnAttribute[] props = type.GetCustomAttributes<ColumnAttribute>().ToArray();
+            ColumnAttribute[] props = columns.Select(item=>item.GetCustomAttribute<ColumnAttribute>()).ToArray();
 
             T entity;
 
@@ -32,7 +32,7 @@ namespace Task6
                 // Loop through columns to assign data
                 for (int i = 0; i < columns.Length; i++)
                 {
-                    if (rdr[columns[i].Name].Equals(DBNull.Value))
+                    if (rdr[props[i].Name].Equals(DBNull.Value))
                     {
                         columns[i].SetValue(entity, null, null);
                     }

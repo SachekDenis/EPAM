@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace Model.ExcelReportsModels
 {
-    [Table(Name = "StatisticResults")]
-    public class StatisticResults
+    [Table(Name = "ExpellResults")]
+    public class ExpellResults
     {
         [Column(Name = "GroupName")]
         public string GroupName { get; set; }
+
+        [Column(Name = "StudentFullName")]
+        public string StudentFullName { get; set; }
 
         [Column(Name = "SessionStartDate")]
         public DateTime SessionStartDate { get; set; }
@@ -19,14 +22,10 @@ namespace Model.ExcelReportsModels
         [Column(Name = "SessionEndDate")]
         public DateTime SessionEndDate { get; set; }
 
-        [Column(Name = "MinMark")]
-        public int MinMark { get; set; }
+        [Column(Name = "SubjectName")]
+        public string SubjectName { get; set; }
 
-        [Column(Name = "MaxMark")]
-        public int MaxMark { get; set; }
-
-        [Column(Name = "MiddleMark")]
-        public double MiddleMark { get; set; }
-
+        [Column(Name = "Mark")]
+        public int Mark { get; set; }
     }
 }

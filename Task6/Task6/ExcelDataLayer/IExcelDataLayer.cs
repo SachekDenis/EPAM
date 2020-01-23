@@ -10,5 +10,6 @@ namespace Task6
     {
         void Insert(T item);
         List<T> GetAll();
+        void CreateSheet();
     }
 }

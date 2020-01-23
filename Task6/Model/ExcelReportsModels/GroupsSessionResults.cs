@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 
 namespace Model.ExcelReportsModels
 {
-    [Table(Name = "Session results")]
+    [Table(Name = "SessionResults")]
     public class GroupsSessionResults
     {
-        [Column(Name = "Group name")]
+        [Column(Name = "GroupName")]
         public string GroupName{get;set;}
 
-        [Column(Name = "Student fullname")]
+        [Column(Name = "StudentFullname")]
         public string StudentFullName {get;set;}
 
-        [Column(Name = "Session start date")]
+        [Column(Name = "SessionStartDate")]
         public DateTime SessionStartDate { get;set;}
 
-        [Column(Name = "Session end date")]
+        [Column(Name = "SessionEndDate")]
         public DateTime SessionEndDate {get;set;}
 
-        [Column(Name = "Subject name")]
+        [Column(Name = "SubjectName")]
         public string SubjectName {get;set;}
 
-        [Column(Name = "Exam date")]
+        [Column(Name = "ExamDate")]
         public DateTime ExamDate  {get;set;}
 
     }

@@ -8,33 +8,50 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Task6.Connections;
 
 namespace Task6
 {
     internal class SqlServerDataLayer<T> : ISqlServerDataLayer<T> where T : class
     {
-        private readonly string _connectionString;
+        private readonly DbSqlConnection _connection;
 
         private readonly SqlCommadFormatter<T> _formatter;
-        public SqlServerDataLayer(string connectionString)
+        public SqlServerDataLayer(DbSqlConnection connection)
         {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+            _connection = connection ?? throw new ArgumentNullException(nameof(connection));
 
             _formatter = new SqlCommadFormatter<T>();
         }
 
         public void Delete(int id)
         {
-            string tableName = _formatter.GetTableName();
+            string tableName;
+            try
+            {
+                tableName = _formatter.GetTableName();
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
 
             string sqlCommand = $"DELETE FROM {tableName} WHERE Id = {id}";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                using (SqlConnection connection = new SqlConnection(_connection.ConnectionString))
                 {
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -42,22 +59,37 @@ namespace Task6
         {
             T entity;
 
-            string tableName = _formatter.GetTableName();
+            string tableName;
+            try
+            {
+                tableName = _formatter.GetTableName();
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
 
             string sqlCommand = $"SELECT * FROM {tableName} WHERE Id = {id}";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                // Create command object
-                using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                using (SqlConnection connection = new SqlConnection(_connection.ConnectionString))
                 {
-                    connection.Open();
-
-                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    // Create command object
+                    using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
                     {
-                        entity = dr.ToList<T>().FirstOrDefault();
+                        connection.Open();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                        {
+                            entity = dr.ToList<T>().FirstOrDefault();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
 
             return entity;
@@ -67,69 +99,124 @@ namespace Task6
         {
             List<T> returnedList = new List<T>();
 
-            string tableName = _formatter.GetTableName();
+            string tableName;
+            try
+            {
+                tableName = _formatter.GetTableName();
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
 
             string sqlCommand = $"SELECT * FROM {tableName}";
-            // Create a connection
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                // Create command object
-                using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
-                {
-                    // Open the connection
-                    connection.Open();
 
-                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+            try
+            {
+                // Create a connection
+                using (SqlConnection connection = new SqlConnection(_connection.ConnectionString))
+                {
+                    // Create command object
+                    using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
                     {
-                        returnedList = dr.ToList<T>();
+                        // Open the connection
+                        connection.Open();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                        {
+                            returnedList = dr.ToList<T>();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
 
             return returnedList;
         }
 
-        public void Insert(T item)
+        public int Insert(T item)
         {
-            List<SqlParameter> sqlParameters = _formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
 
-            string sqlCommand = _formatter.FormInsertSqlCommand(item);
+            List<SqlParameter> sqlParameters;
+            int id = 0;
+            string sqlCommand;
 
-            // Create a connection
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                sqlParameters = _formatter.GetSqlParameters(item).ToList();
+
+                sqlCommand = _formatter.FormInsertSqlCommand(item);
+
+                sqlCommand = string.Concat(sqlCommand,  "SELECT SCOPE_IDENTITY()");
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+
+
+            try
+            {
+                // Create a connection
+                using (SqlConnection connection = new SqlConnection(_connection.ConnectionString))
                 {
-                    sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                    {
+                        sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
+                        id = (int)(decimal)cmd.ExecuteScalar();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return id;
+
         }
 
 
         public void Update(T item)
         {
-            Type type = typeof(T);
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
 
-            List<SqlParameter> sqlParameters = _formatter.GetSqlParameters(item).Cast<SqlParameter>().ToList();
+            List<SqlParameter> sqlParameters;
+            string id;
+            string sqlCommand;
 
-            int id = (int)type.GetProperties()
-                              .Where(property => property.GetCustomAttribute<ColumnAttribute>().Name == "Id")
-                              .FirstOrDefault()
-                              .GetValue(item,null);
-
-            string sqlCommand = _formatter.FormUpdateSqlCommand(id);
-
-            // Create a connection
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                sqlParameters = _formatter.GetSqlParameters(item).ToList();
+                id = _formatter.FormPrimaryKey(item);
+                sqlCommand = _formatter.FormUpdateSqlCommand(id);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+            try
+            {
+                // Create a connection
+                using (SqlConnection connection = new SqlConnection(_connection.ConnectionString))
                 {
-                    sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
+                    {
+                        sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
