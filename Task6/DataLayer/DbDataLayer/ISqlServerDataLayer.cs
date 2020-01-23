@@ -27,7 +27,7 @@ namespace Task6
         /// <summary>
         /// Gets all.
         /// </summary>
-        /// <returns>List<T>;.</returns>
+        /// <returns>List&lt;T&gt;.</returns>
         List<T> GetAll();
         /// <summary>
         /// Updates the specified item.

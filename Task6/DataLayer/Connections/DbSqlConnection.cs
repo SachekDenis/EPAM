@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,17 @@ namespace Task6
     public class DbSqlConnection
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="DbSqlConnection"/> class.
+        /// </summary>
+        public DbSqlConnection()
+        {
+            ConnectionString = ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString;
+        }
+
+        /// <summary>
         /// Gets or sets the connection string.
         /// </summary>
         /// <value>The connection string.</value>
-        public string ConnectionString { get; set; } = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SessionDb;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public string ConnectionString { get; }
     }
 }

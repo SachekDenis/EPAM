@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Task6.Connections
         {
             get
             {
-                return $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={_path};Extended Properties=\"Excel 12.0 Xml;HDR=YES;\"";
+                return $"{ConfigurationManager.ConnectionStrings["Excel"].ConnectionString}{_path}";
             }
         }
     }

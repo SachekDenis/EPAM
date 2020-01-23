@@ -59,7 +59,7 @@
     <Compile Include="Subject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Task6\DataLayer.csproj">
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{5e3a9199-9027-4881-94c3-70072cbb06bc}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>

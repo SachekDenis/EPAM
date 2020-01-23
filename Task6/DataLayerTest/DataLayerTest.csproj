@@ -56,9 +56,16 @@
     <Compile Include="ExcelDataLayerTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\DataLayer\App.config">
+      <Link>App.config</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{5E3A9199-9027-4881-94C3-70072CBB06BC}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExcelReports\ExcelReports.csproj">
       <Project>{F1A648EA-4FD2-460C-B137-96B81E473D69}</Project>
       <Name>ExcelReports</Name>
@@ -66,10 +73,6 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{CAD07772-F1DC-4F37-BB5A-EC22601F8D4D}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Task6\DataLayer.csproj">
-      <Project>{5E3A9199-9027-4881-94C3-70072CBB06BC}</Project>
-      <Name>DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -46,13 +46,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{5e3a9199-9027-4881-94c3-70072cbb06bc}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{CAD07772-F1DC-4F37-BB5A-EC22601F8D4D}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Task6\DataLayer.csproj">
-      <Project>{5E3A9199-9027-4881-94C3-70072CBB06BC}</Project>
-      <Name>DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
