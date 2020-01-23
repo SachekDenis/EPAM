@@ -110,9 +110,9 @@ namespace Task6
                     {
                         connection.Open();
 
-                        using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                        using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                         {
-                            entity = dr.ToList<T>().FirstOrDefault();
+                            entity = reader.ToList<T>().FirstOrDefault();
                         }
                     }
                 }
@@ -159,9 +159,9 @@ namespace Task6
                         // Open the connection
                         connection.Open();
 
-                        using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                        using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                         {
-                            returnedList = dr.ToList<T>();
+                            returnedList = reader.ToList<T>();
                         }
                     }
                 }
@@ -214,6 +214,8 @@ namespace Task6
                     using (SqlCommand cmd = new SqlCommand(sqlCommand, connection))
                     {
                         sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
+
+                        //BIGINT in sql
                         id = (int)(decimal)cmd.ExecuteScalar();
                     }
                 }

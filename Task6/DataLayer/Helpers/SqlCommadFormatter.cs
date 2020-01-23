@@ -31,13 +31,13 @@ namespace Task6
             string sqlCommand;
             try
             {
-                List<PropertyInfo> columns = _type.GetProperties().Where(column => !column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey).ToList();
+                List<PropertyInfo> properties = _type.GetProperties().Where(column => !column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey).ToList();
 
                 string tableName = GetTableName();
 
                 sqlCommand = $"CREATE TABLE {tableName} (";
 
-                columns.ForEach(column =>
+                properties.ForEach(column =>
                 {
                     sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, " ", GetSqlType(column.PropertyType), ",");
                 });
@@ -65,13 +65,13 @@ namespace Task6
             string sqlCommand;
             try
             {
-                List<PropertyInfo> columns = _type.GetProperties().Where(column => !column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey).ToList();
+                List<PropertyInfo> properties = _type.GetProperties().Where(column => !column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey).ToList();
 
                 string tableName = GetTableName();
 
                 sqlCommand = $"INSERT INTO {tableName} (";
 
-                columns.ForEach(column =>
+                properties.ForEach(column =>
                 {
                     sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, ",");
                 });
@@ -80,7 +80,7 @@ namespace Task6
 
                 sqlCommand = string.Concat(sqlCommand, ") VALUES(");
 
-                columns.ForEach(column =>
+                properties.ForEach(column =>
                 {
                     sqlCommand = string.Concat(sqlCommand, "@", column.GetCustomAttribute<ColumnAttribute>().Name, ",");
                 });
@@ -109,13 +109,13 @@ namespace Task6
             string sqlCommand;
             try
             {
-                List<PropertyInfo> columns = _type.GetProperties().Where(column => !column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey).ToList();
+                List<PropertyInfo> properties = _type.GetProperties().Where(column => !column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey).ToList();
 
                 string tableName = GetTableName();
 
                 sqlCommand = $"UPDATE {tableName} SET ";
 
-                columns.ForEach(column =>
+                properties.ForEach(column =>
                 {
                     sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, "=@", column.GetCustomAttribute<ColumnAttribute>().Name);
                 });
@@ -166,9 +166,9 @@ namespace Task6
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
             try
             {
-                List<PropertyInfo> columns = _type.GetProperties().Where(column => column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey != true).ToList();
+                List<PropertyInfo> properties = _type.GetProperties().Where(column => column.GetCustomAttribute<ColumnAttribute>().IsPrimaryKey != true).ToList();
 
-                columns.ForEach(column =>
+                properties.ForEach(column =>
                 {
                     sqlParameters.Add(new SqlParameter(column.GetCustomAttribute<ColumnAttribute>().Name, column.GetValue(item, null)));
                 });

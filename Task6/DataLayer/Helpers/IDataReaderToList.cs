@@ -18,9 +18,9 @@ namespace Task6
         /// Converts to list.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="rdr">The RDR.</param>
+        /// <param name="reader">The RDR.</param>
         /// <returns>List&lt;T&gt;.</returns>
-        public static List<T> ToList<T>(this IDataReader rdr)
+        public static List<T> ToList<T>(this IDataReader reader)
         {
             List<T> listOfEntities = new List<T>();
             Type type = typeof(T);
@@ -33,7 +33,7 @@ namespace Task6
             T entity;
 
             // Loop through all records
-            while (rdr.Read())
+            while (reader.Read())
             {
                 // Create new instance of Entity
                 entity = Activator.CreateInstance<T>();
@@ -41,13 +41,13 @@ namespace Task6
                 // Loop through columns to assign data
                 for (int i = 0; i < columns.Length; i++)
                 {
-                    if (rdr[props[i].Name].Equals(DBNull.Value))
+                    if (reader[props[i].Name].Equals(DBNull.Value))
                     {
                         columns[i].SetValue(entity, null, null);
                     }
                     else
                     {
-                        columns[i].SetValue(entity, rdr[props[i].Name], null);
+                        columns[i].SetValue(entity, reader[props[i].Name], null);
                     }
                 }
 
