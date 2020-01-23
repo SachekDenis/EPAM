@@ -7,11 +7,20 @@ using Task6;
 
 namespace DataLayerTest
 {
+    /// <summary>
+    /// Defines test class DataBaseCrudTest.
+    /// </summary>
     [TestClass]
     public class DataBaseCrudTest
     {
 
+        /// <summary>
+        /// The context
+        /// </summary>
         DbContext _context;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataBaseCrudTest"/> class.
+        /// </summary>
         public DataBaseCrudTest()
         {
             DbSqlConnection connection = new DbSqlConnection();
@@ -19,6 +28,10 @@ namespace DataLayerTest
             _context = new DbContext(factory);
         }
 
+        /// <summary>
+        /// Defines the test method TestInsertIntoDb.
+        /// </summary>
+        /// <param name="groupName">Name of the group.</param>
         [DataRow("PL-31")]
         [TestMethod]
         public void TestInsertIntoDb(string groupName)
@@ -36,6 +49,10 @@ namespace DataLayerTest
             groupContext.Delete(inserterdGroup.Id);
         }
 
+        /// <summary>
+        /// Defines the test method TestDeleteFromDb.
+        /// </summary>
+        /// <param name="groupName">Name of the group.</param>
         [DataRow("RK-12")]
         [TestMethod]
         public void TestDeleteFromDb(string groupName)
@@ -58,6 +75,11 @@ namespace DataLayerTest
         }
 
 
+        /// <summary>
+        /// Defines the test method TestUpdateDb.
+        /// </summary>
+        /// <param name="oldGroupName">Old name of the group.</param>
+        /// <param name="newGroupName">New name of the group.</param>
         [DataRow("VL-31", "NH-12")]
         [TestMethod]
         public void TestUpdateDb(string oldGroupName, string newGroupName)
@@ -80,6 +102,11 @@ namespace DataLayerTest
             groupContext.Delete(updatedGroup.Id);
         }
 
+        /// <summary>
+        /// Defines the test method TestReadAllDb.
+        /// </summary>
+        /// <param name="firstGroupName">First name of the group.</param>
+        /// <param name="secondGroupName">Name of the second group.</param>
         [DataRow("RPR-31", "VS-12")]
         [TestMethod]
         public void TestReadAllDb(string firstGroupName, string secondGroupName)
@@ -110,6 +137,10 @@ namespace DataLayerTest
             groupContext.Delete(secondFindedGroup.Id);
         }
 
+        /// <summary>
+        /// Defines the test method TestReadOneItemDb.
+        /// </summary>
+        /// <param name="groupName">Name of the group.</param>
         [DataRow("UL-31")]
         [TestMethod]
         public void TestReadOneItemDb(string groupName)
@@ -128,6 +159,9 @@ namespace DataLayerTest
             groupContext.Delete(findedGroupById.Id);
         }
 
+        /// <summary>
+        /// Defines the test method TestArgumentNullMustThrowException.
+        /// </summary>
         [TestMethod]
         public void TestArgumentNullMustThrowException()
         {
@@ -137,6 +171,10 @@ namespace DataLayerTest
             Assert.ThrowsException<ArgumentNullException>(()=>groupContext.Update(null));
         }
 
+        /// <summary>
+        /// Defines the test method TestUpdateUnexestedDb.
+        /// </summary>
+        /// <param name="groupName">Name of the group.</param>
         [DataRow("KL-31")]
         [TestMethod]
         public void TestUpdateUnexestedDb(string groupName)
@@ -155,6 +193,12 @@ namespace DataLayerTest
             Assert.IsNull(updatedGroup);
         }
 
+        /// <summary>
+        /// Defines the test method TestInsertConnectedTables.
+        /// </summary>
+        /// <param name="groupName">Name of the group.</param>
+        /// <param name="gender">The gender.</param>
+        /// <param name="fullName">The full name.</param>
         [TestMethod]
         [DataRow("VB-31","M","Kolenkov Mihail Viktorovich")]
         public void TestInsertConnectedTables(string groupName, string gender, string fullName)

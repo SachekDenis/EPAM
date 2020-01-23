@@ -9,8 +9,17 @@ using System.Threading.Tasks;
 
 namespace Task6
 {
+    /// <summary>
+    /// Class IDataReaderToList.
+    /// </summary>
     internal static class IDataReaderToList
     {
+        /// <summary>
+        /// Converts to list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="rdr">The RDR.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> ToList<T>(this IDataReader rdr)
         {
             List<T> listOfEntities = new List<T>();

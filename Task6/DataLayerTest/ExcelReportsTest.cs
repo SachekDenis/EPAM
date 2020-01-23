@@ -11,12 +11,24 @@ using Task6.Factory;
 
 namespace DataLayerTest
 {
+    /// <summary>
+    /// Defines test class ExcelReportsTest.
+    /// </summary>
     [TestClass]
     public class ExcelReportsTest
     {
+        /// <summary>
+        /// The database context
+        /// </summary>
         DbContext _dbContext;
+        /// <summary>
+        /// The excel context
+        /// </summary>
         ExcelContext _excelContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExcelReportsTest"/> class.
+        /// </summary>
         public ExcelReportsTest()
         {
             DbSqlConnection connection = new DbSqlConnection();
@@ -27,6 +39,10 @@ namespace DataLayerTest
             _excelContext = new ExcelContext(excelFactory);
         }
 
+        /// <summary>
+        /// Defines the test method SessionExamsReportTest.
+        /// </summary>
+        /// <param name="path">The path.</param>
         [TestMethod]
         [DataRow("ExamsReport.xlsx")]
         public void SessionExamsReportTest(string path)
@@ -40,6 +56,10 @@ namespace DataLayerTest
             File.Exists(path);
         }
 
+        /// <summary>
+        /// Defines the test method SessionCreditsReportTest.
+        /// </summary>
+        /// <param name="path">The path.</param>
         [TestMethod]
         [DataRow("CreditsReport.xlsx")]
         public void SessionCreditsReportTest(string path)
@@ -53,6 +73,10 @@ namespace DataLayerTest
             File.Exists(path);
         }
 
+        /// <summary>
+        /// Defines the test method StatisticsReportTest.
+        /// </summary>
+        /// <param name="path">The path.</param>
         [TestMethod]
         [DataRow("StatisticsReport.xlsx")]
         public void StatisticsReportTest(string path)
@@ -66,6 +90,10 @@ namespace DataLayerTest
             File.Exists(path);
         }
 
+        /// <summary>
+        /// Defines the test method ExpellReportTest.
+        /// </summary>
+        /// <param name="path">The path.</param>
         [TestMethod]
         [DataRow("ExpellReport.xlsx")]
         public void ExpellReportTest(string path)

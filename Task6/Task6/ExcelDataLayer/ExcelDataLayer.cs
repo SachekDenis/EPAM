@@ -9,12 +9,29 @@ using Task6.Connections;
 
 namespace Task6
 {
+    /// <summary>
+    /// Class ExcelDataLayer.
+    /// Implements the <see cref="Task6.IExcelDataLayer{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="Task6.IExcelDataLayer{T}" />
     internal class ExcelDataLayer<T> : IExcelDataLayer<T> where T : class
     {
 
+        /// <summary>
+        /// The connection
+        /// </summary>
         private readonly ExcelConnection _connection;
 
+        /// <summary>
+        /// The formatter
+        /// </summary>
         private readonly SqlCommadFormatter<T> _formatter;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExcelDataLayer{T}"/> class.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <exception cref="ArgumentNullException">connection</exception>
         public ExcelDataLayer(ExcelConnection connection)
         {
             _connection = connection ?? throw new ArgumentNullException(nameof(connection));
@@ -22,62 +39,82 @@ namespace Task6
             _formatter = new SqlCommadFormatter<T>();
         }
 
+        /// <summary>
+        /// Creates the sheet.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
         public void CreateSheet()
         {
-            string sqlCommand = _formatter.FormCreateSqlCommand();
-
-            // Create a connection
-            using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
+            string sqlCommand;
+            try
             {
-                connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                sqlCommand = _formatter.FormCreateSqlCommand();
             }
-        }
-
-        public List<T> GetAll()
-        {
-            List<T> returnedList = new List<T>();
-
-            string tableName = _formatter.GetTableName();
-
-            string sqlCommand = $"SELECT * FROM {tableName}";
-            // Create a connection
-            using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
+            catch (Exception ex)
             {
-                // Create command object
-                using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
-                {
-                    // Open the connection
-                    connection.Open();
+                throw new InvalidOperationException(ex.Message);
+            }
 
-                    using (OleDbDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+            try
+            {
+                using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
+                {
+                    connection.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
                     {
-                        returnedList = dr.ToList<T>();
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
-
-            return returnedList;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// Inserts the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <exception cref="ArgumentNullException">item</exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
         public void Insert(T item)
         {
-            List<OleDbParameter> sqlParameters = _formatter.GetOleDbParameters(item).ToList();
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
 
-            string sqlCommand = _formatter.FormInsertSqlCommand(item);
+            List<OleDbParameter> sqlParameters;
 
-            // Create a connection
-            using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
+            string sqlCommand;
+
+            try
             {
-                connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
+                sqlParameters = _formatter.GetOleDbParameters(item).ToList();
+
+                sqlCommand = _formatter.FormInsertSqlCommand(item);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+
+            try
+            {
+                using (OleDbConnection connection = new OleDbConnection(_connection.ConnectionString))
                 {
-                    sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(sqlCommand, connection))
+                    {
+                        sqlParameters.ForEach(sqlParameter => cmd.Parameters.Add(sqlParameter));
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

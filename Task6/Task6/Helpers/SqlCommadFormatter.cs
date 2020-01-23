@@ -11,9 +11,21 @@ using System.Threading.Tasks;
 
 namespace Task6
 {
+    /// <summary>
+    /// Class SqlCommadFormatter.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class SqlCommadFormatter<T>
     {
+        /// <summary>
+        /// The type
+        /// </summary>
         private readonly Type _type = typeof(T);
+        /// <summary>
+        /// Forms the create SQL command.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got ColumnAttribute</exception>
         public string FormCreateSqlCommand()
         {
             string sqlCommand;
@@ -27,7 +39,7 @@ namespace Task6
 
                 columns.ForEach(column =>
                 {
-                    sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, " ", SQLGetType(column.PropertyType), ",");
+                    sqlCommand = string.Concat(sqlCommand, column.GetCustomAttribute<ColumnAttribute>().Name, " ", GetSqlType(column.PropertyType), ",");
                 });
 
                 sqlCommand = sqlCommand.TrimEnd(',');
@@ -42,6 +54,12 @@ namespace Task6
 
             return sqlCommand;
         }
+        /// <summary>
+        /// Forms the insert SQL command.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got ColumnAttribute</exception>
         public string FormInsertSqlCommand(T item)
         {
             string sqlCommand;
@@ -80,6 +98,12 @@ namespace Task6
             return sqlCommand;
         }
 
+        /// <summary>
+        /// Forms the update SQL command.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got ColumnAttribute</exception>
         public string FormUpdateSqlCommand(string id)
         {
             string sqlCommand;
@@ -106,6 +130,12 @@ namespace Task6
             return sqlCommand;
         }
 
+        /// <summary>
+        /// Forms the primary key.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got ColumnAttribute</exception>
         public string FormPrimaryKey(T item)
         {
             string primaryKey = string.Empty;
@@ -125,6 +155,12 @@ namespace Task6
             return primaryKey;
         }
 
+        /// <summary>
+        /// Gets the SQL parameters.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>List&lt;SqlParameter&gt;.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got ColumnAttribute</exception>
         public List<SqlParameter> GetSqlParameters(T item)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
@@ -145,6 +181,12 @@ namespace Task6
             return sqlParameters;
         }
 
+        /// <summary>
+        /// Gets the OLE database parameters.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>List&lt;OleDbParameter&gt;.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got ColumnAttribute</exception>
         public List<OleDbParameter> GetOleDbParameters(T item)
         {
             List<OleDbParameter> oleDbParameters = new List<OleDbParameter>();
@@ -164,6 +206,11 @@ namespace Task6
 
             return oleDbParameters;
         }
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        /// <exception cref="InvalidOperationException">Type haven't got TableAttribute</exception>
         public string GetTableName()
         {
             string tableName;
@@ -178,7 +225,15 @@ namespace Task6
             return tableName;
         }
 
-        private string SQLGetType(object type, int columnSize = -1)
+
+        /// <summary>
+        /// Gets the SQL type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="columnSize">Size of the column.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="Exception"></exception>
+        private string GetSqlType(object type, int columnSize = -1)
         {
 
             switch (type.ToString())
@@ -187,10 +242,10 @@ namespace Task6
                 case "System.String":
                     return "VARCHAR(" + ((columnSize == -1) ? 255 : columnSize) + ")";
                 case "System.Decimal":
-                    return "REAL";
+                    return "DECIMAL";
                 case "System.Double":
                 case "System.Single":
-                    return "REAL";
+                    return "FLOAT";
                 case "System.Int64":
                     return "BIGINT";
                 case "System.Int16":

@@ -12,11 +12,28 @@ using Task6.Connections;
 
 namespace Task6
 {
+    /// <summary>
+    /// Class SqlServerDataLayer.
+    /// Implements the <see cref="Task6.ISqlServerDataLayer{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="Task6.ISqlServerDataLayer{T}" />
     internal class SqlServerDataLayer<T> : ISqlServerDataLayer<T> where T : class
     {
+        /// <summary>
+        /// The connection
+        /// </summary>
         private readonly DbSqlConnection _connection;
 
+        /// <summary>
+        /// The formatter
+        /// </summary>
         private readonly SqlCommadFormatter<T> _formatter;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlServerDataLayer{T}"/> class.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <exception cref="ArgumentNullException">connection</exception>
         public SqlServerDataLayer(DbSqlConnection connection)
         {
             _connection = connection ?? throw new ArgumentNullException(nameof(connection));
@@ -24,6 +41,12 @@ namespace Task6
             _formatter = new SqlCommadFormatter<T>();
         }
 
+        /// <summary>
+        /// Deletes by the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
         public void Delete(int id)
         {
             string tableName;
@@ -55,6 +78,13 @@ namespace Task6
             }
         }
 
+        /// <summary>
+        /// Gets by the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
         public T Get(int id)
         {
             T entity;
@@ -95,6 +125,13 @@ namespace Task6
             return entity;
         }
 
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns>List&lt;T&gt;.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
+        /// <!-- Badly formed XML comment ignored for member "M:Task6.ISqlServerDataLayer`1.GetAll" -->
         public List<T> GetAll()
         {
             List<T> returnedList = new List<T>();
@@ -137,6 +174,14 @@ namespace Task6
             return returnedList;
         }
 
+        /// <summary>
+        /// Inserts the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ArgumentNullException">item</exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
         public int Insert(T item)
         {
             if (item == null)
@@ -182,6 +227,13 @@ namespace Task6
         }
 
 
+        /// <summary>
+        /// Updates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <exception cref="ArgumentNullException">item</exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="Exception"></exception>
         public void Update(T item)
         {
             if (item == null)

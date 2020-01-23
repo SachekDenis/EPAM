@@ -11,12 +11,31 @@ using Task6.Factory;
 
 namespace ExcelReports
 {
+    /// <summary>
+    /// Class ExcelRecordsMaker.
+    /// </summary>
     public class ExcelRecordsMaker
     {
+        /// <summary>
+        /// The database conxtext
+        /// </summary>
         private readonly DbContext _dbConxtext;
 
+        /// <summary>
+        /// The excel context
+        /// </summary>
         private readonly ExcelContext _excelContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExcelRecordsMaker"/> class.
+        /// </summary>
+        /// <param name="dbConxtext">The database conxtext.</param>
+        /// <param name="excelContext">The excel context.</param>
+        /// <exception cref="ArgumentNullException">
+        /// dbConxtext
+        /// or
+        /// excelContext
+        /// </exception>
         public ExcelRecordsMaker(DbContext dbConxtext, ExcelContext excelContext)
         {
             _dbConxtext = dbConxtext ?? throw new ArgumentNullException(nameof(dbConxtext));
@@ -25,6 +44,11 @@ namespace ExcelReports
 
         }
 
+        /// <summary>
+        /// Forms the session exams report.
+        /// </summary>
+        /// <param name="comparer">The comparer.</param>
+        /// <param name="path">The path.</param>
         public void FormSessionExamsReport(IComparer<ExamResults> comparer, string path)
         {
             var excelContext = _excelContext.GetExamResultsDataLayer();
@@ -64,6 +88,11 @@ namespace ExcelReports
 
         }
 
+        /// <summary>
+        /// Forms the session credits report.
+        /// </summary>
+        /// <param name="comparer">The comparer.</param>
+        /// <param name="path">The path.</param>
         public void FormSessionCreditsReport(IComparer<CreditResults> comparer, string path)
         {
             var excelContext = _excelContext.GetCreditResultsDataLayer();
@@ -104,6 +133,11 @@ namespace ExcelReports
 
         }
 
+        /// <summary>
+        /// Forms the statistic report.
+        /// </summary>
+        /// <param name="comparer">The comparer.</param>
+        /// <param name="path">The path.</param>
         public void FormStatisticReport(IComparer<StatisticResults> comparer, string path)
         {
             var excelContext = _excelContext.GetStatisticResultsDataLayer();
@@ -140,6 +174,11 @@ namespace ExcelReports
             statisticQuery.OrderBy(item => item, comparer).ToList().ForEach(item => excelContext.Insert(item));
         }
 
+        /// <summary>
+        /// Forms the expell report.
+        /// </summary>
+        /// <param name="comparer">The comparer.</param>
+        /// <param name="path">The path.</param>
         public void FormExpellReport(IComparer<ExpellResults> comparer, string path)
         {
             var excelContext = _excelContext.GetExpellResultsDataLayer();
@@ -179,6 +218,10 @@ namespace ExcelReports
             statisticQuery.OrderBy(item => item, comparer).ToList().ForEach(item => excelContext.Insert(item));
         }
 
+        /// <summary>
+        /// Files the delete.
+        /// </summary>
+        /// <param name="path">The path.</param>
         private void FileDelete(string path)
         {
             if (File.Exists(path))
@@ -187,6 +230,10 @@ namespace ExcelReports
             }
         }
 
+        /// <summary>
+        /// Prepares the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
         private void PrepareFile(string path)
         {
             FileDelete(path);
