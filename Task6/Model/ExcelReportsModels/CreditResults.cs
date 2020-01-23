@@ -15,11 +15,12 @@ namespace Model.ExcelReportsModels
     [Table(Name = "SessionResults")]
     public class CreditResults : GroupsSessionResults
     {
+
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is passed.
+        /// Gets or sets the status.
         /// </summary>
-        /// <value><c>true</c> if this instance is passed; otherwise, <c>false</c>.</value>
-        [Column(Name = "Passed")]
-        public bool isPassed { get; set; }
+        /// <value>The status.</value>
+        [Column(Name = "Status")]
+        public string Status { get; set; }
     }
 }

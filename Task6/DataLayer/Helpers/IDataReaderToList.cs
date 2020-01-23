@@ -18,7 +18,7 @@ namespace Task6
         /// Converts to list.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="reader">The RDR.</param>
+        /// <param name="reader">The reader.</param>
         /// <returns>List&lt;T&gt;.</returns>
         public static List<T> ToList<T>(this IDataReader reader)
         {

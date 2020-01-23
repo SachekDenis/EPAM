@@ -117,7 +117,7 @@ namespace ExcelReports
                                             {
                                                 ExamDate = subject.Date,
                                                 GroupName = groupItem.Name,
-                                                isPassed = credit.IsPassed,
+                                                Status = credit.IsPassed ? "Passed": "Not passed",
                                                 SessionEndDate = session.EndDate,
                                                 SessionStartDate = session.StartDate,
                                                 StudentFullName = student.FullName,
