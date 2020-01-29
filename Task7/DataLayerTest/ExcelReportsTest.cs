@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using DataLayer.Factory;
 using ExcelReports;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.ExcelReportsModels;
@@ -33,7 +34,7 @@ namespace DataLayerTest
         {
             DbSqlConnection connection = new DbSqlConnection();
             ExcelConnection excelConnection = new ExcelConnection();
-            AdoSqlServerDataLayerFactory factory = new AdoSqlServerDataLayerFactory(connection);
+            LinqToSqlDataLayerFactory factory = new LinqToSqlDataLayerFactory(connection);
             AdoExcelDataLayerFactory excelFactory = new AdoExcelDataLayerFactory(excelConnection);
             _dbContext = new DbContext(factory);
             _excelContext = new ExcelContext(excelFactory);

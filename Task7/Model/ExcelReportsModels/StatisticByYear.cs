@@ -24,7 +24,7 @@ namespace Model.ExcelReportsModels
         /// Gets or sets the year.
         /// </summary>
         /// <value>The year.</value>
-        [Column(Name = "Year")]
+        [Column(Name = "SessionYear")]
         public double Year { get; set; }
 
         /// <summary>
